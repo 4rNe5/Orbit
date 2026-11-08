@@ -7,6 +7,7 @@ import { Button, Chip, DiffMark, Loading, PageHeader, Panel, Segmented, TextInpu
 import { DIFFICULTIES, type Chart, type Difficulty } from "@/lib/core/types";
 import { loadConstantHistory, type ConstantHistory } from "@/lib/data/charts";
 import { diffClass, fmtScore } from "@/lib/format";
+import { packName } from "@/lib/packs";
 
 type Tab = "random" | "challenge" | "history";
 
@@ -33,7 +34,7 @@ function Reveal({ chart, score, k }: { chart: Chart; score: number | null; k: nu
         <DiffMark d={chart.difficulty} compact />
         <div className="mt-1 text-[22px] font-semibold leading-tight">{chart.title}</div>
         <div className="mt-1 text-[13px] text-mist">
-          {chart.pack}, {score === null ? "미플레이" : `현재 ${fmtScore(score)}`}
+          {packName(chart.pack)}, {score === null ? "미플레이" : `현재 ${fmtScore(score)}`}
         </div>
       </div>
     </div>

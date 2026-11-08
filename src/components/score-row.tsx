@@ -5,6 +5,7 @@ import type { Chart, Lamp } from "@/lib/core/types";
 import { fmtScore, grade, parseScoreInput } from "@/lib/format";
 import { Jacket } from "./jacket";
 import { cx, DiffMark } from "./ui";
+import { packName } from "@/lib/packs";
 
 export interface ScoreRowProps {
   chart: Chart;
@@ -60,7 +61,7 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
           <div className="mt-0.5 truncate text-[14px] font-medium" title={chart.title}>
             {chart.title}
           </div>
-          <div className="truncate text-[12px] text-mist">{chart.pack}</div>
+          <div className="truncate text-[12px] text-mist">{packName(chart.pack)}</div>
         </div>
       </div>
 

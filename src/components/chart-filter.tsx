@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { DIFFICULTIES, type Chart, type Difficulty } from "@/lib/core/types";
 import { Chip, TextInput } from "./ui";
+import { groupPacks } from "@/lib/packs";
 
 export interface ChartFilterState {
   q: string;
@@ -47,11 +48,7 @@ export function applyChartFilter(charts: Chart[], f: ChartFilterState): Chart[] 
 }
 
 export function ChartFilterBar({ state, set, charts, extra }: { state: ChartFilterState; set: (p: Partial<ChartFilterState>) => void; charts: Chart[]; extra?: React.ReactNode }) {
-  const packs = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const c of charts) if (!m.has(c.songPack)) m.set(c.songPack, c.defaultOrder);
-    return [...m.keys()].sort((a, b) => a.localeCompare(b, "ko"));
-  }, [charts]);
+  const packs = useMemo(() => groupPacks(charts.map((c) => c.songPack)), [charts]);
 
   const toggle = (d: Difficulty) => set({ diffs: state.diffs.includes(d) ? state.diffs.filter((x) => x !== d) : [...state.diffs, d] });
 
@@ -69,14 +66,18 @@ export function ChartFilterBar({ state, set, charts, extra }: { state: ChartFilt
         <select
           value={state.pack}
           onChange={(e) => set({ pack: e.target.value })}
-          aria-label="곡 팩"
+          aria-label="카테고리"
           className="h-10 max-w-[14rem] rounded-[10px] border border-line bg-paper px-3 text-sm"
         >
-          <option value="">모든 곡 팩</option>
-          {packs.map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
+          <option value="">모든 곡</option>
+          {packs.map((g) => (
+            <optgroup key={g.category} label={g.category}>
+              {g.packs.map((p) => (
+                <option key={p.value} value={p.value}>
+                  {p.label}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
       </div>
