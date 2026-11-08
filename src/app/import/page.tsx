@@ -244,9 +244,17 @@ function TapTapImport() {
       {qr && (
         <div className="mt-4 flex flex-wrap items-center gap-4">
           <div className="w-44 rounded-[12px] border border-line bg-white p-2" dangerouslySetInnerHTML={{ __html: qr.svg }} />
-          <a href={qr.url} target="_blank" rel="noreferrer" className="text-[13px] font-medium text-orbit hover:underline">
-            휴대폰에서 보고 있다면 여기를 눌러 TapTap에서 열기
-          </a>
+          <div className="max-w-sm text-[13px] leading-relaxed text-mist">
+            <p>
+              <span className="font-semibold text-ink">PC·태블릿에서 보고 있다면:</span> 폰의 TapTap 앱 스캐너로 이 QR을 찍고 로그인을 허용하세요.
+            </p>
+            <p className="mt-2">
+              <span className="font-semibold text-ink">이 폰 하나뿐이라면:</span> 앱으로 바로 열면 승인 화면이 뜨지 않습니다. 아래 링크를 길게 눌러 브라우저에서 열거나, QR을 캡처해 TapTap 스캐너의 앨범에서 불러오세요.
+            </p>
+            <a href={qr.url} target="_blank" rel="noreferrer" className="mt-2 inline-block font-medium text-orbit hover:underline">
+              승인 페이지 링크
+            </a>
+          </div>
         </div>
       )}
       {result && (
