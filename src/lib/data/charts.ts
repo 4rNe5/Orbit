@@ -1,0 +1,122 @@
+import type { Chart, Difficulty } from "@/lib/core/types";
+import { selectAll, supabase } from "@/lib/supabase";
+
+export interface DataVersion {
+  version: string;
+  chartCount: number;
+  songCount: number;
+  theoreticalRating: number | null;
+  source: string;
+  importedAt: string;
+}
+
+interface ChartRow {
+  id: string;
+  song_id: string;
+  title: string;
+  song_title: string;
+  difficulty: Difficulty;
+  constant: number;
+  level: string;
+  pack: string;
+  song_pack: string;
+  version: string;
+  default_order: number;
+  update_order: number;
+  deleted: boolean;
+}
+
+const CACHE_KEY = "orbit:charts:v1";
+
+export function rowToChart(r: ChartRow): Chart {
+  return {
+    id: r.id,
+    songId: r.song_id,
+    title: r.title,
+    songTitle: r.song_title,
+    difficulty: r.difficulty,
+    constant: Number(r.constant),
+    level: r.level,
+    pack: r.pack,
+    songPack: r.song_pack,
+    version: r.version,
+    defaultOrder: r.default_order,
+    updateOrder: r.update_order,
+    deleted: r.deleted,
+  };
+}
+
+export function chartToRow(c: Chart, dataVersion: string) {
+  return {
+    id: c.id,
+    song_id: c.songId,
+    title: c.title,
+    song_title: c.songTitle,
+    difficulty: c.difficulty,
+    constant: c.constant,
+    level: c.level,
+    pack: c.pack,
+    song_pack: c.songPack,
+    version: c.version,
+    default_order: c.defaultOrder,
+    update_order: c.updateOrder,
+    deleted: c.deleted,
+    data_version: dataVersion,
+  };
+}
+
+export async function fetchCurrentVersion(): Promise<DataVersion> {
+  const { data, error } = await supabase()
+    .from("data_versions")
+    .select("version, chart_count, song_count, theoretical_rating, source, imported_at")
+    .eq("is_current", true)
+    .single();
+  if (error) throw new Error(error.message);
+  return {
+    version: data.version,
+    chartCount: data.chart_count,
+    songCount: data.song_count,
+    theoreticalRating: data.theoretical_rating === null ? null : Number(data.theoretical_rating),
+    source: data.source,
+    importedAt: data.imported_at,
+  };
+}
+
+/** Charts for the current data version, cached per version in localStorage. */
+export async function loadCharts(): Promise<{ version: DataVersion; charts: Chart[] }> {
+  const version = await fetchCurrentVersion();
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) ?? "null");
+    if (cached?.version === version.version && cached?.importedAt === version.importedAt && cached.charts?.length) {
+      return { version, charts: cached.charts as Chart[] };
+    }
+  } catch {
+    /* cache unavailable */
+  }
+  const rows = await selectAll<ChartRow>((from, to) =>
+    supabase()
+      .from("charts")
+      .select("id, song_id, title, song_title, difficulty, constant, level, pack, song_pack, version, default_order, update_order, deleted")
+      .order("default_order")
+      .order("id")
+      .range(from, to),
+  );
+  const charts = rows.map(rowToChart);
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ version: version.version, importedAt: version.importedAt, charts }));
+  } catch {
+    /* quota or private mode */
+  }
+  return { version, charts };
+}
+
+export interface ConstantHistory {
+  eras: string[];
+  rows: { chartId: string | null; title: string; difficulty: string; addedVersion: string | null; values: (number | null)[] }[];
+}
+
+export async function loadConstantHistory(): Promise<ConstantHistory | null> {
+  const { data, error } = await supabase().from("app_meta").select("value").eq("key", "constant_history").maybeSingle();
+  if (error) throw new Error(error.message);
+  return (data?.value as ConstantHistory) ?? null;
+}

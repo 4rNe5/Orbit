@@ -1,26 +1,159 @@
 @import "tailwindcss";
 
+/*
+  Orbit Rating — design tokens
+  Light: daytime sky over the orbit.  Dark: the same orbit at night.
+  Saturated colour is reserved for difficulty marks and the single cyan accent.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --sky: #eef4fa;
+  --paper: #ffffff;
+  --ink: #0f1e33;
+  --mist: #5f728b;
+  --line: #d8e2ed;
+  --line-strong: #b9c8d8;
+  --orbit: #0aa9be;
+  --orbit-ink: #ffffff;
+  --orbit-soft: #dff5f8;
+  --alpha: #7a5cff;
+  --danger: #d6404f;
+  --ok: #1f9d6a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --d1: #2fb67c;
+  --d2: #2f8fe6;
+  --d3: #e5952b;
+  --d4: #e0436f;
+  --d5: #7a5cff;
+
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --sky: #0c1726;
+    --paper: #13223a;
+    --ink: #e6eef7;
+    --mist: #93a6bd;
+    --line: #22354e;
+    --line-strong: #34506f;
+    --orbit: #34cfe1;
+    --orbit-ink: #06222a;
+    --orbit-soft: #12343f;
+    --alpha: #a08cff;
+    --danger: #ff6b78;
+    --ok: #45c58f;
+    --d1: #4fd39a;
+    --d2: #5aa9f2;
+    --d3: #f2ac4d;
+    --d4: #ff6b93;
+    --d5: #a08cff;
+    color-scheme: dark;
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root[data-theme="dark"] {
+  --sky: #0c1726;
+  --paper: #13223a;
+  --ink: #e6eef7;
+  --mist: #93a6bd;
+  --line: #22354e;
+  --line-strong: #34506f;
+  --orbit: #34cfe1;
+  --orbit-ink: #06222a;
+  --orbit-soft: #12343f;
+  --alpha: #a08cff;
+  --danger: #ff6b78;
+  --ok: #45c58f;
+  --d1: #4fd39a;
+  --d2: #5aa9f2;
+  --d3: #f2ac4d;
+  --d4: #ff6b93;
+  --d5: #a08cff;
+  color-scheme: dark;
 }
+
+@theme inline {
+  --color-sky: var(--sky);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-mist: var(--mist);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-orbit: var(--orbit);
+  --color-orbit-ink: var(--orbit-ink);
+  --color-orbit-soft: var(--orbit-soft);
+  --color-alpha: var(--alpha);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-plex), "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", "Noto Sans CJK JP", sans-serif;
+  --font-display: var(--font-sora), var(--font-plex), "Apple SD Gothic Neo", sans-serif;
+  --radius-panel: 14px;
+}
+
+html {
+  background: var(--sky);
+  color: var(--ink);
+}
+body {
+  background: var(--sky);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* numbers that line up */
+.num {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orbit);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* difficulty colour helpers */
+.diff-I { --diff: var(--d1); }
+.diff-II { --diff: var(--d2); }
+.diff-III { --diff: var(--d3); }
+.diff-IV { --diff: var(--d4); }
+.diff-IVa { --diff: var(--d5); }
+
+/* the starfield is drawn once behind the shell; quiet, not animated */
+.starfield {
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, color-mix(in oklab, var(--ink) 22%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 72% 8%, color-mix(in oklab, var(--ink) 18%, transparent) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 88% 36%, color-mix(in oklab, var(--orbit) 50%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 34% 64%, color-mix(in oklab, var(--ink) 16%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 82%, color-mix(in oklab, var(--ink) 20%, transparent) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 6% 88%, color-mix(in oklab, var(--alpha) 45%, transparent) 50%, transparent 51%);
+  background-size: 420px 420px;
+}
+
+/* one orchestrated motion: the orbit settles into place on load */
+@keyframes orbit-settle {
+  from { transform: rotate(-38deg); opacity: 0; }
+  to { transform: rotate(0deg); opacity: 1; }
+}
+@keyframes number-rise {
+  from { transform: translateY(6px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.orbit-ring { transform-origin: 50% 50%; transform-box: view-box; animation: orbit-settle 1.1s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
+.orbit-ring.r2 { animation-delay: 0.08s; }
+.orbit-ring.r3 { animation-delay: 0.16s; }
+.rise { animation: number-rise 0.7s 0.35s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring, .rise { animation: none; }
+}
+
+/* long lists: let the browser skip off-screen rows */
+.row-auto { content-visibility: auto; contain-intrinsic-size: auto 64px; }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }

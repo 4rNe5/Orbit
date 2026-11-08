@@ -1,0 +1,5406 @@
+{
+"eras": [
+"v1.6.0前定数 截至2023/01/16",
+"v2.0.0前定数 截至2024/05/30",
+"v2.6.0前定数 截至2025/01/27",
+"v2.23.0前定数，截至2026/05/30",
+"现版本定数"
+],
+"rows": [
+{
+"chartId": "alfheims-faith:IV-α",
+"title": "Alfheim's faith",
+"difficulty": "IV-α",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.5,
+13.2,
+13.3
+]
+},
+{
+"chartId": "heavens-cage:IV-α",
+"title": "Heaven's Cage",
+"difficulty": "IV-α",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.9,
+13.9,
+13.9
+]
+},
+{
+"chartId": "saku-hoshiboshi:IV-α",
+"title": "咲く星々",
+"difficulty": "IV-α",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.6,
+13.3,
+13.5
+]
+},
+{
+"chartId": "uchronia:IV-α",
+"title": "Uchronia",
+"difficulty": "IV-α",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.9
+]
+},
+{
+"chartId": "aleph-0:IV-α",
+"title": "Aleph-0",
+"difficulty": "IV-α",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.9
+]
+},
+{
+"chartId": "stage-5:IV-α",
+"title": "Stage 5",
+"difficulty": "IV-α",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+13.9,
+14.0
+]
+},
+{
+"chartId": "dextroy:IV-α",
+"title": "Dextroy",
+"difficulty": "IV-α",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+14.4,
+14.4
+]
+},
+{
+"chartId": "the-endless-for-traveler:IV-α",
+"title": "The Endless for Traveler",
+"difficulty": "IV-α",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "all-nighter:IV-α",
+"title": "ALL☆NIGHTER！",
+"difficulty": "IV-α",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "ninja-ish:IV-α",
+"title": "NINJA-ish",
+"difficulty": "IV-α",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.1
+]
+},
+{
+"chartId": "way-home:IV-α",
+"title": "way home",
+"difficulty": "IV-α",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+14.1,
+14.2
+]
+},
+{
+"chartId": "wildcard:IV-α",
+"title": "WILDCARD",
+"difficulty": "IV-α",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.5
+]
+},
+{
+"chartId": "rokutyounen:IV-α",
+"title": "六兆年と一夜物語",
+"difficulty": "IV-α",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+14.1,
+14.3
+]
+},
+{
+"chartId": "summer-time-memory:IV-α",
+"title": "Summer Time Memory",
+"difficulty": "IV-α",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.5
+]
+},
+{
+"chartId": "hushwave-symptoms:IV-α",
+"title": "缄色症候",
+"difficulty": "IV-α",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.0
+]
+},
+{
+"chartId": "windsurfer:IV-α",
+"title": "Windsurfer",
+"difficulty": "IV-α",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "mendokusai-modo:IV-α",
+"title": "めんどくさいモード",
+"difficulty": "IV-α",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+14.3,
+14.3
+]
+},
+{
+"chartId": "binary:IV-α",
+"title": "βinαrΨ // Re:Coded",
+"difficulty": "IV-α",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+13.9,
+14.0
+]
+},
+{
+"chartId": "cristalisia:IV-α",
+"title": "Cristalisia (Violin Ver.)",
+"difficulty": "IV-α",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.1
+]
+},
+{
+"chartId": "aventyr:IV-α",
+"title": "Äventyr",
+"difficulty": "IV-α",
+"addedVersion": "2.14.1",
+"values": [
+null,
+null,
+null,
+13.4,
+13.5
+]
+},
+{
+"chartId": "mirukiuei-o-tadotte:IV-α",
+"title": "ミルキーウェイを辿って",
+"difficulty": "IV-α",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "muten-shorai:IV-α",
+"title": "六天照來",
+"difficulty": "IV-α",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.9
+]
+},
+{
+"chartId": "ephemeralization:IV-α",
+"title": "ephemeralization",
+"difficulty": "IV-α",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+14.4,
+14.4
+]
+},
+{
+"chartId": "ai-li-ke2000:IV-α",
+"title": "《爱立刻2000》",
+"difficulty": "IV-α",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.0
+]
+},
+{
+"chartId": "ieo:IV-α",
+"title": "INFiNiTE ENERZY -Overdoze-",
+"difficulty": "IV-α",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+13.6,
+13.6
+]
+},
+{
+"chartId": "world-execute-me:IV-α",
+"title": "world.execute(me);",
+"difficulty": "IV-α",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.0
+]
+},
+{
+"chartId": "space-colony:IV-α",
+"title": "Space Colony",
+"difficulty": "IV-α",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.7
+]
+},
+{
+"chartId": "after-rain:IV",
+"title": "After Rain",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+10.4,
+10.8,
+10.8,
+10.8,
+10.7
+]
+},
+{
+"chartId": "aurora:IV",
+"title": "Aurora",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+8.6,
+11.3,
+11.3,
+11.3,
+11.3
+]
+},
+{
+"chartId": "a-clock:IV",
+"title": "A Clock",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+9.9,
+10.8,
+10.8,
+10.8,
+11.4
+]
+},
+{
+"chartId": "a-time-for-everything:IV",
+"title": "A Time for Everything",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+10.1,
+10.2,
+10.2,
+10.2,
+11.1
+]
+},
+{
+"chartId": "xinzang-bing:IV",
+"title": "심장병",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+9.5,
+9.5,
+9.5,
+9.5,
+9.5
+]
+},
+{
+"chartId": "k-moe-vip:IV",
+"title": "K.moe (VIP)",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+10.7,
+11.1,
+11.1,
+11.1,
+11.4
+]
+},
+{
+"chartId": "pure-white-tale-of-serissa:IV",
+"title": "Pure White: Tale of Serissa",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+10.4,
+10.8,
+10.8,
+10.8,
+11.6
+]
+},
+{
+"chartId": "last-paradise:IV",
+"title": "Last Paradise",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+10.5,
+10.9,
+10.9,
+11.0,
+11.2
+]
+},
+{
+"chartId": "snow-magic:IV",
+"title": "Snow Magic",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+10.7,
+11.0,
+11.0,
+11.2,
+11.2
+]
+},
+{
+"chartId": "witches-party:IV",
+"title": "Witches' Party",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.2,
+11.2,
+11.2,
+11.2,
+11.4
+]
+},
+{
+"chartId": "reverie:IV",
+"title": "Reverie",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.3,
+11.4,
+11.4,
+11.5,
+11.7
+]
+},
+{
+"chartId": "chrysanthemum:IV",
+"title": "Chrysanthemum",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.1,
+11.5,
+11.5,
+11.6,
+12.1
+]
+},
+{
+"chartId": "anthem:IV",
+"title": "Anthem",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.4,
+11.6,
+11.6,
+11.7,
+11.4
+]
+},
+{
+"chartId": "infinity-heaven:IV",
+"title": "Infinity Heaven",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.3,
+11.5,
+11.5,
+11.5,
+11.2
+]
+},
+{
+"chartId": "lost-puppet:IV",
+"title": "LostPuppet",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.2,
+10.6,
+10.8,
+10.8,
+10.6
+]
+},
+{
+"chartId": "shuen-kara-inochi-o-sukuu:IV",
+"title": "終焉から命を救う",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.8,
+11.8,
+11.8,
+12.1,
+11.7
+]
+},
+{
+"chartId": "bouquet-colore:IV",
+"title": "Bouquet colore",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.9,
+12.2,
+12.2,
+12.5,
+12.4
+]
+},
+{
+"chartId": "musaishiki-no-yutopia:IV",
+"title": "無彩色のディストピア",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.6,
+11.8,
+11.8,
+11.9,
+11.5
+]
+},
+{
+"chartId": "in-a-diabolic-manner:IV",
+"title": "In a Diabolic Manner",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.8,
+12.8,
+12.8,
+13.4,
+13.2
+]
+},
+{
+"chartId": "huggy-wuggy:IV",
+"title": "huggy wuggy",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.6,
+11.8,
+11.8,
+11.7,
+11.4
+]
+},
+{
+"chartId": "re-waked-from-abyss:IV",
+"title": "Re-waked from Abyss",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.4,
+12.4,
+12.4,
+12.1,
+11.9
+]
+},
+{
+"chartId": "the-promised-land:IV",
+"title": "The Promised Land",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.5,
+11.6,
+11.6,
+11.7,
+11.6
+]
+},
+{
+"chartId": "aqua-stars:IV",
+"title": "Aqua Stars",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.2,
+12.4,
+12.4,
+12.6,
+12.6
+]
+},
+{
+"chartId": "inverted-world:IV",
+"title": "Inverted World",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+13.1,
+13.0,
+13.0,
+13.6,
+13.7
+]
+},
+{
+"chartId": "brain-crusher:IV",
+"title": "Brain Crusher",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.5,
+12.6,
+12.6,
+13.1,
+13.0
+]
+},
+{
+"chartId": "velocity:IV",
+"title": "Velocity",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.5,
+11.5,
+11.5,
+11.3,
+10.7
+]
+},
+{
+"chartId": "invader:IV",
+"title": "Invader",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.0,
+12.3,
+12.3,
+12.5,
+12.5
+]
+},
+{
+"chartId": "sterelogue:IV",
+"title": "Sterelogue",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.3,
+12.0,
+12.0,
+11.9,
+11.8
+]
+},
+{
+"chartId": "commotion:IV",
+"title": "Commotion",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.9,
+11.9,
+11.9,
+11.9,
+11.3
+]
+},
+{
+"chartId": "bystander-knife:IV",
+"title": "Bystander Knife",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.4,
+11.6,
+11.6,
+11.7,
+11.5
+]
+},
+{
+"chartId": "cross-soul:IV",
+"title": "Cross † Soul",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.1,
+11.8,
+11.8,
+12.4,
+12.5
+]
+},
+{
+"chartId": "estaminet:IV",
+"title": "Estaminet",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.4,
+11.7,
+11.7,
+11.7,
+11.8
+]
+},
+{
+"chartId": "ef4123:IV",
+"title": "EF4123",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.0,
+12.3,
+12.3,
+12.6,
+12.7
+]
+},
+{
+"chartId": "another-me:IV",
+"title": "Another Me (Rotaeno Edit)",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.7,
+12.0,
+12.0,
+12.0,
+12.4
+]
+},
+{
+"chartId": "nini:IV",
+"title": "ニニ -邇々-",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.4,
+12.4,
+12.4,
+12.6,
+12.7
+]
+},
+{
+"chartId": "re-prosperitas:IV",
+"title": "Re:prosperitás",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.3,
+12.2,
+12.2,
+12.3,
+12.5
+]
+},
+{
+"chartId": "gokusaishoku-no-yutopia:IV",
+"title": "極彩色のユートピア",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+11.6,
+11.8,
+11.8,
+12.2,
+12.1
+]
+},
+{
+"chartId": "a-philosophical-wanderer:IV",
+"title": "A Philosophical Wanderer",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+12.8,
+12.7,
+12.6,
+13.1,
+13.0
+]
+},
+{
+"chartId": "pupa:IV",
+"title": "PUPA",
+"difficulty": "IV",
+"addedVersion": "1.0.0",
+"values": [
+13.0,
+13.1,
+13.0,
+13.7,
+13.7
+]
+},
+{
+"chartId": "king:IV",
+"title": "KING",
+"difficulty": "IV",
+"addedVersion": "1.0.7",
+"values": [
+12.1,
+11.7,
+11.7,
+11.8,
+11.3
+]
+},
+{
+"chartId": "csqn:IV",
+"title": "c.s.q.n.",
+"difficulty": "IV",
+"addedVersion": "1.1.0",
+"values": [
+12.3,
+12.2,
+12.2,
+12.4,
+12.6
+]
+},
+{
+"chartId": "memory-of-sunrise:IV",
+"title": "Memory Of Sunrise",
+"difficulty": "IV",
+"addedVersion": "1.1.0",
+"values": [
+12.1,
+12.5,
+12.5,
+12.8,
+12.7
+]
+},
+{
+"chartId": "light-into-scheelite:IV",
+"title": "Light Into Scheelite",
+"difficulty": "IV",
+"addedVersion": "1.1.0",
+"values": [
+12.7,
+12.6,
+12.5,
+13.0,
+13.0
+]
+},
+{
+"chartId": "gecko:IV",
+"title": "Gecko",
+"difficulty": "IV",
+"addedVersion": "1.1.0",
+"values": [
+12.4,
+12.7,
+12.4,
+12.7,
+12.8
+]
+},
+{
+"chartId": "in:IV",
+"title": "IN",
+"difficulty": "IV",
+"addedVersion": "1.1.0",
+"values": [
+11.8,
+11.9,
+11.9,
+12.2,
+12.1
+]
+},
+{
+"chartId": "converge:IV",
+"title": "Converge",
+"difficulty": "IV",
+"addedVersion": "1.1.2",
+"values": [
+11.3,
+11.6,
+11.6,
+11.8,
+11.5
+]
+},
+{
+"chartId": "shinde-shimatta-kisetsu-no-kakera:IV",
+"title": "死んでしまった季節のかけら",
+"difficulty": "IV",
+"addedVersion": "1.1.2",
+"values": [
+12.1,
+12.1,
+12.1,
+12.2,
+12.1
+]
+},
+{
+"chartId": "life-is-piano:IV",
+"title": "Life is PIANO",
+"difficulty": "IV",
+"addedVersion": "1.2.0",
+"values": [
+11.5,
+12.3,
+12.4,
+12.9,
+12.9
+]
+},
+{
+"chartId": "rip:IV",
+"title": "R.I.P.",
+"difficulty": "IV",
+"addedVersion": "1.2.0",
+"values": [
+12.5,
+12.6,
+12.6,
+13.3,
+13.1
+]
+},
+{
+"chartId": "star-cape:IV",
+"title": "Star Cape",
+"difficulty": "IV",
+"addedVersion": "1.2.0",
+"values": [
+11.5,
+11.5,
+11.5,
+11.6,
+11.0
+]
+},
+{
+"chartId": "alice-in-a-xxxxxxxx:IV",
+"title": "Alice in a xxxxxxxx",
+"difficulty": "IV",
+"addedVersion": "1.2.0",
+"values": [
+12.6,
+12.7,
+12.7,
+13.4,
+13.1
+]
+},
+{
+"chartId": "disorder:IV",
+"title": "Disorder",
+"difficulty": "IV",
+"addedVersion": "1.2.0",
+"values": [
+12.9,
+12.6,
+12.6,
+13.1,
+13.1
+]
+},
+{
+"chartId": "wakare-no-jokyoku:IV",
+"title": "别れの序曲",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+8.3,
+9.0,
+9.0,
+9.0,
+10.0
+]
+},
+{
+"chartId": "my-story:IV",
+"title": "My Story! feat.柚子花",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+12.2,
+12.5,
+12.4,
+12.6,
+12.7
+]
+},
+{
+"chartId": null,
+"title": "Sweet Dreams(Short ver.)",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+11.4,
+11.7,
+11.7,
+11.8,
+11.5
+]
+},
+{
+"chartId": "indoor-kei-nara-track-maker:IV",
+"title": "インドア系ならトラックメイカー",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+12.0,
+12.3,
+12.3,
+12.5,
+12.5
+]
+},
+{
+"chartId": "autumn-breeze:IV",
+"title": "Autumn Breeze",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+8.1,
+9.0,
+9.0,
+9.0,
+10.7
+]
+},
+{
+"chartId": "memories-of-the-past:IV",
+"title": "Memories of the Past feat.メトロミュー",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+11.4,
+11.7,
+11.9,
+11.9,
+12.1
+]
+},
+{
+"chartId": "cross-genocide:IV",
+"title": "Cross † Genocide",
+"difficulty": "IV",
+"addedVersion": "1.3.0",
+"values": [
+12.2,
+12.4,
+12.4,
+12.9,
+12.9
+]
+},
+{
+"chartId": "with-u:IV",
+"title": "with U",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+12.2,
+12.4,
+12.4,
+12.7,
+12.6
+]
+},
+{
+"chartId": "ouverture:IV",
+"title": "Ouvertüre",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+12.9,
+12.9,
+12.9,
+13.7,
+13.7
+]
+},
+{
+"chartId": "silentphobia:IV",
+"title": "Silentphobia",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+12.9,
+12.9,
+12.9,
+13.7,
+13.7
+]
+},
+{
+"chartId": "dual-breaker-xx:IV",
+"title": "DUAL BREAKER XX",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+12.6,
+12.7,
+12.7,
+13.3,
+13.3
+]
+},
+{
+"chartId": "quon:IV",
+"title": "Quon",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+12.7,
+12.8,
+12.8,
+13.6,
+13.6
+]
+},
+{
+"chartId": "invisible-frenzy:IV",
+"title": "Invisible Frenzy",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+13.1,
+13.1,
+13.0,
+13.8,
+13.7
+]
+},
+{
+"chartId": "let-you-dive:IV",
+"title": "Let you DIVE!",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+11.8,
+11.9,
+11.9,
+12.0,
+11.8
+]
+},
+{
+"chartId": "welcome-ssspooky:IV",
+"title": "Welcome,SSSpooky!!!",
+"difficulty": "IV",
+"addedVersion": "1.4.0",
+"values": [
+12.9,
+12.9,
+12.9,
+13.8,
+13.7
+]
+},
+{
+"chartId": "is-this-real:IV",
+"title": "Is This Real?",
+"difficulty": "IV",
+"addedVersion": "1.5.0",
+"values": [
+11.7,
+11.7,
+11.7,
+11.7,
+11.6
+]
+},
+{
+"chartId": "grand-i-flora:IV",
+"title": "GRAND-i-FLORA",
+"difficulty": "IV",
+"addedVersion": "1.5.0",
+"values": [
+11.8,
+11.8,
+11.8,
+11.6,
+11.8
+]
+},
+{
+"chartId": "lost-in-farside:IV",
+"title": "Lost In Farside",
+"difficulty": "IV",
+"addedVersion": "1.5.0",
+"values": [
+12.6,
+12.6,
+12.7,
+13.6,
+13.6
+]
+},
+{
+"chartId": "meltdown:IV",
+"title": "Meltdown",
+"difficulty": "IV",
+"addedVersion": "1.5.0",
+"values": [
+12.3,
+12.3,
+12.3,
+12.3,
+12.3
+]
+},
+{
+"chartId": "quaoar:IV",
+"title": "Quaoar",
+"difficulty": "IV",
+"addedVersion": "1.5.0",
+"values": [
+12.5,
+12.6,
+12.7,
+13.5,
+13.4
+]
+},
+{
+"chartId": "amethyst:IV",
+"title": "amethyst",
+"difficulty": "IV",
+"addedVersion": "1.5.0",
+"values": [
+12.8,
+12.8,
+12.8,
+13.7,
+13.7
+]
+},
+{
+"chartId": "ice-festival:IV",
+"title": "Ice Festival",
+"difficulty": "IV",
+"addedVersion": "1.5.1",
+"values": [
+11.7,
+11.7,
+11.7,
+11.7,
+11.4
+]
+},
+{
+"chartId": "obsidian:IV",
+"title": "Obsidian(Short Ver.)",
+"difficulty": "IV",
+"addedVersion": "1.5.1",
+"values": [
+12.1,
+12.1,
+12.1,
+11.5,
+11.0
+]
+},
+{
+"chartId": "secret-illumination:IV",
+"title": "Secret Illumination",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.4,
+12.4,
+12.7,
+12.8
+]
+},
+{
+"chartId": "manifold-hypothesis:IV",
+"title": "Manifold Hypothesis",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.7,
+12.7,
+13.4,
+13.3
+]
+},
+{
+"chartId": "aorist-hallucination:IV",
+"title": "Aorist Hallucination",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.0,
+12.0,
+11.6,
+11.3
+]
+},
+{
+"chartId": "alive:IV",
+"title": "Alive",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.5,
+12.6,
+13.2,
+13.3
+]
+},
+{
+"chartId": "our-message:IV",
+"title": "Our Message",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.7,
+12.7,
+13.5,
+13.6
+]
+},
+{
+"chartId": "galactic-warzone:IV",
+"title": "GALACTIC WARZONE",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+13.3,
+13.3,
+14.3,
+14.2
+]
+},
+{
+"chartId": "phantom:IV",
+"title": "幻影",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+11.2,
+11.2,
+11.3,
+11.4
+]
+},
+{
+"chartId": "dear-my-memories:IV",
+"title": "Dear my memories.",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.5,
+12.5,
+12.9,
+12.9
+]
+},
+{
+"chartId": "life-flashes-before-weeb-eyes:IV",
+"title": "life flashes before weeb eyes",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.3,
+12.4,
+12.7,
+12.8
+]
+},
+{
+"chartId": "fly-again:IV",
+"title": "Fly Again",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.2,
+12.2,
+12.3,
+12.4
+]
+},
+{
+"chartId": "spinel:IV",
+"title": "Spinel",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.5,
+12.5,
+12.9,
+12.9
+]
+},
+{
+"chartId": "calorific-refract:IV",
+"title": "Calorific Refract",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.5,
+12.5,
+13.0,
+13.1
+]
+},
+{
+"chartId": "excez:IV",
+"title": "εxceζ",
+"difficulty": "IV",
+"addedVersion": "1.6.0",
+"values": [
+null,
+12.8,
+12.8,
+13.4,
+13.4
+]
+},
+{
+"chartId": "you-n-die:IV",
+"title": "You & DIE",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+12.1,
+12.1,
+11.9,
+11.8
+]
+},
+{
+"chartId": "shooting-stars:IV",
+"title": "Shooting☆Stars",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+12.7,
+12.8,
+13.5,
+13.5
+]
+},
+{
+"chartId": "higher:IV",
+"title": "HiGHER",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+11.9,
+12.1,
+12.1,
+12.3
+]
+},
+{
+"chartId": "maholova:IV",
+"title": "Maholova",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+12.2,
+12.2,
+12.4,
+12.4
+]
+},
+{
+"chartId": "recollection:IV",
+"title": "Recollection",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+12.8,
+12.9,
+13.8,
+13.9
+]
+},
+{
+"chartId": "lunatixxx-gear:IV",
+"title": "Lunàtixxx Gear",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+13.2,
+13.2,
+14.2,
+14.1
+]
+},
+{
+"chartId": "battle-no1:IV",
+"title": "BATTLE NO.1",
+"difficulty": "IV",
+"addedVersion": "1.7.0",
+"values": [
+null,
+12.9,
+12.9,
+13.6,
+13.6
+]
+},
+{
+"chartId": "snapdragon:IV",
+"title": "Snapdragon",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.0,
+12.0,
+12.0,
+11.9
+]
+},
+{
+"chartId": "9876734123:IV",
+"title": "9876734123",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.6,
+12.6,
+13.3,
+13.2
+]
+},
+{
+"chartId": "brave-my-soul:IV",
+"title": "Brave My Soul",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.4,
+12.4,
+12.8,
+12.8
+]
+},
+{
+"chartId": "awaking-beat:IV",
+"title": "Awaking Beat -From the next generation-",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.8,
+12.9,
+13.7,
+13.7
+]
+},
+{
+"chartId": "cosmic-starter:IV",
+"title": "Cosmic Starter",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.1,
+12.1,
+12.1,
+12.1
+]
+},
+{
+"chartId": "on-and-on:IV",
+"title": "On And On!!",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.7,
+12.7,
+13.3,
+13.2
+]
+},
+{
+"chartId": "blastrick:IV",
+"title": "Blastrick",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.4,
+12.4,
+12.8,
+12.7
+]
+},
+{
+"chartId": "stray-soul-around:IV",
+"title": "ストレイソウル・アラウンド",
+"difficulty": "IV",
+"addedVersion": "1.8.0",
+"values": [
+null,
+12.1,
+12.2,
+12.2,
+12.2
+]
+},
+{
+"chartId": "the-formula:IV",
+"title": "The Formula",
+"difficulty": "IV",
+"addedVersion": "1.8.2",
+"values": [
+null,
+11.8,
+12.1,
+12.4,
+12.4
+]
+},
+{
+"chartId": "milk:IV",
+"title": "Milk",
+"difficulty": "IV",
+"addedVersion": "1.8.2",
+"values": [
+null,
+12.2,
+12.2,
+12.4,
+12.8
+]
+},
+{
+"chartId": "rush-e:IV",
+"title": "Rush E",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+12.8,
+12.8,
+13.7,
+13.8
+]
+},
+{
+"chartId": "journey-with-you:IV",
+"title": "Journey with You",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+11.2,
+11.2,
+11.2,
+11.6
+]
+},
+{
+"chartId": "junky-night-town-orchestra:IV",
+"title": "ジャンキーナイトタウンオーケストラ",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+12.5,
+12.6,
+13.2,
+13.3
+]
+},
+{
+"chartId": "lagtrain:IV",
+"title": "ラグトレイン",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+11.8,
+11.8,
+11.8,
+11.7
+]
+},
+{
+"chartId": "irony:IV",
+"title": "アイロニ",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+12.2,
+12.0,
+11.6,
+11.3
+]
+},
+{
+"chartId": "machine-gun:IV",
+"title": "Machine Gun",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+12.5,
+12.5,
+12.8,
+12.8
+]
+},
+{
+"chartId": "one-percent-love:IV",
+"title": "1/100 の アイ",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+11.6,
+11.6,
+11.5,
+11.1
+]
+},
+{
+"chartId": "edge-of-bravery:IV",
+"title": "Edge of bravery",
+"difficulty": "IV",
+"addedVersion": "1.9.0",
+"values": [
+null,
+12.7,
+12.7,
+13.4,
+13.4
+]
+},
+{
+"chartId": "fallin-fallin:IV",
+"title": "fallin' fallin' (prod. INFX, Ella Jung, Limpid)",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.0,
+12.0,
+11.9,
+12.2
+]
+},
+{
+"chartId": "revocate:IV",
+"title": "REVΘCATE",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.2,
+12.2,
+12.4,
+12.4
+]
+},
+{
+"chartId": "dont-never-around:IV",
+"title": "Don't Never Around",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.0,
+12.0,
+12.0,
+11.8
+]
+},
+{
+"chartId": "evocator:IV",
+"title": "Ēvocator",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.4,
+12.5,
+13.0,
+13.0
+]
+},
+{
+"chartId": "eschatology:IV",
+"title": "Eschatology",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.9,
+13.0,
+13.9,
+13.9
+]
+},
+{
+"chartId": "my-heaven-magical-mix:IV",
+"title": "My Heaven (Magical Mix) feat. Kuripurin",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.5,
+12.4,
+12.7,
+12.8
+]
+},
+{
+"chartId": "avataar:IV",
+"title": "Avataar ∽Reincarnation of Kalpa∽",
+"difficulty": "IV",
+"addedVersion": "1.10.0",
+"values": [
+null,
+12.8,
+12.8,
+13.6,
+13.6
+]
+},
+{
+"chartId": "azure-sky:IV",
+"title": "Azure Sky",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+12.0,
+12.0,
+11.9,
+12.3
+]
+},
+{
+"chartId": "hoshifuruyoru-to-ichirin-no-hana:IV",
+"title": "星降る夜と一輪の花",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+12.1,
+12.1,
+12.3,
+12.1
+]
+},
+{
+"chartId": "magenta-potion:IV",
+"title": "MAGENTA POTION",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+12.5,
+12.6,
+13.1,
+13.0
+]
+},
+{
+"chartId": "sense:IV",
+"title": "Sense",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+12.5,
+12.5,
+13.1,
+13.3
+]
+},
+{
+"chartId": "eternal-calm:IV",
+"title": "Eternal calm",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+11.4,
+11.4,
+11.2,
+11.4
+]
+},
+{
+"chartId": "looking-for-stella:IV",
+"title": "Looking for Stella",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+12.3,
+12.3,
+12.5,
+12.4
+]
+},
+{
+"chartId": "fate-of-aria:IV",
+"title": "Fate of Aria",
+"difficulty": "IV",
+"addedVersion": "1.11.0",
+"values": [
+null,
+12.7,
+12.7,
+13.5,
+13.5
+]
+},
+{
+"chartId": "nyarlathoteps-dreamland:IV",
+"title": "Nyarlathotep's Dreamland",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+12.9,
+12.9,
+13.8,
+13.8
+]
+},
+{
+"chartId": "nighttheater:IV",
+"title": "NightTheater",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+12.3,
+12.3,
+12.6,
+12.7
+]
+},
+{
+"chartId": "giselle:IV",
+"title": "Giselle",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+12.4,
+12.6,
+13.2,
+13.2
+]
+},
+{
+"chartId": "wakatterukedo:IV",
+"title": "分かってるけど",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+12.3,
+12.3,
+12.6,
+12.7
+]
+},
+{
+"chartId": "spooky-dance-party:IV",
+"title": "スプーキィダンスパーティ",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+12.9,
+12.9,
+13.9,
+13.9
+]
+},
+{
+"chartId": "marble-joker:IV",
+"title": "Marble Joker",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+12.8,
+12.7,
+13.4,
+13.2
+]
+},
+{
+"chartId": "phantago:IV",
+"title": "Phantago",
+"difficulty": "IV",
+"addedVersion": "1.12.0",
+"values": [
+null,
+13.2,
+13.1,
+14.1,
+14.1
+]
+},
+{
+"chartId": "no-one-yes-man:IV",
+"title": "NO ONE YES MAN",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.0,
+11.9,
+11.8,
+11.7
+]
+},
+{
+"chartId": "break-over:IV",
+"title": "Break Over",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+11.9,
+11.9,
+11.8,
+11.4
+]
+},
+{
+"chartId": "feast-from-the-east:IV",
+"title": "Feast远东之宴",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.4,
+12.4,
+13.0,
+13.2
+]
+},
+{
+"chartId": "distorted-fate:IV",
+"title": "Distorted Fate",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.8,
+12.8,
+13.6,
+13.7
+]
+},
+{
+"chartId": "rrharil:IV",
+"title": "Rrhar'il",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.9,
+12.9,
+13.5,
+13.6
+]
+},
+{
+"chartId": "igallta:IV",
+"title": "Igallta",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+13.2,
+13.1,
+14.0,
+14.0
+]
+},
+{
+"chartId": "mistilteinn:IV",
+"title": "Mistilteinn",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.5,
+12.5,
+13.0,
+12.9
+]
+},
+{
+"chartId": "swirling-blue:IV",
+"title": "Swirling Blue",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+11.8,
+11.8,
+11.6,
+11.0
+]
+},
+{
+"chartId": "angel-dust:IV",
+"title": "Angel dust",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.9,
+13.0,
+14.0,
+14.0
+]
+},
+{
+"chartId": "daydream:IV",
+"title": "Daydream",
+"difficulty": "IV",
+"addedVersion": "1.13.0",
+"values": [
+null,
+12.5,
+12.5,
+13.2,
+13.5
+]
+},
+{
+"chartId": "internet-overdose:IV",
+"title": "INTERNET OVERDOSE",
+"difficulty": "IV",
+"addedVersion": "1.13.3",
+"values": [
+null,
+12.1,
+12.1,
+12.2,
+12.5
+]
+},
+{
+"chartId": "revel:IV",
+"title": "reveL",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+12.4,
+12.4,
+12.7,
+12.7
+]
+},
+{
+"chartId": "wish-upon-vivid-stars:IV",
+"title": "Wish Upon Vivid Stars",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+11.3,
+11.3,
+11.1,
+11.1
+]
+},
+{
+"chartId": "vesta:IV",
+"title": "Vesta",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+12.1,
+12.4,
+12.7,
+12.6
+]
+},
+{
+"chartId": "conflict:IV",
+"title": "conflict",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+12.5,
+12.6,
+13.2,
+13.2
+]
+},
+{
+"chartId": "yinmn-blue:IV",
+"title": "YInMn Blue",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+12.4,
+12.7,
+13.4,
+13.5
+]
+},
+{
+"chartId": "cosmic-railroad:IV",
+"title": "CO5M1C R4ILR0AD",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+12.8,
+12.8,
+13.3,
+13.4
+]
+},
+{
+"chartId": "mvurbd:IV",
+"title": "MVURBD",
+"difficulty": "IV",
+"addedVersion": "1.14.0",
+"values": [
+null,
+13.2,
+13.2,
+14.2,
+14.2
+]
+},
+{
+"chartId": "love-you-i-imagined:IV",
+"title": "爱上想象的你",
+"difficulty": "IV",
+"addedVersion": "1.14.1",
+"values": [
+null,
+12.3,
+12.3,
+12.2,
+11.8
+]
+},
+{
+"chartId": "today-is-not-tomorrow:IV",
+"title": "今天不是明天",
+"difficulty": "IV",
+"addedVersion": "1.14.1",
+"values": [
+null,
+11.3,
+11.3,
+11.0,
+10.5
+]
+},
+{
+"chartId": "provison:IV",
+"title": "Provison",
+"difficulty": "IV",
+"addedVersion": "1.14.1",
+"values": [
+null,
+12.0,
+12.0,
+12.0,
+11.8
+]
+},
+{
+"chartId": "galaxy-striker:IV",
+"title": "Galaxy Striker",
+"difficulty": "IV",
+"addedVersion": "1.14.1",
+"values": [
+null,
+12.2,
+12.2,
+12.3,
+12.4
+]
+},
+{
+"chartId": "silver-town:IV",
+"title": "Silver Town",
+"difficulty": "IV",
+"addedVersion": "1.14.1",
+"values": [
+null,
+12.9,
+12.7,
+13.2,
+13.2
+]
+},
+{
+"chartId": "make-up-your-world:IV",
+"title": "Make Up Your World feat. キョンシーのCiちゃん & らっぷびと",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+11.9,
+11.9,
+11.9,
+11.3
+]
+},
+{
+"chartId": "break-through-myself:IV",
+"title": "Break Through Myself feat. Risa Yuzuki",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+12.5,
+12.5,
+13.0,
+13.0
+]
+},
+{
+"chartId": "strange-bar:IV",
+"title": "Strange Bar",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+12.3,
+12.5,
+13.1,
+13.1
+]
+},
+{
+"chartId": "un1te:IV",
+"title": "UN1TE feat.YUC'e",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+11.6,
+11.6,
+11.0,
+12.0
+]
+},
+{
+"chartId": "because-of-you:IV",
+"title": "Becouse of You",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+12.3,
+12.3,
+12.5,
+12.7
+]
+},
+{
+"chartId": "luminosity:IV",
+"title": "Luminosity (Don't you worry)",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+12.4,
+12.4,
+12.8,
+12.7
+]
+},
+{
+"chartId": "dual-doom-deathmatch:IV",
+"title": "Dual Doom Deathmatch",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+12.9,
+12.9,
+13.9,
+13.8
+]
+},
+{
+"chartId": "flashback-flicker:IV",
+"title": "Flashback Flicker",
+"difficulty": "IV",
+"addedVersion": "1.15.0",
+"values": [
+null,
+13.2,
+13.2,
+14.2,
+14.2
+]
+},
+{
+"chartId": "apocalypse:IV",
+"title": "Apocalypse",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.1,
+12.1,
+12.0,
+11.4
+]
+},
+{
+"chartId": "yukianesa:IV",
+"title": "Yukianesa",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.4,
+12.3,
+12.8,
+12.8
+]
+},
+{
+"chartId": "song-for-sprites:IV",
+"title": "Song for Sprites",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.2,
+12.2,
+12.3,
+11.9
+]
+},
+{
+"chartId": "cyanine:IV",
+"title": "cyanine",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.5,
+12.7,
+13.5,
+13.6
+]
+},
+{
+"chartId": "androgynos2:IV",
+"title": "Androgynos",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.5,
+12.5,
+13.0,
+13.1
+]
+},
+{
+"chartId": "lonely-departure:IV",
+"title": "Lonely departure",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.8,
+12.8,
+13.8,
+13.8
+]
+},
+{
+"chartId": "stasis:IV",
+"title": "Stasis",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+12.9,
+12.9,
+13.9,
+13.9
+]
+},
+{
+"chartId": "freys-philosophy:IV",
+"title": "Frey's Philosophy",
+"difficulty": "IV",
+"addedVersion": "1.16.0",
+"values": [
+null,
+13.1,
+13.1,
+14.1,
+14.1
+]
+},
+{
+"chartId": "waltz-for-lorelei:IV",
+"title": "Waltz for Lorelei",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.5,
+13.1,
+13.1
+]
+},
+{
+"chartId": "alfheims-faith:IV",
+"title": "Alfheim's faith",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+null,
+12.5,
+12.6
+]
+},
+{
+"chartId": "heavens-cage:IV",
+"title": "Heaven's Cage",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.0
+]
+},
+{
+"chartId": "saku-hoshiboshi:IV",
+"title": "咲く星々",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+null,
+12.1,
+11.7
+]
+},
+{
+"chartId": "arbitration:IV",
+"title": "Arbitration",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.4,
+12.7,
+12.8
+]
+},
+{
+"chartId": "secret-planet:IV",
+"title": "シークレット・プラネット",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.1,
+12.1,
+12.3
+]
+},
+{
+"chartId": "epitaxy:IV",
+"title": "epitaxy",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.9,
+13.8,
+13.8
+]
+},
+{
+"chartId": "triad-of-dryad:IV",
+"title": "Triad of Dryad",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+13.1,
+14.1,
+14.1
+]
+},
+{
+"chartId": "suito:IV",
+"title": "翠杜",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+13.5,
+14.5,
+14.5
+]
+},
+{
+"chartId": "cynthia:IV",
+"title": "Cynthia",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.6,
+13.2,
+13.5
+]
+},
+{
+"chartId": "beautiful-days:IV",
+"title": "Beautiful Days",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+10.8,
+10.8,
+11.6
+]
+},
+{
+"chartId": "lullaby-for-an-android:IV",
+"title": "Lullaby For an Android",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+11.1,
+11.1,
+11.6
+]
+},
+{
+"chartId": "black-lair:IV",
+"title": "Black Lair",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.7,
+13.4,
+13.5
+]
+},
+{
+"chartId": "anokumene:IV",
+"title": "Anökumene",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.2,
+11.9,
+12.1
+]
+},
+{
+"chartId": "the-vampire:IV",
+"title": "ヴァンパイア",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.2,
+12.1,
+11.5
+]
+},
+{
+"chartId": "android-girl:IV",
+"title": "アンドロイドガール",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.5,
+13.0,
+13.1
+]
+},
+{
+"chartId": "otome-dissection:IV",
+"title": "乙女解剖",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.3,
+12.8,
+12.9
+]
+},
+{
+"chartId": "kami-ppoi-na:IV",
+"title": "神っぽいな",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.4,
+12.9,
+13.0
+]
+},
+{
+"chartId": "nee-nee-nee:IV",
+"title": "ねぇねぇねぇ。",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.1,
+11.9,
+12.3
+]
+},
+{
+"chartId": "non-breath-oblige:IV",
+"title": "ノンブレス・オブリージュ",
+"difficulty": "IV",
+"addedVersion": "2.0.0",
+"values": [
+null,
+null,
+12.5,
+12.9,
+12.9
+]
+},
+{
+"chartId": "bassline-yatteru-lol:IV",
+"title": "ベースラインやってる？笑",
+"difficulty": "IV",
+"addedVersion": "2.0.2",
+"values": [
+null,
+null,
+12.5,
+13.0,
+13.1
+]
+},
+{
+"chartId": "tenq:IV",
+"title": "天Q.",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.6,
+13.3,
+13.5
+]
+},
+{
+"chartId": "sonic-surge:IV",
+"title": "SONIC SURGE",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.2,
+12.5,
+12.6
+]
+},
+{
+"chartId": "torikororu-suteppu:IV",
+"title": "トリコロール・ステップ",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+11.4,
+11.2,
+11.1
+]
+},
+{
+"chartId": "tenshidearetara:IV",
+"title": "天使であれたら",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.1,
+12.1,
+12.1
+]
+},
+{
+"chartId": "devil-la6ue:IV",
+"title": "devil¿la6ue",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.3,
+12.5,
+12.7
+]
+},
+{
+"chartId": "chant-shite:IV",
+"title": "Chantして!!!!!",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.4,
+12.1,
+12.5
+]
+},
+{
+"chartId": "maho-shojo-intai-sengen:IV",
+"title": "魔法少女引退宣言（仮）feat.星宮とと",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.3,
+12.5,
+12.7
+]
+},
+{
+"chartId": "sekigae-yatta:IV",
+"title": "席替えやったー！",
+"difficulty": "IV",
+"addedVersion": "2.1.0",
+"values": [
+null,
+null,
+12.8,
+13.5,
+13.6
+]
+},
+{
+"chartId": "aqua-theme:IV",
+"title": "Aqua Theme",
+"difficulty": "IV",
+"addedVersion": "2.1.1",
+"values": [
+null,
+null,
+10.6,
+10.6,
+10.6
+]
+},
+{
+"chartId": "nulctrl:IV",
+"title": "NULCTRL",
+"difficulty": "IV",
+"addedVersion": "2.1.1",
+"values": [
+null,
+null,
+12.7,
+13.3,
+13.3
+]
+},
+{
+"chartId": "fantasia-sonata-god-dance:IV",
+"title": "Fantasia Sonata God Dance",
+"difficulty": "IV",
+"addedVersion": "2.1.1",
+"values": [
+null,
+null,
+12.5,
+12.8,
+12.9
+]
+},
+{
+"chartId": "corps-sans-organes:IV",
+"title": "corps-sans-organes",
+"difficulty": "IV",
+"addedVersion": "2.2.0",
+"values": [
+null,
+null,
+12.9,
+13.9,
+14.0
+]
+},
+{
+"chartId": "antagonism:IV",
+"title": "Antagonism",
+"difficulty": "IV",
+"addedVersion": "2.2.0",
+"values": [
+null,
+null,
+12.3,
+12.5,
+12.9
+]
+},
+{
+"chartId": "ego-eimi:IV",
+"title": "Ego Eimi",
+"difficulty": "IV",
+"addedVersion": "2.2.0",
+"values": [
+null,
+null,
+12.4,
+12.9,
+13.1
+]
+},
+{
+"chartId": "divine-light-of-myriad:IV",
+"title": "光速神授説 - Divine Light of Myriad -",
+"difficulty": "IV",
+"addedVersion": "2.2.0",
+"values": [
+null,
+null,
+12.7,
+13.3,
+13.3
+]
+},
+{
+"chartId": "abstruse-dilemma:IV",
+"title": "Abstruse Dilemma",
+"difficulty": "IV",
+"addedVersion": "2.2.0",
+"values": [
+null,
+null,
+12.9,
+13.9,
+14.0
+]
+},
+{
+"chartId": "vulcanus:IV",
+"title": "Vulcānus",
+"difficulty": "IV",
+"addedVersion": "2.2.0",
+"values": [
+null,
+null,
+13.4,
+14.4,
+14.4
+]
+},
+{
+"chartId": "awaken-in-ruins:IV",
+"title": "Awaken In Ruins",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+11.5,
+11.4,
+12.3
+]
+},
+{
+"chartId": "turning-point:IV",
+"title": "Turning POINT",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+12.4,
+12.9,
+13.0
+]
+},
+{
+"chartId": "shijima-ni-ureu:IV",
+"title": "静寂に憂う",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+11.7,
+11.9,
+11.6
+]
+},
+{
+"chartId": "veil-of-summer:IV",
+"title": "Veil of Summer",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+12.3,
+12.6,
+12.3
+]
+},
+{
+"chartId": "inner-norm:IV",
+"title": "Inner Norm",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+12.5,
+13.1,
+13.2
+]
+},
+{
+"chartId": "echoes-of-the-forest:IV",
+"title": "Echoes of the Forest",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+12.6,
+13.5,
+13.8
+]
+},
+{
+"chartId": "kakuriyo:IV",
+"title": "Kakuriyo",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+12.8,
+13.6,
+13.8
+]
+},
+{
+"chartId": "cybernetic-vampire:IV",
+"title": "Cybernetic Vampire",
+"difficulty": "IV",
+"addedVersion": "2.3.0",
+"values": [
+null,
+null,
+13.3,
+14.3,
+14.3
+]
+},
+{
+"chartId": "shattered-sky-after-rain:IV",
+"title": "Shattered Sky After Rain",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.4,
+12.6,
+12.6
+]
+},
+{
+"chartId": "cosmogyral:IV",
+"title": "Cosmogyral",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.4,
+13.0,
+13.4
+]
+},
+{
+"chartId": "one-way-street:IV",
+"title": "One Way Street",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.4,
+12.6,
+12.7
+]
+},
+{
+"chartId": "hypersynthetic:IV",
+"title": "HYPERSYNTHETIC",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+11.6,
+11.5,
+11.5
+]
+},
+{
+"chartId": "blackhole:IV",
+"title": "Blackhole",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.1,
+12.2,
+12.7
+]
+},
+{
+"chartId": "hold-your-fire:IV",
+"title": "Hold Your Fire (Radio Edit)",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.4,
+13.1,
+13.4
+]
+},
+{
+"chartId": "infection:IV",
+"title": "Infection",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.4,
+12.7,
+12.9
+]
+},
+{
+"chartId": "feeling-blue:IV",
+"title": "Feeling Blue",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+12.9,
+13.8,
+13.8
+]
+},
+{
+"chartId": "deus-judicium:IV",
+"title": "Deus Judicium",
+"difficulty": "IV",
+"addedVersion": "2.4.0",
+"values": [
+null,
+null,
+13.2,
+14.1,
+14.1
+]
+},
+{
+"chartId": "flashdance:IV",
+"title": "Flashdance",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+12.3,
+12.5,
+12.7
+]
+},
+{
+"chartId": "unshakable:IV",
+"title": "Unshakable",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+12.2,
+12.4,
+12.3
+]
+},
+{
+"chartId": "eos:IV",
+"title": "EOS",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+12.3,
+12.6,
+12.8
+]
+},
+{
+"chartId": "chronomia:IV",
+"title": "Chronomia",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+12.5,
+12.8,
+13.0
+]
+},
+{
+"chartId": "how-to-make-otoge-kyoku:IV",
+"title": "How To Make 音ゲ～曲！",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+12.7,
+13.3,
+13.3
+]
+},
+{
+"chartId": "destr0yer:IV",
+"title": "Destr0yer",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+12.8,
+13.5,
+13.6
+]
+},
+{
+"chartId": "re-end-of-a-dream:IV",
+"title": "Re：End of a Dream",
+"difficulty": "IV",
+"addedVersion": "2.5.0",
+"values": [
+null,
+null,
+13.2,
+14.3,
+14.3
+]
+},
+{
+"chartId": "shiragiku:IV",
+"title": "白菊 -shiragiku-",
+"difficulty": "IV",
+"addedVersion": "2.5.1",
+"values": [
+null,
+null,
+12.6,
+13.2,
+13.4
+]
+},
+{
+"chartId": "song-for-again:IV",
+"title": "又一遍的歌",
+"difficulty": "IV",
+"addedVersion": "2.5.1",
+"values": [
+null,
+null,
+10.3,
+10.3,
+11.0
+]
+},
+{
+"chartId": "sweet-and-astringent-dreams:IV",
+"title": "甜涩之梦",
+"difficulty": "IV",
+"addedVersion": "2.5.1",
+"values": [
+null,
+null,
+12.4,
+12.7,
+12.8
+]
+},
+{
+"chartId": "love-splash:IV",
+"title": "Love Splash",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+12.1,
+12.3
+]
+},
+{
+"chartId": "starlight-traveler:IV",
+"title": "Starlight Traveler",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "innocence-keeper:IV",
+"title": "Innocence Keeper",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.6
+]
+},
+{
+"chartId": "enter-magical-code:IV",
+"title": "enter -MAGICAL CODE-",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.6
+]
+},
+{
+"chartId": "toys-nightlife-area:IV",
+"title": "Toys' Nightlife Area",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.9
+]
+},
+{
+"chartId": "uchronia:IV",
+"title": "Uchronia",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.1
+]
+},
+{
+"chartId": "quadruplicity:IV",
+"title": "Quadruplicity",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+14.4,
+14.4
+]
+},
+{
+"chartId": "burn-it-up:IV",
+"title": "恶修女——永火熔铸",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+12.7,
+11.9
+]
+},
+{
+"chartId": "fall-in-me:IV",
+"title": "Fall in Me",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+12.0,
+12.9
+]
+},
+{
+"chartId": "night-sky:IV",
+"title": "Night Sky feat. Mashilo & ichika",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+11.6,
+13.9
+]
+},
+{
+"chartId": "enchanted-love:IV",
+"title": "enchanted love",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+12.2,
+12.0
+]
+},
+{
+"chartId": "clock-paradox:IV",
+"title": "Clock Paradox",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+11.7,
+12.3
+]
+},
+{
+"chartId": "link-x-lins:IV",
+"title": "LINK x LIN#S",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+12.7,
+11.9
+]
+},
+{
+"chartId": "brave-road:IV",
+"title": "BRAVE：ROAD",
+"difficulty": "IV",
+"addedVersion": "2.6.0",
+"values": [
+null,
+null,
+null,
+13.8,
+11.9
+]
+},
+{
+"chartId": "convallaria:IV",
+"title": "CONVALLARiA",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+12.3,
+12.2
+]
+},
+{
+"chartId": "atropos-and-the-final:IV",
+"title": "アトロポスと最果の探究者",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.0
+]
+},
+{
+"chartId": "a-city-in-serenity:IV",
+"title": "A City in Serenity",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+12.3,
+12.0
+]
+},
+{
+"chartId": "psalms:IV",
+"title": "Psalms ∽魂の還るばしょ∽",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+11.3,
+11.2
+]
+},
+{
+"chartId": "steadfast:IV",
+"title": "Steadfast",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+12.8,
+13.0
+]
+},
+{
+"chartId": "xenith:IV",
+"title": "Xenith",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "ando-jrpg:IV",
+"title": "Gladius Tenebris",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "hyun-jrpg:IV",
+"title": "Eclipse",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+14.2,
+14.2
+]
+},
+{
+"chartId": "vs-treamer:IV",
+"title": "vs.TREAMEЯ",
+"difficulty": "IV",
+"addedVersion": "2.7.0",
+"values": [
+null,
+null,
+null,
+13.6,
+13.6
+]
+},
+{
+"chartId": "laboratory-018:IV",
+"title": "Laboratory-018",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+12.2,
+12.2
+]
+},
+{
+"chartId": "aleph-0:IV",
+"title": "Aleph-0",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+12.4,
+12.8
+]
+},
+{
+"chartId": "brain-power:IV",
+"title": "Brain Power",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.3
+]
+},
+{
+"chartId": "muen:IV",
+"title": "夢厭 con eleganza",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.5
+]
+},
+{
+"chartId": "stage-5:IV",
+"title": "Stage 5",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+12.9,
+13.1
+]
+},
+{
+"chartId": "take:IV",
+"title": "竹",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.9
+]
+},
+{
+"chartId": "dextroy:IV",
+"title": "Dextroy",
+"difficulty": "IV",
+"addedVersion": "2.8.0",
+"values": [
+null,
+null,
+null,
+13.2,
+13.4
+]
+},
+{
+"chartId": "rocket-lanterns:IV",
+"title": "Rocket Lanterns",
+"difficulty": "IV",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+12.3,
+12.5
+]
+},
+{
+"chartId": "hoshizora-toraberu:IV",
+"title": "ほしぞらトラベル",
+"difficulty": "IV",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+12.5,
+12.6
+]
+},
+{
+"chartId": "nyarlathotep:IV",
+"title": "^/7(L|?[_(L+#<>+&|^(o)",
+"difficulty": "IV",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+12.9,
+13.3
+]
+},
+{
+"chartId": "rain:IV",
+"title": "Rain",
+"difficulty": "IV",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+13.2,
+13.2
+]
+},
+{
+"chartId": "the-endless-for-traveler:IV",
+"title": "The Endless for Traveler",
+"difficulty": "IV",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "emulisy:IV",
+"title": "Emulisy",
+"difficulty": "IV",
+"addedVersion": "2.9.0",
+"values": [
+null,
+null,
+null,
+14.1,
+14.2
+]
+},
+{
+"chartId": "sword-of-convallaria:IV",
+"title": "Sword of Convallaria",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+11.1,
+11.0
+]
+},
+{
+"chartId": "harmonic-evasion-101:IV",
+"title": "HARMONIC EVASION 101",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+12.9,
+12.9
+]
+},
+{
+"chartId": "add-venturers:IV",
+"title": "add+venturers!",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+12.4,
+12.3
+]
+},
+{
+"chartId": "call-my-number:IV",
+"title": "Call My Number",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.5
+]
+},
+{
+"chartId": "all-nighter:IV",
+"title": "ALL☆NIGHTER！",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.8
+]
+},
+{
+"chartId": "ninja-ish:IV",
+"title": "NINJA-ish",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+11.8,
+11.5
+]
+},
+{
+"chartId": "starstream-sky-dash:IV",
+"title": "Starstream Sky Dash",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "way-home:IV",
+"title": "way home",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "broomstick-adventure:IV",
+"title": "Broomstick adventure!",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.0,
+12.8
+]
+},
+{
+"chartId": "bounce-the-tech:IV",
+"title": "BOUNCE THE TECH",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.2,
+13.3
+]
+},
+{
+"chartId": "from-zero:IV",
+"title": "From Zero feat. 利香",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+12.6,
+12.8
+]
+},
+{
+"chartId": "wildcard:IV",
+"title": "WILDCARD",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+12.5,
+11.3
+]
+},
+{
+"chartId": "monitoring:IV",
+"title": "モニタリング",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.2,
+13.2
+]
+},
+{
+"chartId": "rokutyounen:IV",
+"title": "六兆年と一夜物語",
+"difficulty": "IV",
+"addedVersion": "2.10.0",
+"values": [
+null,
+null,
+null,
+13.3,
+13.2
+]
+},
+{
+"chartId": "moonlight-fragrance:IV",
+"title": "Moonlight Fragrance",
+"difficulty": "IV",
+"addedVersion": "2.11.0",
+"values": [
+null,
+null,
+null,
+11.7,
+11.7
+]
+},
+{
+"chartId": "ameni-inoriwo:IV",
+"title": "雨に祈りを",
+"difficulty": "IV",
+"addedVersion": "2.11.0",
+"values": [
+null,
+null,
+null,
+11.8,
+11.6
+]
+},
+{
+"chartId": "blue-ixia:IV",
+"title": "Blue ixia",
+"difficulty": "IV",
+"addedVersion": "2.11.0",
+"values": [
+null,
+null,
+null,
+12.6,
+12.8
+]
+},
+{
+"chartId": "kokoro-odoro:IV",
+"title": "Kokoro Odoro",
+"difficulty": "IV",
+"addedVersion": "2.11.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.0
+]
+},
+{
+"chartId": "indelible-yore:IV",
+"title": "Indelible Yore",
+"difficulty": "IV",
+"addedVersion": "2.11.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "antikythera:IV",
+"title": "Antikythera",
+"difficulty": "IV",
+"addedVersion": "2.11.0",
+"values": [
+null,
+null,
+null,
+14.1,
+14.1
+]
+},
+{
+"chartId": "smile-miles:IV",
+"title": "Smile-mileS",
+"difficulty": "IV",
+"addedVersion": "2.12.0",
+"values": [
+null,
+null,
+null,
+12.7,
+12.6
+]
+},
+{
+"chartId": "cthugha:IV",
+"title": "Cthugha",
+"difficulty": "IV",
+"addedVersion": "2.12.0",
+"values": [
+null,
+null,
+null,
+12.9,
+12.9
+]
+},
+{
+"chartId": "tsuyo-tsuyo-nasuburou-chan:IV",
+"title": "つよつよナースブロウちゃん！",
+"difficulty": "IV",
+"addedVersion": "2.12.0",
+"values": [
+null,
+null,
+null,
+12.6,
+9.1
+]
+},
+{
+"chartId": "tianlingling:IV",
+"title": "天灵灵地灵灵",
+"difficulty": "IV",
+"addedVersion": "2.12.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.3
+]
+},
+{
+"chartId": "heartache:IV",
+"title": "Heartache",
+"difficulty": "IV",
+"addedVersion": "2.12.0",
+"values": [
+null,
+null,
+null,
+13.9,
+13.7
+]
+},
+{
+"chartId": "ruby-linte:IV",
+"title": "ЯUBY:LINTe",
+"difficulty": "IV",
+"addedVersion": "2.12.0",
+"values": [
+null,
+null,
+null,
+14.2,
+14.2
+]
+},
+{
+"chartId": "sakura-rain:IV",
+"title": "Sakura rain",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+11.9,
+12.3
+]
+},
+{
+"chartId": "crossroads-of-the-brave:IV",
+"title": "Crossroads of the Brave",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+13.5,
+13.5
+]
+},
+{
+"chartId": "ture:IV",
+"title": "True",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+12.7,
+9.0
+]
+},
+{
+"chartId": "may:IV",
+"title": "May",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "energy-synergy-matrix:IV",
+"title": "ENERGY SYNERGY MATRIX",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+13.3,
+13.4
+]
+},
+{
+"chartId": "ultra-synergy-matrix:IV",
+"title": "ULTRA SYNERGY MATRIX",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+13.5,
+13.4
+]
+},
+{
+"chartId": "quattuorux:IV",
+"title": "QUATTUORUX",
+"difficulty": "IV",
+"addedVersion": "2.12.1",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "mirror:IV",
+"title": "Mirror",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.8
+]
+},
+{
+"chartId": "slide-down:IV",
+"title": "Slide Down",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.4,
+12.0
+]
+},
+{
+"chartId": "summer-time-memory:IV",
+"title": "Summer Time Memory",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.3,
+11.7
+]
+},
+{
+"chartId": "hushwave-symptoms:IV",
+"title": "缄色症候",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.2,
+12.2
+]
+},
+{
+"chartId": "windsurfer:IV",
+"title": "Windsurfer",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.9
+]
+},
+{
+"chartId": "rainy-day:IV",
+"title": "Rainy Day",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.4,
+12.5
+]
+},
+{
+"chartId": "beat-rise:IV",
+"title": "Beat Rise",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.9
+]
+},
+{
+"chartId": "mendokusai-modo:IV",
+"title": "めんどくさいモード",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "simulated:IV",
+"title": "Simulated feat. 澤村光彩 & Ichika Nito",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.2
+]
+},
+{
+"chartId": "vector:IV",
+"title": "VECTOЯ",
+"difficulty": "IV",
+"addedVersion": "2.13.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.5
+]
+},
+{
+"chartId": "orison:IV",
+"title": "Orison",
+"difficulty": "IV",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+13.3,
+13.3
+]
+},
+{
+"chartId": "binary:IV",
+"title": "βinαrΨ",
+"difficulty": "IV",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+12.9,
+13.1
+]
+},
+{
+"chartId": "cristalisia:IV",
+"title": "Cristalisia",
+"difficulty": "IV",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+11.6,
+11.6
+]
+},
+{
+"chartId": "hydra:IV",
+"title": "Hydra",
+"difficulty": "IV",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.8
+]
+},
+{
+"chartId": "hyouryu:IV",
+"title": "漂流",
+"difficulty": "IV",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.5
+]
+},
+{
+"chartId": "incyde:IV",
+"title": "Incyde",
+"difficulty": "IV",
+"addedVersion": "2.14.0",
+"values": [
+null,
+null,
+null,
+14.3,
+14.3
+]
+},
+{
+"chartId": "iza-mairimasu:IV",
+"title": "いざ、参ります",
+"difficulty": "IV",
+"addedVersion": "2.14.1",
+"values": [
+null,
+null,
+null,
+12.7,
+12.8
+]
+},
+{
+"chartId": "koki-chant:IV",
+"title": "Koki Chant",
+"difficulty": "IV",
+"addedVersion": "2.14.1",
+"values": [
+null,
+null,
+null,
+13.3,
+13.2
+]
+},
+{
+"chartId": "give-me-your-love:IV",
+"title": "Give (Me) Your Love",
+"difficulty": "IV",
+"addedVersion": "2.14.1",
+"values": [
+null,
+null,
+null,
+13.2,
+13.3
+]
+},
+{
+"chartId": "aventyr:IV",
+"title": "Äventyr",
+"difficulty": "IV",
+"addedVersion": "2.14.1",
+"values": [
+null,
+null,
+null,
+11.4,
+11.0
+]
+},
+{
+"chartId": "secret-illumination-aura-remix:IV",
+"title": "Secret Illumination (seatrus's \"The AURA\" Remix)",
+"difficulty": "IV",
+"addedVersion": "2.14.3",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "re-birth:IV",
+"title": "Re：birth",
+"difficulty": "IV",
+"addedVersion": "2.14.3",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "red-bullet:IV",
+"title": "Red Bullet feat.はらもりよしな",
+"difficulty": "IV",
+"addedVersion": "2.14.3",
+"values": [
+null,
+null,
+null,
+13.7,
+13.7
+]
+},
+{
+"chartId": "flutter-echo:IV",
+"title": "Flutter Echo",
+"difficulty": "IV",
+"addedVersion": "2.14.3",
+"values": [
+null,
+null,
+null,
+13.3,
+13.4
+]
+},
+{
+"chartId": "vertexion:IV",
+"title": "VERTEXION",
+"difficulty": "IV",
+"addedVersion": "2.15.0",
+"values": [
+null,
+null,
+null,
+12.9,
+13.0
+]
+},
+{
+"chartId": "nameless-missionary:IV",
+"title": "名無しの宣教師",
+"difficulty": "IV",
+"addedVersion": "2.15.0",
+"values": [
+null,
+null,
+null,
+12.6,
+12.6
+]
+},
+{
+"chartId": "go-escape:IV",
+"title": "Go Escape",
+"difficulty": "IV",
+"addedVersion": "2.15.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.2
+]
+},
+{
+"chartId": "fire-of-heart:IV",
+"title": "Fire Of Heart",
+"difficulty": "IV",
+"addedVersion": "2.15.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "slide-into-light:IV",
+"title": "Slide Into Light",
+"difficulty": "IV",
+"addedVersion": "2.15.0",
+"values": [
+null,
+null,
+null,
+13.6,
+13.6
+]
+},
+{
+"chartId": "stargazer:IV",
+"title": "STARGAZΞR",
+"difficulty": "IV",
+"addedVersion": "2.15.0",
+"values": [
+null,
+null,
+null,
+14.0,
+14.0
+]
+},
+{
+"chartId": "skyward-echo:IV",
+"title": "伊天珀凌",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.9
+]
+},
+{
+"chartId": "kai:IV",
+"title": "悔_",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+14.0,
+14.0
+]
+},
+{
+"chartId": "cosmic-voyage:IV",
+"title": "Cosmic Voyage",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.0
+]
+},
+{
+"chartId": "dispersion:IV",
+"title": "Dispersion",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.2,
+13.2
+]
+},
+{
+"chartId": "mirukiuei-o-tadotte:IV",
+"title": "ミルキーウェイを辿って",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+12.7,
+12.9
+]
+},
+{
+"chartId": "muten-shorai:IV",
+"title": "六天照來",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.9
+]
+},
+{
+"chartId": "inn3rflame:IV",
+"title": "INN3RFLAME",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.9,
+13.9
+]
+},
+{
+"chartId": "ephemeralization:IV",
+"title": "ephemeralization",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.7
+]
+},
+{
+"chartId": "name-of-oath:IV",
+"title": "Name of oath",
+"difficulty": "IV",
+"addedVersion": "2.16.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "party-before-hibernation:IV",
+"title": "Party Before Hibernation",
+"difficulty": "IV",
+"addedVersion": "2.17.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.1
+]
+},
+{
+"chartId": "hark-bloweth:IV",
+"title": "Hark! The wyntres wynd bloweth",
+"difficulty": "IV",
+"addedVersion": "2.17.0",
+"values": [
+null,
+null,
+null,
+12.6,
+12.6
+]
+},
+{
+"chartId": "snowblind:IV",
+"title": "Snowblind",
+"difficulty": "IV",
+"addedVersion": "2.17.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.7
+]
+},
+{
+"chartId": "snowbound-flight:IV",
+"title": "Snowbound Flight",
+"difficulty": "IV",
+"addedVersion": "2.17.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.7
+]
+},
+{
+"chartId": "eventide-rush:IV",
+"title": "Eventide Rush",
+"difficulty": "IV",
+"addedVersion": "2.17.0",
+"values": [
+null,
+null,
+null,
+13.5,
+13.6
+]
+},
+{
+"chartId": "dance-of-the-tiny-dreamer:IV",
+"title": "Dance of the Tiny Dreamer",
+"difficulty": "IV",
+"addedVersion": "2.17.0",
+"values": [
+null,
+null,
+null,
+14.2,
+14.2
+]
+},
+{
+"chartId": "ginevra:IV",
+"title": "Ginevra",
+"difficulty": "IV",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+12.1,
+12.2
+]
+},
+{
+"chartId": "ai-li-ke2000:IV",
+"title": "《爱立刻2000》",
+"difficulty": "IV",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+12.1,
+12.1
+]
+},
+{
+"chartId": "water-recreation:IV",
+"title": "Water Recreation",
+"difficulty": "IV",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.9
+]
+},
+{
+"chartId": "whence:IV",
+"title": "whence",
+"difficulty": "IV",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.5
+]
+},
+{
+"chartId": "look-at-me-forever:IV",
+"title": "!@@k at m[ f@r[\\[r",
+"difficulty": "IV",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+13.8,
+13.8
+]
+},
+{
+"chartId": "distant-call:IV",
+"title": "distant call",
+"difficulty": "IV",
+"addedVersion": "2.18.0",
+"values": [
+null,
+null,
+null,
+14.0,
+14.1
+]
+},
+{
+"chartId": "chunlian:IV",
+"title": "Chunlian",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+13.6,
+13.7
+]
+},
+{
+"chartId": "aria:IV",
+"title": "Aria",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+13.3,
+13.2
+]
+},
+{
+"chartId": "kouen:IV",
+"title": "紅煙",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.2
+]
+},
+{
+"chartId": "far-side-of-the-moon:IV",
+"title": "Far side of the moon",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+13.2,
+13.3
+]
+},
+{
+"chartId": "fusion-velocity:IV",
+"title": "fusion velocity",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "monochrome:IV",
+"title": "モノクロ・モノトリアムズ",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.7
+]
+},
+{
+"chartId": "akari-koushu:IV",
+"title": "灯紅酒緑オーバーナイト",
+"difficulty": "IV",
+"addedVersion": "2.19.0",
+"values": [
+null,
+null,
+null,
+14.3,
+14.2
+]
+},
+{
+"chartId": "kenka:IV",
+"title": "献花",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+12.6,
+12.6
+]
+},
+{
+"chartId": "ish:IV",
+"title": "-ish",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+13.0,
+13.0
+]
+},
+{
+"chartId": "yusui:IV",
+"title": "遊錘",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.8
+]
+},
+{
+"chartId": "meiseki-yume-nite:IV",
+"title": "明晰夢にて",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.5
+]
+},
+{
+"chartId": "forward-motion:IV",
+"title": "Forward Motion",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "weaver-wanderer:IV",
+"title": "Weaver & Wanderer",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+14.2,
+14.2
+]
+},
+{
+"chartId": "centimental:IV",
+"title": "[C]ENti:mentAL",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+12.7,
+12.6
+]
+},
+{
+"chartId": "cataclysm:IV",
+"title": "CATACLYSM",
+"difficulty": "IV",
+"addedVersion": "2.20.0",
+"values": [
+null,
+null,
+null,
+13.6,
+13.6
+]
+},
+{
+"chartId": "breaking-dawn:IV",
+"title": "Breaking Dawn feat. 棗いつき",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+13.3,
+13.3
+]
+},
+{
+"chartId": "ignite:IV",
+"title": "IGNITE",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.1
+]
+},
+{
+"chartId": "time-keeper:IV",
+"title": "Time Keeper",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.7
+]
+},
+{
+"chartId": "ieo:IV",
+"title": "INFiNiTE ENERZY -Overdoze-",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+12.9,
+12.9
+]
+},
+{
+"chartId": "eternal-ascent:IV",
+"title": "Eternal Ascent",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "hyp3rtribe:IV",
+"title": "HYP3RTRIBE",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+13.4,
+13.4
+]
+},
+{
+"chartId": "the-amazing-race:IV",
+"title": "The Amazing Race",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+13.7,
+13.7
+]
+},
+{
+"chartId": "xlix:IV",
+"title": "XLIX",
+"difficulty": "IV",
+"addedVersion": "2.21.0",
+"values": [
+null,
+null,
+null,
+14.2,
+14.2
+]
+},
+{
+"chartId": "yurusaretakunai-volta-remix:IV",
+"title": "許されたくない (VOLTA Remix)",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.1
+]
+},
+{
+"chartId": "yubikiri-genman-special:IV",
+"title": "YUBIKIRI-GENMAN -special edit-",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+10.6,
+11.6
+]
+},
+{
+"chartId": "a-turtles-heart:IV",
+"title": "A Turtle's Heart",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+11.6,
+11.7
+]
+},
+{
+"chartId": "world-execute-me:IV",
+"title": "world.execute(me);",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+12.6,
+12.6
+]
+},
+{
+"chartId": "space-colony:IV",
+"title": "Space Colony",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+12.8,
+12.8
+]
+},
+{
+"chartId": "rtrt:IV",
+"title": "RTRT",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+13.1,
+13.1
+]
+},
+{
+"chartId": "imagined-flight:IV",
+"title": "Imagined Flight",
+"difficulty": "IV",
+"addedVersion": "2.22.0",
+"values": [
+null,
+null,
+null,
+14.0,
+14.1
+]
+}
+]
+}

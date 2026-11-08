@@ -1,0 +1,15 @@
+{
+  "gameVersion": "2.27.0",
+  "theoreticalRating": 17.885,
+  "chartCount": 1746,
+  "songCount": 428,
+  "deletedCharts": 14,
+  "source": "Rotaeno 新时代Rating分析表 (Artis+)",
+  "historyEras": [
+    "v1.6.0前定数 截至2023/01/16",
+    "v2.0.0前定数 截至2024/05/30",
+    "v2.6.0前定数 截至2025/01/27",
+    "v2.23.0前定数，截至2026/05/30",
+    "现版本定数"
+  ]
+}
