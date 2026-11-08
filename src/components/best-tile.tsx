@@ -2,20 +2,28 @@
 
 import type { ChartResult } from "@/lib/core/types";
 import { fmtScore, grade } from "@/lib/format";
+import { defineDict, useT } from "@/lib/i18n";
 import { Jacket } from "./jacket";
 import { cx } from "./ui";
 import { useSongDialog } from "./song-dialog";
 
+const T = defineDict({
+  ko: { info: "{title} 곡 정보" },
+  ja: { info: "{title} の楽曲情報" },
+  zh: { info: "{title} 曲目信息" },
+});
+
 /** One chart as a jacket tile: art, difficulty frame, rank corner, score + rating on a scrim. */
 export function BestTile({ r, rank, eager, big, inert }: { r: ChartResult; rank?: number; eager?: boolean; big?: boolean; inert?: boolean }) {
   const open = useSongDialog();
+  const t = useT(T);
   const n = rank ?? r.rank;
   const c = r.chart;
   const lamp = r.apPlus ? null : r.lamp === "ap" ? "AP" : r.lamp === "fc" ? "FC" : null;
   return (
     <div
       className={cx(c.difficulty === "IV-α" ? "diff-IVa" : `diff-${c.difficulty}`, !inert && "group cursor-pointer")}
-      {...(inert ? {} : { role: "button", tabIndex: 0, "aria-label": `${c.title} 곡 정보`, onClick: () => open(c.songId), onKeyDown: (e: React.KeyboardEvent) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), open(c.songId)) })}
+      {...(inert ? {} : { role: "button", tabIndex: 0, "aria-label": t("info", { title: c.title }), onClick: () => open(c.songId), onKeyDown: (e: React.KeyboardEvent) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), open(c.songId)) })}
     >
       <div className="relative transition-transform duration-200 group-hover:-translate-y-0.5">
         <Jacket songId={c.songId} title={c.songTitle || c.title} difficulty={c.difficulty} rounded="rounded-[12px]" className="w-full" eager={eager} />

@@ -3,6 +3,40 @@ import { tierStyle } from "@/lib/tiers";
 import { RatingNumber, TierBadge } from "./rating";
 import { BestTile } from "./best-tile";
 import { OrbitGlyph } from "./ui";
+import { defineDict, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    avgValue: "{label} 평균 {v}",
+    completion: "완성도",
+    first: "1위",
+    avgTimes: "평균 × {w}",
+    share60: "레이팅의 60%",
+    share20: "20%",
+    distribution: "B40 레이팅 분포",
+    copyright: "자켓 이미지의 저작권은 각 권리자에게 있습니다.",
+  },
+  ja: {
+    avgValue: "{label} 平均 {v}",
+    completion: "完成度",
+    first: "1位",
+    avgTimes: "平均 × {w}",
+    share60: "レートの60%",
+    share20: "20%",
+    distribution: "B40 レート分布",
+    copyright: "ジャケット画像の著作権は各権利者に帰属します。",
+  },
+  zh: {
+    avgValue: "{label} 平均 {v}",
+    completion: "完成度",
+    first: "第1名",
+    avgTimes: "平均 × {w}",
+    share60: "占 Rating 的 60%",
+    share20: "20%",
+    distribution: "B40 Rating 分布",
+    copyright: "曲绘版权归各权利人所有。",
+  },
+});
 
 /** Orbit's rating = avg(B1–10)×0.6 + avg(B11–20)×0.2 + avg(B21–40)×0.2 (empty slots count as 0). */
 const GROUPS = [
@@ -23,6 +57,7 @@ function groups(best: ChartResult[]): Group[] {
 
 /** Bars for all 40 slots; each bracket gets its own dashed average segment. */
 function RatingChart({ best, gs }: { best: ChartResult[]; gs: Group[] }) {
+  const t = useT(T);
   const vals = best.map((b) => b.effective);
   const hi = Math.max(...vals);
   const lo = Math.min(...vals);
@@ -67,7 +102,7 @@ function RatingChart({ best, gs }: { best: ChartResult[]; gs: Group[] }) {
               <>
                 <line x1={x0 + 2} x2={x1 - 2} y1={Y(g.avg)} y2={Y(g.avg)} stroke="var(--ink)" strokeWidth="1.5" strokeDasharray="4 3" />
                 <text x={x0 + 2} y={Y(g.items[0].effective) - 7} fontSize="11" fontWeight="700" fill="var(--ink)">
-                  {g.label} 평균 {g.avg.toFixed(4)}
+                  {t("avgValue", { label: g.label, v: g.avg.toFixed(4) })}
                 </text>
               </>
             )}
@@ -97,6 +132,7 @@ export function ShareCard({
   version: string;
   date: string;
 }) {
+  const t = useT(T);
   const gs = groups(best);
   const apPlus = best.filter((b) => b.apPlus).length;
   return (
@@ -114,13 +150,13 @@ export function ShareCard({
           <div className="mt-3 text-[34px] font-bold leading-none tracking-tight">{name}</div>
           <div className="mt-3 flex gap-5 text-[13px] text-mist">
             <span>
-              완성도 <b className="num font-semibold text-ink">{(completion * 100).toFixed(2)}%</b>
+              {t("completion")} <b className="num font-semibold text-ink">{(completion * 100).toFixed(2)}%</b>
             </span>
             <span>
               B40 AP+ <b className="num font-semibold text-ink">{apPlus}</b>
             </span>
             <span>
-              1위 <b className="num font-semibold text-ink">{best[0]?.effective.toFixed(3) ?? "–"}</b>
+              {t("first")} <b className="num font-semibold text-ink">{best[0]?.effective.toFixed(3) ?? "–"}</b>
             </span>
           </div>
         </div>
@@ -139,7 +175,7 @@ export function ShareCard({
           <div key={g.key} className={i ? "border-l border-line px-5 py-3" : "px-5 py-3"}>
             <div className="flex items-baseline justify-between text-[12px] text-mist">
               <span>
-                <b className="font-semibold text-ink-2">{g.label}</b> 평균 × {g.w}
+                <b className="font-semibold text-ink-2">{g.label}</b> {t("avgTimes", { w: g.w })}
               </span>
               <span className="num">{g.avg.toFixed(4)}</span>
             </div>
@@ -154,7 +190,7 @@ export function ShareCard({
           <section key={g.key} className="relative mt-7">
             <h2 className="mb-3 flex items-baseline gap-2">
               <span className="text-[20px] font-bold">{g.label}</span>
-              <span className="text-[13px] text-mist">{g.key === "b10" ? "레이팅의 60%" : "20%"}</span>
+              <span className="text-[13px] text-mist">{g.key === "b10" ? t("share60") : t("share20")}</span>
             </h2>
             <div className="grid grid-cols-5 gap-x-3.5 gap-y-4">
               {g.items.map((r, i) => (
@@ -167,14 +203,14 @@ export function ShareCard({
 
       {/* distribution */}
       <section className="relative mt-8 rounded-2xl border border-line bg-paper/60 px-4 pb-2 pt-4">
-        <div className="mb-1 px-1 text-[14px] font-semibold">B40 레이팅 분포</div>
+        <div className="mb-1 px-1 text-[14px] font-semibold">{t("distribution")}</div>
         <RatingChart best={best} gs={gs} />
       </section>
 
       <footer className="relative mt-5 flex items-end justify-between text-[12px] text-mist">
         <div>
           <span className="font-semibold text-ink-2">orbit-rating.vercel.app</span>
-          <span className="ml-3">자켓 이미지의 저작권은 각 권리자에게 있습니다.</span>
+          <span className="ml-3">{t("copyright")}</span>
         </div>
         <span className="num">{date}</span>
       </footer>

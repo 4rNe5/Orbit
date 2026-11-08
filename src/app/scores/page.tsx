@@ -6,6 +6,79 @@ import { applyChartFilter, ChartFilterBar, useChartFilter } from "@/components/c
 import { ScoreRow } from "@/components/score-row";
 import { Button, Chip, Loading, PageHeader, Segmented } from "@/components/ui";
 import type { Lamp } from "@/lib/core/types";
+import { defineDict, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    title: "점수 입력",
+    lead: "점수를 입력하고 Enter를 누르면 저장되고 다음 칸으로 넘어갑니다. ",
+    saveAccount: "계정에 자동 저장됩니다.",
+    saveLocal: "로그인 전에는 이 기기에만 저장됩니다.",
+    reach: " 지금은 정수 {c} 이상만 B40에 들어갈 수 있습니다.",
+    onlyReachable: "B40 진입 가능만",
+    status: "입력 상태",
+    all: "전체",
+    played: "입력함",
+    unplayed: "미입력",
+    sort: "정렬",
+    byConstant: "정수순",
+    byRating: "레이팅순",
+    byVersion: "최신곡순",
+    byDefault: "게임 순서",
+    count: "{n}개 채보",
+    colChart: "채보",
+    colScore: "점수",
+    colLamp: "램프",
+    colRating: "레이팅",
+    more: "{n}개 더 보기",
+  },
+  ja: {
+    title: "スコア入力",
+    lead: "スコアを入力して Enter を押すと保存され、次の欄に移動します。",
+    saveAccount: "アカウントに自動保存されます。",
+    saveLocal: "ログインするまではこの端末にのみ保存されます。",
+    reach: "現在は定数 {c} 以上の譜面のみ B40 に入れます。",
+    onlyReachable: "B40 入り可能のみ",
+    status: "入力状態",
+    all: "すべて",
+    played: "入力済み",
+    unplayed: "未入力",
+    sort: "並び替え",
+    byConstant: "定数順",
+    byRating: "レート順",
+    byVersion: "新曲順",
+    byDefault: "ゲーム内順",
+    count: "{n}譜面",
+    colChart: "譜面",
+    colScore: "スコア",
+    colLamp: "ランプ",
+    colRating: "レート",
+    more: "さらに {n} 件表示",
+  },
+  zh: {
+    title: "录入分数",
+    lead: "输入分数后按 Enter 即可保存并跳到下一栏。",
+    saveAccount: "将自动保存到账号。",
+    saveLocal: "登录前仅保存在本设备上。",
+    reach: "目前只有定数 {c} 以上的谱面能进入 B40。",
+    onlyReachable: "仅显示可进 B40",
+    status: "录入状态",
+    all: "全部",
+    played: "已录入",
+    unplayed: "未填写",
+    sort: "排序",
+    byConstant: "按定数",
+    byRating: "按 Rating",
+    byVersion: "按新曲",
+    byDefault: "游戏内顺序",
+    count: "{n} 个谱面",
+    colChart: "谱面",
+    colScore: "分数",
+    colLamp: "达成状态",
+    colRating: "Rating",
+    more: "再显示 {n} 个",
+  },
+});
 
 type Sort = "constant" | "rating" | "default" | "version";
 type Status = "all" | "played" | "unplayed";
@@ -17,6 +90,7 @@ export default function ScoresPage() {
   const [status, setStatus] = useState<Status>("all");
   const [onlyReachable, setOnlyReachable] = useState(false);
   const [limit, setLimit] = useState(80);
+  const t = useT(T);
 
   const onScore = useCallback((id: string, score: number | null) => setScoreValue(id, score), [setScoreValue]);
   const onLamp = useCallback((id: string, lamp: Lamp) => setLamp(id, lamp), [setLamp]);
@@ -46,11 +120,12 @@ export default function ScoresPage() {
   return (
     <div>
       <PageHeader
-        title="점수 입력"
+        title={t("title")}
         lead={
           <>
-            점수를 입력하고 Enter를 누르면 저장되고 다음 칸으로 넘어갑니다. {session ? "계정에 자동 저장됩니다." : "로그인 전에는 이 기기에만 저장됩니다."}
-            {minC !== null && <> 지금은 정수 {minC.toFixed(1)} 이상만 B40에 들어갈 수 있습니다.</>}
+            {t("lead")}
+            {session ? t("saveAccount") : t("saveLocal")}
+            {minC !== null && t("reach", { c: minC.toFixed(1) })}
           </>
         }
       />
@@ -65,7 +140,7 @@ export default function ScoresPage() {
         extra={
           minC !== null && (
             <Chip active={onlyReachable} onClick={() => setOnlyReachable((v) => !v)}>
-              B40 진입 가능만
+              {t("onlyReachable")}
             </Chip>
           )
         }
@@ -73,35 +148,35 @@ export default function ScoresPage() {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <Segmented<Status>
-          label="입력 상태"
+          label={t("status")}
           value={status}
           onChange={setStatus}
           options={[
-            { value: "all", label: "전체" },
-            { value: "played", label: "입력함" },
-            { value: "unplayed", label: "미입력" },
+            { value: "all", label: t("all") },
+            { value: "played", label: t("played") },
+            { value: "unplayed", label: t("unplayed") },
           ]}
         />
         <Segmented<Sort>
-          label="정렬"
+          label={t("sort")}
           value={sort}
           onChange={setSort}
           options={[
-            { value: "constant", label: "정수순" },
-            { value: "rating", label: "레이팅순" },
-            { value: "version", label: "최신곡순" },
-            { value: "default", label: "게임 순서" },
+            { value: "constant", label: t("byConstant") },
+            { value: "rating", label: t("byRating") },
+            { value: "version", label: t("byVersion") },
+            { value: "default", label: t("byDefault") },
           ]}
         />
       </div>
 
-      <p className="mt-4 text-[13px] text-mist">{list.length.toLocaleString()}개 채보</p>
+      <p className="mt-4 text-[13px] text-mist">{t("count", { n: list.length.toLocaleString() })}</p>
       <ul className="mt-2 divide-y divide-line overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper">
         <li className="hidden grid-cols-[minmax(0,1fr)_150px_96px_92px] gap-x-3 px-4 py-2 text-[12px] text-mist sm:grid">
-          <span>채보</span>
-          <span className="text-right">점수</span>
-          <span className="text-center">램프</span>
-          <span className="text-right">레이팅</span>
+          <span>{t("colChart")}</span>
+          <span className="text-right">{t("colScore")}</span>
+          <span className="text-center">{t("colLamp")}</span>
+          <span className="text-right">{t("colRating")}</span>
         </li>
         {list.slice(0, limit).map((c) => {
           const r = analysis.byId[c.id];
@@ -124,7 +199,7 @@ export default function ScoresPage() {
       </ul>
       {list.length > limit && (
         <div className="mt-4 flex justify-center">
-          <Button onClick={() => setLimit((l) => l + 200)}>{Math.min(200, list.length - limit)}개 더 보기</Button>
+          <Button onClick={() => setLimit((l) => l + 200)}>{t("more", { n: Math.min(200, list.length - limit) })}</Button>
         </div>
       )}
     </div>

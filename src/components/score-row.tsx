@@ -7,6 +7,40 @@ import { Jacket } from "./jacket";
 import { cx, DiffMark } from "./ui";
 import { SongButton } from "./song-dialog";
 import { packName } from "@/lib/packs";
+import { defineDict, useLocale, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    deleted: "삭제곡",
+    scoreOf: "{title} {diff} 점수",
+    score: "점수",
+    range: "0–1,010,000 사이로 입력",
+    lamp: "클리어 램프",
+    empty: "미입력",
+    alphaHigher: "IV-α가 더 높음",
+    ivHigher: "IV가 더 높음",
+  },
+  ja: {
+    deleted: "削除曲",
+    scoreOf: "{title} {diff} スコア",
+    score: "スコア",
+    range: "0–1,010,000 の範囲で入力",
+    lamp: "クリアランプ",
+    empty: "未入力",
+    alphaHigher: "IV-α の方が高い",
+    ivHigher: "IV の方が高い",
+  },
+  zh: {
+    deleted: "已删除曲目",
+    scoreOf: "{title} {diff} 分数",
+    score: "分数",
+    range: "请输入 0–1,010,000",
+    lamp: "达成状态",
+    empty: "未填写",
+    alphaHigher: "IV-α 更高",
+    ivHigher: "IV 更高",
+  },
+});
 
 export interface ScoreRowProps {
   chart: Chart;
@@ -22,6 +56,8 @@ export interface ScoreRowProps {
 }
 
 function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, onScore, onLamp, readOnly }: ScoreRowProps) {
+  const t = useT(T);
+  const locale = useLocale();
   const [draft, setDraft] = useState(score === null ? "" : String(score));
   const [invalid, setInvalid] = useState(false);
   const [seen, setSeen] = useState(score);
@@ -57,12 +93,12 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
           <div className="flex items-center gap-2">
             <DiffMark d={chart.difficulty} constant={chart.constant} />
             {inBest && <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{rank}</span>}
-            {chart.deleted && <span className="text-[11px] text-mist">삭제곡</span>}
+            {chart.deleted && <span className="text-[11px] text-mist">{t("deleted")}</span>}
           </div>
           <div className="mt-0.5 truncate text-[14px] font-medium group-hover:text-accent" title={chart.title}>
             {chart.title}
           </div>
-          <div className="truncate text-[12px] text-mist">{packName(chart.pack)}</div>
+          <div className="truncate text-[12px] text-mist">{packName(chart.pack, locale)}</div>
         </div>
       </SongButton>
 
@@ -72,9 +108,9 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
         ) : (
           <input
             inputMode="numeric"
-            aria-label={`${chart.title} ${chart.difficulty} 점수`}
+            aria-label={t("scoreOf", { title: chart.title, diff: chart.difficulty })}
             aria-invalid={invalid}
-            placeholder="점수"
+            placeholder={t("score")}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onBlur={commit}
@@ -94,10 +130,10 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
             )}
           />
         )}
-        {invalid && <span className="text-[11px] text-danger">0–1,010,000 사이로 입력</span>}
+        {invalid && <span className="text-[11px] text-danger">{t("range")}</span>}
       </div>
 
-      <div className="flex items-center gap-1 sm:justify-center" role="group" aria-label="클리어 램프">
+      <div className="flex items-center gap-1 sm:justify-center" role="group" aria-label={t("lamp")}>
         {apPlus ? (
           <span className="ap-bg rounded-full px-2.5 py-1 text-[11px] font-bold">AP+</span>
         ) : (
@@ -120,11 +156,11 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
 
       <div className="text-right">
         {score === null ? (
-          <span className="text-[12px] text-mist">미입력</span>
+          <span className="text-[12px] text-mist">{t("empty")}</span>
         ) : (
           <>
             <div className={cx("num text-[15px] font-semibold", excluded && "text-mist line-through decoration-1")}>{rating.toFixed(4)}</div>
-            <div className="text-[11px] text-mist">{excluded ? (chart.difficulty === "IV" ? "IV-α가 더 높음" : "IV가 더 높음") : grade(score)}</div>
+            <div className="text-[11px] text-mist">{excluded ? (chart.difficulty === "IV" ? t("alphaHigher") : t("ivHigher")) : grade(score)}</div>
           </>
         )}
       </div>

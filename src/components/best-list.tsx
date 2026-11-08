@@ -3,6 +3,13 @@
 import type { ChartResult } from "@/lib/core/types";
 import { diffClass, fmtScore } from "@/lib/format";
 import { cx, LampBadge } from "./ui";
+import { defineDict, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: { share60: "레이팅의 60%", share20: "20%" },
+  ja: { share60: "レートの60%", share20: "20%" },
+  zh: { share60: "占 Rating 的 60%", share20: "20%" },
+});
 
 function Row({ r, big, className }: { r: ChartResult; big?: boolean; className?: string }) {
   return (
@@ -28,10 +35,11 @@ function Row({ r, big, className }: { r: ChartResult; big?: boolean; className?:
 }
 
 export function BestList({ best }: { best: ChartResult[] }) {
+  const t = useT(T);
   const groups = [
-    { title: "B1–10", sub: "레이팅의 60%", items: best.slice(0, 10), big: true },
-    { title: "B11–20", sub: "20%", items: best.slice(10, 20) },
-    { title: "B21–40", sub: "20%", items: best.slice(20, 40) },
+    { title: "B1–10", sub: t("share60"), items: best.slice(0, 10), big: true },
+    { title: "B11–20", sub: t("share20"), items: best.slice(10, 20) },
+    { title: "B21–40", sub: t("share20"), items: best.slice(20, 40) },
   ];
   return (
     <div className="flex flex-col gap-6">

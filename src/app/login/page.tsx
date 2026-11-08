@@ -2,11 +2,44 @@
 
 import { useState } from "react";
 import { useApp } from "@/components/app-provider";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { OrbitGlyph, Panel } from "@/components/ui";
+import { defineDict, useT } from "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
+
+const T = defineDict({
+  ko: {
+    startFailed: "로그인을 시작하지 못했습니다. {msg}",
+    signedInAs: "{name}님, 로그인되어 있습니다",
+    traveller: "트래블러",
+    title: "로그인",
+    lead: "로그인하면 점수가 계정에 저장되어 어느 기기에서든 이어서 볼 수 있습니다. 로그인 전에 이 기기에 입력한 점수는 로그인할 때 계정으로 옮겨집니다.",
+    redirecting: "Google로 이동하는 중",
+    continueGoogle: "Google로 계속하기",
+  },
+  ja: {
+    startFailed: "ログインを開始できませんでした。{msg}",
+    signedInAs: "{name}さん、ログイン済みです",
+    traveller: "トラベラー",
+    title: "ログイン",
+    lead: "ログインするとスコアがアカウントに保存され、どの端末からでも続きを見られます。ログイン前にこの端末で入力したスコアは、ログイン時にアカウントへ移行されます。",
+    redirecting: "Google に移動中",
+    continueGoogle: "Google で続ける",
+  },
+  zh: {
+    startFailed: "无法开始登录。{msg}",
+    signedInAs: "{name}，你已登录",
+    traveller: "旅行者",
+    title: "登录",
+    lead: "登录后分数会保存到账号，在任何设备上都能继续查看。登录前在此设备上录入的分数，会在登录时转移到账号中。",
+    redirecting: "正在跳转到 Google",
+    continueGoogle: "使用 Google 继续",
+  },
+});
 
 export default function LoginPage() {
   const { session, profile } = useApp();
+  const t = useT(T);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,7 +51,7 @@ export default function LoginPage() {
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
     if (error) {
-      setError(`로그인을 시작하지 못했습니다. ${error.message}`);
+      setError(t("startFailed", { msg: error.message }));
       setBusy(false);
     }
   };
@@ -26,13 +59,14 @@ export default function LoginPage() {
   return (
     <div className="mx-auto max-w-md pt-6">
       <Panel className="p-6 sm:p-8">
-        <OrbitGlyph size={40} />
+        <div className="flex items-center justify-between gap-3">
+          <OrbitGlyph size={40} />
+          <LanguageSwitcher variant="inline" />
+        </div>
         <h1 className="mt-4 font-display text-[26px] font-semibold tracking-[-0.02em]">
-          {session ? `${profile?.display_name || "트래블러"}님, 로그인되어 있습니다` : "로그인"}
+          {session ? t("signedInAs", { name: profile?.display_name || t("traveller") }) : t("title")}
         </h1>
-        <p className="mt-2 text-[14px] leading-relaxed text-mist">
-          로그인하면 점수가 계정에 저장되어 어느 기기에서든 이어서 볼 수 있습니다. 로그인 전에 이 기기에 입력한 점수는 로그인할 때 계정으로 옮겨집니다.
-        </p>
+        <p className="mt-2 text-[14px] leading-relaxed text-mist">{t("lead")}</p>
         {!session && (
           <button
             onClick={signIn}
@@ -45,7 +79,7 @@ export default function LoginPage() {
               <path fill="#FBBC05" d="M5.7 14c-.2-.7-.4-1.3-.4-2s.1-1.4.4-2V7.1H2A11 11 0 0 0 1 12c0 1.8.4 3.5 1.2 4.9L5.7 14Z" />
               <path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2 7.1L5.7 10c.9-2.7 3.4-4.6 6.3-4.6Z" />
             </svg>
-            {busy ? "Google로 이동하는 중" : "Google로 계속하기"}
+            {busy ? t("redirecting") : t("continueGoogle")}
           </button>
         )}
         {error && <p className="mt-4 text-[13px] text-danger">{error}</p>}

@@ -4,6 +4,13 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import type { Difficulty, Lamp } from "@/lib/core/types";
 import { diffClass } from "@/lib/format";
+import { defineDict, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: { loading: "불러오는 중" },
+  ja: { loading: "読み込み中" },
+  zh: { loading: "加载中" },
+});
 
 export function cx(...v: (string | false | null | undefined)[]) {
   return v.filter(Boolean).join(" ");
@@ -164,14 +171,15 @@ export function Empty({ title, children, action }: { title: string; children?: R
   );
 }
 
-export function Loading({ label = "불러오는 중" }: { label?: string }) {
+export function Loading({ label }: { label?: string }) {
+  const t = useT(T);
   return (
     <div className="flex items-center gap-3 py-16 text-sm text-mist" role="status">
       <svg width="20" height="20" viewBox="0 0 20 20" className="animate-spin motion-reduce:animate-none" aria-hidden>
         <circle cx="10" cy="10" r="7.5" fill="none" stroke="var(--line)" strokeWidth="2.5" />
         <path d="M10 2.5 A7.5 7.5 0 0 1 17.5 10" fill="none" stroke="var(--orbit)" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
-      {label}
+      {label ?? t("loading")}
     </div>
   );
 }

@@ -12,6 +12,34 @@ import { analyze } from "@/lib/core/rating";
 import type { Lamp, ScoreMap } from "@/lib/core/types";
 import { fmtPercent } from "@/lib/format";
 import { selectAll, supabase } from "@/lib/supabase";
+import { defineDict, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    notFoundTitle: "프로필을 찾을 수 없습니다",
+    notFoundBody: "주소가 맞는지, 그 트래블러가 프로필을 공개했는지 확인해 주세요.",
+    private: "비공개",
+    played: "입력한 채보",
+    apCount: "{n}개",
+    completion: "완성도",
+  },
+  ja: {
+    notFoundTitle: "プロフィールが見つかりません",
+    notFoundBody: "URLが正しいか、そのトラベラーがプロフィールを公開しているかを確認してください。",
+    private: "非公開",
+    played: "入力した譜面",
+    apCount: "{n}曲",
+    completion: "完成度",
+  },
+  zh: {
+    notFoundTitle: "找不到该主页",
+    notFoundBody: "请确认地址是否正确，以及该旅行者是否已公开主页。",
+    private: "未公开",
+    played: "已填写谱面",
+    apCount: "{n} 首",
+    completion: "完成度",
+  },
+});
 
 interface PublicProfile {
   user_id: string;
@@ -26,6 +54,7 @@ export function PublicProfile() {
   const { index, ready } = useApp();
   const [profile, setProfile] = useState<PublicProfile | null | undefined>(undefined);
   const [scores, setScores] = useState<ScoreMap | null>(null);
+  const t = useT(T);
 
   useEffect(() => {
     (async () => {
@@ -49,7 +78,7 @@ export function PublicProfile() {
   const completion = useMemo(() => (index && scores ? analyzeCompletion(index, scores) : null), [index, scores]);
 
   if (profile === null)
-    return <Empty title="프로필을 찾을 수 없습니다">주소가 맞는지, 그 트래블러가 프로필을 공개했는지 확인해 주세요.</Empty>;
+    return <Empty title={t("notFoundTitle")}>{t("notFoundBody")}</Empty>;
   if (!ready || !profile || !analysis || !completion) return <Loading />;
 
   return (
@@ -60,7 +89,7 @@ export function PublicProfile() {
           <div className="min-w-0">
             <div className="text-[14px] text-mist">
               {profile.display_name || profile.handle} · @{profile.handle}
-              {!profile.is_public && " · 비공개"}
+              {!profile.is_public && ` · ${t("private")}`}
             </div>
             <div className="mt-1 flex items-end gap-3">
               {analysis.played ? (
@@ -74,9 +103,9 @@ export function PublicProfile() {
             </div>
           </div>
           <div className="flex gap-6">
-            <Stat label="입력한 채보" value={analysis.played.toLocaleString()} />
-            <Stat label="B40 AP+" value={`${analysis.apPlusInBest}개`} />
-            {profile.show_completion && <Stat label="완성도" value={fmtPercent(completion.percent)} />}
+            <Stat label={t("played")} value={analysis.played.toLocaleString()} />
+            <Stat label="B40 AP+" value={t("apCount", { n: analysis.apPlusInBest })} />
+            {profile.show_completion && <Stat label={t("completion")} value={fmtPercent(completion.percent)} />}
           </div>
         </div>
       </section>
