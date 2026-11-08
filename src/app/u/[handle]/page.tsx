@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: PageProps<"/u/[handle]">): Pr
   const s = await publicSummary(decodeURIComponent(handle)).catch(() => null);
   if (!s) return { title: `@${decodeURIComponent(handle)}` };
   const title = `${s.name} (@${s.handle})`;
-  const description = `Rotaeno 레이팅 ${s.rating.toFixed(3)} · 입력한 채보 ${s.played.toLocaleString()} · B40 AP+ ${s.apPlus}`;
+  const description = `Rotaeno Rating ${s.rating.toFixed(3)} · ${s.played.toLocaleString()} charts · B40 AP+ ${s.apPlus}`;
   return { title, description, openGraph: { title: `${title} | Orbit Rating`, description }, twitter: { card: "summary_large_image" } };
 }
 

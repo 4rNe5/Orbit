@@ -10,7 +10,7 @@ const plex = IBM_Plex_Sans_KR({ variable: "--font-plex", subsets: ["latin"], wei
 
 export const metadata: Metadata = {
   title: { default: "Orbit Rating", template: "%s | Orbit Rating" },
-  description: "Rotaeno 레이팅·B40·대상곡·완성도 분석",
+  description: "Rotaeno 레이팅·B40·대상곡 분석 · Rotaeno レート・B40分析 · Rotaeno Rating·B40 分析",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://orbit-rating.vercel.app"),
   applicationName: "Orbit Rating",
   appleWebApp: { capable: true, title: "Orbit", statusBarStyle: "black-translucent" },

@@ -208,7 +208,7 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
     ...(session ? [] : [{ href: "/login", key: "login" as K }]),
   ];
   return (
-    <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal aria-label={t("more")}>
+    <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal aria-label={t("more")}>
       <button className="absolute inset-0 bg-ink/30" aria-label={t("close")} onClick={onClose} />
       <div className="absolute inset-x-0 bottom-0 rounded-t-[20px] border-t border-line bg-paper px-4 pb-[calc(env(safe-area-inset-bottom)+16px)] pt-3">
         <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line-strong" />
@@ -228,7 +228,7 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
 function DesktopNav({ path }: { path: string | null }) {
   const t = useT(T);
   return (
-    <nav className="hidden flex-1 items-center gap-0.5 md:flex" aria-label={t("mainNav")}>
+    <nav className="hidden flex-1 items-center gap-0.5 lg:flex" aria-label={t("mainNav")}>
       {MAIN.map((m) => {
         const on = path !== null && isActive(path, m.href);
         return (
@@ -300,25 +300,25 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4">
           <Link href="/" className="flex items-center gap-2 text-ink" aria-label={t("homeLabel")}>
             <OrbitGlyph />
-            <span className="font-display text-[17px] font-semibold tracking-[-0.02em]">Orbit Rating</span>
+            <span className="whitespace-nowrap font-display text-[17px] font-semibold tracking-[-0.02em]">Orbit Rating</span>
           </Link>
           <Suspense fallback={<DesktopNav path={null} />}>
             <DesktopNavLive />
           </Suspense>
-          <div className="ml-auto flex items-center gap-1 md:ml-0">
+          <div className="ml-auto flex items-center gap-1 lg:ml-0">
             <LanguageMenu />
             <AccountMenu />
           </div>
         </div>
       </header>
 
-      <main id="main" className="mx-auto max-w-6xl px-4 pb-28 pt-6 md:pb-16 md:pt-10">
+      <main id="main" className="mx-auto max-w-6xl px-4 pb-28 pt-6 md:pt-10 lg:pb-16">
         {syncError && <div className="mb-6 rounded-[12px] border border-danger/40 bg-paper p-4 text-sm text-danger">{syncError}</div>}
         {error ? <div className="rounded-[12px] border border-danger/40 bg-paper p-4 text-sm text-danger">{error}</div> : children}
       </main>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
         aria-label={t("bottomNav")}
       >
         <div className="grid grid-cols-5">
@@ -334,7 +334,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       {more && <MoreSheet onClose={() => setMore(false)} />}
       <GoogleOneTap />
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-20 z-50 flex flex-col items-center gap-2 px-4 md:bottom-6" aria-live="polite">
+      <div className="pointer-events-none fixed inset-x-0 bottom-20 z-50 flex flex-col items-center gap-2 px-4 lg:bottom-6" aria-live="polite">
         {toasts.map((t) => (
           <div
             key={t.id}
