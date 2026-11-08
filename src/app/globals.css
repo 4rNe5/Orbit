@@ -2,34 +2,38 @@
 
 /*
   Orbit Rating — visual language
-  Grounded in the game's result screen: jacket art carries the colour, difficulty
-  hues frame it, and one cyan→violet gradient marks the rating and nothing else.
-  Dark is the home turf (rhythm games live at night); light stays crisp, not pale.
+  Difficulty hues are the game's own (I green, II blue, III orange, IV purple,
+  IV-α lavender). Everything else stays out of their way: a near-black violet
+  base like the song select, rose + gold (the AP diamond) for the rating and
+  key marks, cyan for full combo.
 */
 :root {
-  --bg: #eef1f7;
-  --bg-2: #e7ebf4;
+  --bg: #f3f1f6;
+  --bg-2: #ebe8f0;
   --paper: #ffffff;
-  --paper-2: #f6f8fc;
-  --ink: #131a2b;
-  --ink-2: #39435c;
-  --mist: #69748d;
-  --line: #dde3ee;
-  --line-2: #c5cedd;
+  --paper-2: #f8f6fa;
+  --ink: #19141f;
+  --ink-2: #463e52;
+  --mist: #766d84;
+  --line: #e3dfe9;
+  --line-2: #cbc4d6;
 
-  --accent: #0ea5b7;
-  --accent-2: #6a5cff;
+  --accent: #e0306f;
+  --accent-2: #d48a00;
   --accent-ink: #ffffff;
-  --accent-soft: #e3f6f8;
+  --accent-soft: #fce4ec;
 
-  --d1: #2bb673;
-  --d2: #2f8fe6;
-  --d3: #e2912a;
-  --d4: #e23d6b;
-  --d5: #7a5cff;
+  --d1: #14a83b;
+  --d2: #0a6fe0;
+  --d3: #e57300;
+  --d4: #9442f0;
+  --d5: #ad7ee8;
 
-  --good: #1f9d6a;
-  --warn: #d6404f;
+  --fc: #0b9fba;
+  --ap: #d48a00;
+
+  --good: #13985a;
+  --warn: #d6304f;
 
   --grad: linear-gradient(118deg, var(--accent) 0%, var(--accent-2) 100%);
   color-scheme: light;
@@ -49,46 +53,56 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #080d1a;
-        --bg-2: #0b1324;
-    --paper: #121b30;
-    --paper-2: #16223a;
-    --ink: #eaf0fb;
-    --ink-2: #aab8d2;
-    --mist: #8695b2;
-      --line: #22304c;
-    --line-2: #35486b;
-    --accent: #2ad2e4;
-    --accent-2: #8f7cff;
-    --accent-ink: #06222a;
-    --accent-soft: #10303a;
-    --d1: #45cf93;
-    --d2: #55a6f2;
-    --d3: #f0ab4d;
-    --d4: #ff5f86;
-    --d5: #9a86ff;
+    --bg: #0b0910;
+    --bg-2: #110e18;
+    --paper: #17131f;
+    --paper-2: #1e1929;
+    --ink: #f4f1f8;
+    --ink-2: #c3bbd1;
+    --mist: #8d84a0;
+    --line: #2b2538;
+    --line-2: #3f3752;
+    --accent: #ff4d8d;
+    --accent-2: #ffc24b;
+    --accent-ink: #1a0510;
+    --accent-soft: #3b1424;
+    /* in-game difficulty colours */
+    --d1: #00ff37;
+    --d2: #0080ff;
+    --d3: #ff8800;
+    --d4: #a454fa;
+    --d5: #c697f7;
+    --fc: #2ee6f0;
+    --ap: #ffc24b;
+    --good: #3ddc84;
+    --warn: #ff5a6e;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #080d1a;
-  --bg-2: #0b1324;
-  --paper: #121b30;
-  --paper-2: #16223a;
-  --ink: #eaf0fb;
-  --ink-2: #aab8d2;
-  --mist: #8695b2;
-  --line: #22304c;
-  --line-2: #35486b;
-  --accent: #2ad2e4;
-  --accent-2: #8f7cff;
-  --accent-ink: #06222a;
-  --accent-soft: #10303a;
-  --d1: #45cf93;
-  --d2: #55a6f2;
-  --d3: #f0ab4d;
-  --d4: #ff5f86;
-  --d5: #9a86ff;
+  --bg: #0b0910;
+  --bg-2: #110e18;
+  --paper: #17131f;
+  --paper-2: #1e1929;
+  --ink: #f4f1f8;
+  --ink-2: #c3bbd1;
+  --mist: #8d84a0;
+  --line: #2b2538;
+  --line-2: #3f3752;
+  --accent: #ff4d8d;
+  --accent-2: #ffc24b;
+  --accent-ink: #1a0510;
+  --accent-soft: #3b1424;
+  /* in-game difficulty colours */
+  --d1: #00ff37;
+  --d2: #0080ff;
+  --d3: #ff8800;
+  --d4: #a454fa;
+  --d5: #c697f7;
+  --fc: #2ee6f0;
+  --ap: #ffc24b;
+  --good: #3ddc84;
+  --warn: #ff5a6e;
   color-scheme: dark;
 }
 
@@ -106,6 +120,8 @@
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
   --color-good: var(--good);
+  --color-fc: var(--fc);
+  --color-ap: var(--ap);
   --color-warn: var(--warn);
   --font-sans: var(--font-plex), "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", "Noto Sans CJK JP", sans-serif;
   --font-display: var(--font-sora), var(--font-plex), "Apple SD Gothic Neo", sans-serif;

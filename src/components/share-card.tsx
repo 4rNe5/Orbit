@@ -33,7 +33,7 @@ function RatingChart({ best, gs }: { best: ChartResult[]; gs: Group[] }) {
   const bw = (W - pad.l - pad.r) / 40;
   const Y = (v: number) => pad.t + (1 - (v - min) / (max - min)) * (H - pad.t - pad.b);
   const ticks = [0, 1, 2, 3].map((i) => min + ((max - min) * i) / 3);
-  const tint = ["var(--accent)", "var(--accent-2)", "var(--d4)"];
+  const tint = ["var(--accent)", "var(--accent-2)", "var(--fc)"];
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="block w-full">
       {ticks.map((v, i) => (
@@ -153,7 +153,7 @@ export function ShareCard({
             </h2>
             <div className="grid grid-cols-5 gap-x-3.5 gap-y-4">
               {g.items.map((r, i) => (
-                <BestTile key={r.chart.id} r={r} rank={g.from + i + 1} eager big />
+                <BestTile key={r.chart.id} r={r} rank={g.from + i + 1} eager big inert />
               ))}
             </div>
           </section>

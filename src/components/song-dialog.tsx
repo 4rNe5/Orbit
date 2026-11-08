@@ -1,0 +1,252 @@
+"use client";
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createTargetEngine, MAX_SCORE } from "@/lib/core/rating";
+import { DIFFICULTIES, type Chart } from "@/lib/core/types";
+import { diffClass, fmtScore, grade } from "@/lib/format";
+import { packCategory, packName } from "@/lib/packs";
+import { useApp } from "./app-provider";
+import { Jacket } from "./jacket";
+import { cx, LampBadge } from "./ui";
+
+/** Song metadata from the Rotaeno wiki (src/data/songinfo.json, generated). */
+interface SongInfo {
+  w: string; // wiki page title
+  a: string; // artist
+  d: number; // duration (s)
+  v: string; // release version
+  jd: string; // jacket designer
+  s?: string; // source
+  t?: [lang: string, title: string][];
+  c: Record<string, { cd: string; n?: [total: number, tap: number, flick: number, slide: number, katch: number, rotate: number] }>;
+}
+
+let infoCache: Record<string, SongInfo> | null = null;
+let infoPromise: Promise<Record<string, SongInfo>> | null = null;
+function loadInfo() {
+  if (infoCache) return Promise.resolve(infoCache);
+  infoPromise ??= import("@/data/songinfo.json").then((m) => (infoCache = m.default as unknown as Record<string, SongInfo>));
+  return infoPromise;
+}
+
+const Ctx = createContext<(songId: string) => void>(() => {});
+
+/** Opens the song info sheet. Safe to call outside the provider (no-op). */
+export function useSongDialog() {
+  return useContext(Ctx);
+}
+
+export function SongDialogProvider({ children }: { children: React.ReactNode }) {
+  const [songId, setSongId] = useState<string | null>(null);
+  const open = useCallback((id: string) => setSongId(id), []);
+  return (
+    <Ctx.Provider value={open}>
+      {children}
+      {songId && <SongDialog songId={songId} onClose={() => setSongId(null)} />}
+    </Ctx.Provider>
+  );
+}
+
+/** Wraps content in a button that opens the song sheet. */
+export function SongButton({ songId, className, children, label }: { songId: string; className?: string; children: React.ReactNode; label?: string }) {
+  const open = useSongDialog();
+  return (
+    <button type="button" onClick={() => open(songId)} className={cx("block cursor-pointer text-left", className)} aria-label={label ? `${label} 곡 정보` : "곡 정보"}>
+      {children}
+    </button>
+  );
+}
+
+const LANG: Record<string, string> = { ko: "한국어", en: "English", ja: "日本語", "zh-Hant": "繁體", "zh-Hans": "简体", "zh-CN": "国服" };
+const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+
+function SongDialog({ songId, onClose }: { songId: string; onClose: () => void }) {
+  const { charts, scores, analysis, index } = useApp();
+  const [info, setInfo] = useState<SongInfo | null | undefined>(infoCache ? (infoCache[songId] ?? null) : undefined);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    let alive = true;
+    loadInfo().then((all) => alive && setInfo(all[songId] ?? null), () => alive && setInfo(null));
+    return () => {
+      alive = false;
+    };
+  }, [songId]);
+
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
+      prev?.focus?.();
+    };
+  }, [onClose]);
+
+  const list = useMemo(
+    () => charts.filter((c) => c.songId === songId).sort((a, b) => DIFFICULTIES.indexOf(a.difficulty) - DIFFICULTIES.indexOf(b.difficulty)),
+    [charts, songId],
+  );
+  const engine = useMemo(() => (index && analysis ? createTargetEngine(index, scores, analysis) : null), [index, scores, analysis]);
+
+  const main: Chart | undefined = list.find((c) => c.difficulty === "IV") ?? list[list.length - 1];
+  if (!main) return null;
+  const title = main.songTitle || main.title;
+  const pack = main.songPack || main.pack;
+  const category = packCategory(pack);
+  const wikiUrl = info ? `https://wiki.rotaeno.cn/${encodeURIComponent(info.w.replace(/ /g, "_"))}` : null;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="song-dialog-title">
+      <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" onClick={onClose} aria-hidden />
+      <div className="pop relative flex max-h-[90dvh] w-full max-w-[640px] flex-col overflow-hidden rounded-t-[22px] border border-line bg-paper shadow-2xl sm:rounded-[22px]">
+        {/* header: jacket over its own blurred art */}
+        <div className="relative shrink-0 overflow-hidden">
+          <div className="absolute inset-0 scale-125 opacity-60 blur-2xl" aria-hidden>
+            <Jacket songId={songId} title={title} rounded="rounded-none" className="h-full w-full" eager />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-paper/70 to-paper" aria-hidden />
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white hover:bg-black/60"
+            aria-label="닫기"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
+              <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
+          <div className="relative flex gap-4 p-5 pt-6 sm:gap-5 sm:p-6">
+            <Jacket songId={songId} title={title} rounded="rounded-[14px]" className="w-28 shadow-xl ring-1 ring-white/15 sm:w-36" eager />
+            <div className="min-w-0 flex-1 self-end">
+              <div className="text-[12px] font-medium text-ink-2">
+                {packName(pack)}
+                {category && <span className="text-mist"> · {category}</span>}
+              </div>
+              <h2 id="song-dialog-title" className="mt-1 text-[22px] font-bold leading-tight tracking-tight sm:text-[26px]">
+                {title}
+              </h2>
+              {info?.t && info.t.length > 0 && (
+                <div className="mt-1 space-y-0.5">
+                  {info.t.slice(0, 2).map(([l, t]) => (
+                    <div key={l} className="truncate text-[12px] text-mist" title={`${LANG[l] ?? l}: ${t}`}>
+                      {t}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="mt-1.5 text-[14px] font-medium text-ink-2">{info ? info.a : info === undefined ? " " : ""}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="min-h-0 overflow-y-auto px-5 pb-5 sm:px-6 sm:pb-6">
+          {/* facts */}
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-[14px] border border-line bg-paper-2 px-4 py-3 text-[13px] sm:grid-cols-4">
+            <Fact k="추가 버전" v={info?.v ?? main.version} />
+            <Fact k="길이" v={info ? mmss(info.d) : "–"} />
+            <Fact k="자켓" v={info?.jd ?? "–"} />
+            <Fact k="출처" v={info?.s ?? "–"} />
+          </dl>
+
+          {/* charts */}
+          <h3 className="mb-2 mt-5 text-[13px] font-semibold text-mist">채보</h3>
+          <ul className="flex flex-col gap-2">
+            {list.map((c) => {
+              const r = analysis?.byId[c.id];
+              const e = scores[c.id];
+              const ci = info?.c[c.difficulty];
+              const inBest = r && r.score !== null && r.rank <= 40 && r.effective > 0;
+              const next = engine && !c.deleted && (e?.score ?? 0) < MAX_SCORE ? engine.minScore(c.id) : null;
+              return (
+                <li key={c.id} className={cx(diffClass(c.difficulty), "overflow-hidden rounded-[14px] border border-line bg-paper")}>
+                  <div className="flex items-stretch">
+                    <div className="flex w-[72px] shrink-0 flex-col items-center justify-center gap-0.5 py-2.5 text-[#0b0910]" style={{ background: "var(--diff)" }}>
+                      <span className="num text-[13px] font-bold leading-none">
+                        {c.difficulty}
+                      </span>
+                      <span className="num text-[20px] font-bold leading-none">
+                        {c.constant.toFixed(1)}
+                      </span>
+                    </div>
+                    <div className="min-w-0 flex-1 px-3 py-2.5">
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-[12px] text-mist">
+                        <span>
+                          레벨 <b className="num font-semibold text-ink">{c.level}</b>
+                        </span>
+                        {ci?.n && (
+                          <span title={`Tap ${ci.n[1]} · Flick ${ci.n[2]} · Slide ${ci.n[3]} · Catch ${ci.n[4]} · Rotate ${ci.n[5]}`}>
+                            노트 <b className="num font-semibold text-ink">{ci.n[0].toLocaleString()}</b>
+                          </span>
+                        )}
+                        {ci && <span className="min-w-0 truncate">채보 {ci.cd}</span>}
+                        {c.deleted && <span className="text-warn">삭제곡</span>}
+                      </div>
+                      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                        {e ? (
+                          <>
+                            <span className="num text-[16px] font-semibold">{fmtScore(e.score)}</span>
+                            <LampBadge lamp={e.lamp} apPlus={e.score >= MAX_SCORE} />
+                            {e.score < MAX_SCORE && <span className="text-[12px] text-mist">{grade(e.score)}</span>}
+                            {r && (
+                              <span className="num text-[13px] text-ink-2">
+                                {r.excluded ? <span className="line-through">{r.rating.toFixed(4)}</span> : r.effective.toFixed(4)}
+                              </span>
+                            )}
+                            {inBest && <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{r.rank}</span>}
+                          </>
+                        ) : (
+                          <span className="text-[13px] text-mist">기록 없음</span>
+                        )}
+                      </div>
+                      {next !== null && (
+                        <div className="mt-1 text-[12px] text-mist">
+                          <b className="num font-semibold text-accent">{fmtScore(next)}</b> 이상이면 레이팅 +0.001
+                          {e && <span className="num"> (+{(next - e.score).toLocaleString()})</span>}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {ci?.n && (
+                    <div className="num flex gap-3 border-t border-line px-3 py-1.5 text-[11px] text-mist">
+                      <span>Tap {ci.n[1]}</span>
+                      <span>Flick {ci.n[2]}</span>
+                      <span>Slide {ci.n[3]}</span>
+                      <span>Catch {ci.n[4]}</span>
+                      <span>Rotate {ci.n[5]}</span>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="mt-4 flex items-center justify-between gap-3 text-[12px] text-mist">
+            <span>곡 정보: Rotaeno 중문 위키</span>
+            {wikiUrl && (
+              <a href={wikiUrl} target="_blank" rel="noreferrer" className="font-semibold text-accent hover:underline">
+                위키에서 보기 ↗
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Fact({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="min-w-0">
+      <dt className="text-[11px] text-mist">{k}</dt>
+      <dd className="num truncate font-medium text-ink" title={v}>
+        {v}
+      </dd>
+    </div>
+  );
+}

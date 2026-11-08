@@ -1,5 +1,6 @@
 "use client";
 
+import { SongButton } from "@/components/song-dialog";
 import { useMemo, useState } from "react";
 import { useApp } from "@/components/app-provider";
 import { DiffMark, Loading, PageHeader, Panel, Segmented, Stat } from "@/components/ui";
@@ -97,9 +98,11 @@ export default function CompletionPage() {
         <ol className="divide-y divide-line overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper">
           {slots.map((s) => (
             <li key={s.chart.id} className="flex items-center gap-3 px-3 py-2 sm:px-4">
-              <Jacket songId={s.chart.songId} title={s.chart.songTitle || s.chart.title} difficulty={s.chart.difficulty} rounded="rounded-lg" className="w-9 ring-1 ring-inset ring-line" />
-              <DiffMark d={s.chart.difficulty} constant={s.chart.constant} />
-              <span className="min-w-0 flex-1 truncate text-[14px]">{s.chart.title}</span>
+              <SongButton songId={s.chart.songId} label={s.chart.title} className="group flex min-w-0 flex-1 items-center gap-3">
+                <Jacket songId={s.chart.songId} title={s.chart.songTitle || s.chart.title} difficulty={s.chart.difficulty} rounded="rounded-lg" className="w-9 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" />
+                <DiffMark d={s.chart.difficulty} constant={s.chart.constant} />
+                <span className="min-w-0 flex-1 truncate text-[14px] group-hover:text-accent">{s.chart.title}</span>
+              </SongButton>
               <span className="num hidden text-[13px] text-mist sm:inline">{fmtScore(scores[s.chart.id]?.score)}</span>
               <span className="num w-16 text-right font-semibold">{s.value.toFixed(3)}</span>
             </li>

@@ -1,5 +1,6 @@
 "use client";
 
+import { SongButton } from "@/components/song-dialog";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useApp } from "@/components/app-provider";
@@ -117,7 +118,7 @@ export default function Home() {
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             {targets.map((t) => (
-              <Link key={t.chart.id} href="/targets" className="flex items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-4 transition hover:border-line-2">
+              <SongButton key={t.chart.id} songId={t.chart.songId} label={t.chart.title} className="flex w-full items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-4 transition hover:border-line-2">
                 <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-lg" className="w-12" />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[14px] font-semibold">{t.chart.title}</div>
@@ -127,7 +128,7 @@ export default function Home() {
                 </div>
                 <DiffMark d={t.chart.difficulty} compact />
                 <span className="num text-[15px] font-bold text-accent">+{t.need.toLocaleString()}</span>
-              </Link>
+              </SongButton>
             ))}
           </div>
         </section>
@@ -135,7 +136,7 @@ export default function Home() {
 
       {version && (
         <p className="mt-8 text-[12px] text-mist">
-          곡 데이터 {version.version} · {version.chartCount.toLocaleString()}채보 · 자켓 이미지 일부 곡 제공
+          곡 데이터 {version.version} · {version.chartCount.toLocaleString()}채보 · 곡을 누르면 곡 정보가 열려요 · 자켓·곡 정보 출처 Rotaeno 위키
         </p>
       )}
     </div>

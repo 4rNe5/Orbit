@@ -27,3 +27,11 @@ describe("jackets", () => {
     expect(missing).toEqual([]);
   });
 });
+
+describe("song info", () => {
+  it("has wiki metadata for every song", async () => {
+    const info = (await import("../src/data/songinfo.json")).default as Record<string, { a: string; c: Record<string, unknown> }>;
+    const missing = [...new Set(rows.map((r) => r.songId))].filter((id) => !info[id]?.a);
+    expect(missing).toEqual([]);
+  });
+});

@@ -5,6 +5,7 @@ import type { Chart, Lamp } from "@/lib/core/types";
 import { fmtScore, grade, parseScoreInput } from "@/lib/format";
 import { Jacket } from "./jacket";
 import { cx, DiffMark } from "./ui";
+import { SongButton } from "./song-dialog";
 import { packName } from "@/lib/packs";
 
 export interface ScoreRowProps {
@@ -50,20 +51,20 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
 
   return (
     <li className={cx("row-auto grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 px-3 py-3 sm:grid-cols-[minmax(0,1fr)_150px_96px_92px] sm:px-4", chart.deleted && "opacity-55")}>
-      <div className="flex min-w-0 items-center gap-3">
-        <Jacket songId={chart.songId} title={chart.songTitle || chart.title} difficulty={chart.difficulty} rounded="rounded-[10px]" className="w-12 ring-1 ring-inset ring-line" />
+      <SongButton songId={chart.songId} label={chart.title} className="group flex min-w-0 items-center gap-3 rounded-[12px]">
+        <Jacket songId={chart.songId} title={chart.songTitle || chart.title} difficulty={chart.difficulty} rounded="rounded-[10px]" className="w-12 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" />
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <DiffMark d={chart.difficulty} constant={chart.constant} />
             {inBest && <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{rank}</span>}
             {chart.deleted && <span className="text-[11px] text-mist">삭제곡</span>}
           </div>
-          <div className="mt-0.5 truncate text-[14px] font-medium" title={chart.title}>
+          <div className="mt-0.5 truncate text-[14px] font-medium group-hover:text-accent" title={chart.title}>
             {chart.title}
           </div>
           <div className="truncate text-[12px] text-mist">{packName(chart.pack)}</div>
         </div>
-      </div>
+      </SongButton>
 
       <div className="flex flex-col items-end gap-1 sm:items-stretch">
         {readOnly ? (
@@ -98,7 +99,7 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
 
       <div className="flex items-center gap-1 sm:justify-center" role="group" aria-label="클리어 램프">
         {apPlus ? (
-          <span className="rounded-full bg-orbit px-2.5 py-1 text-[11px] font-semibold text-orbit-ink">AP+</span>
+          <span className="grad-bg rounded-full px-2.5 py-1 text-[11px] font-bold">AP+</span>
         ) : (
           (["fc", "ap"] as const).map((l) => (
             <button
@@ -108,7 +109,7 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
               onClick={() => onLamp(chart.id, lamp === l ? "none" : l)}
               className={cx(
                 "h-7 rounded-full border px-2.5 text-[11px] font-semibold transition disabled:opacity-40",
-                lamp === l ? (l === "ap" ? "border-orbit bg-orbit text-orbit-ink" : "border-ink bg-ink text-sky") : "border-line text-mist hover:text-ink",
+                lamp === l ? (l === "ap" ? "border-ap bg-ap text-black/80" : "border-fc bg-fc text-black/80") : "border-line text-mist hover:text-ink",
               )}
             >
               {l.toUpperCase()}

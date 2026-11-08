@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SongDialogProvider } from "@/components/song-dialog";
 import { IBM_Plex_Sans_KR, Sora } from "next/font/google";
 import { AppProvider } from "@/components/app-provider";
 import { Shell } from "@/components/shell";
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#eef4fa" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c1726" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f1f6" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0910" },
   ],
 };
 
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <AppProvider>
-          <Shell>{children}</Shell>
+          <SongDialogProvider>
+            <Shell>{children}</Shell>
+          </SongDialogProvider>
         </AppProvider>
       </body>
     </html>
