@@ -14,6 +14,7 @@ Rotaeno 레이팅·B40·대상곡·완성도 분석 웹 서비스. Artis+의 「
 | `/ranking`, `/u/[handle]` | 공개 프로필 랭킹, 공개 프로필 |
 | `/import` | TapTap 클라우드 세이브, 분석표 xlsx, JSON/CSV |
 | `/settings`, `/admin` | 프로필·테마, 곡 데이터 갱신(관리자) |
+| `/login` | Google 로그인 |
 
 ## 계산 규칙과 검증
 
@@ -40,7 +41,7 @@ npm run dev
 
 스키마·RLS·곡 데이터(2.27.0)·Edge Function(`taptap-import`)은 이미 들어가 있습니다. 대시보드에서 아래만 하면 됩니다.
 
-1. **OAuth 제공자**: Authentication → Sign In / Providers에서 Discord, Google을 켜고 각 개발자 콘솔에서 만든 Client ID·Secret을 넣습니다. 두 콘솔의 Redirect URI는 `https://ysezajjmchhwzzzcwckt.supabase.co/auth/v1/callback`입니다.
+1. **Google 로그인**: Google Cloud Console에서 OAuth 클라이언트(웹 애플리케이션)를 만들고 승인된 리디렉션 URI에 `https://ysezajjmchhwzzzcwckt.supabase.co/auth/v1/callback`을 넣습니다. 받은 Client ID·Secret을 Supabase Authentication → Sign In / Providers → Google에 넣고 켭니다.
 2. **리다이렉트 URL**: Authentication → URL Configuration에서 Site URL을 배포 주소로, Redirect URLs에 `http://localhost:3000/auth/callback`과 `https://<배포 주소>/auth/callback`을 추가합니다.
 3. **TapTap 가져오기 시크릿**: Edge Functions → Secrets에 `TAPTAP_CLIENT_ID_GLOBAL`, `TAPTAP_CLIENT_ID_CN`, `ROTAENO_LC_KEY_GLOBAL`, `ROTAENO_LC_KEY_CN`을 넣습니다. 값이 없으면 가져오기 화면에서 "서버 설정이 끝나지 않았습니다"가 표시됩니다.
 4. **정리 SQL**: `supabase/migrations/20261108000100_cleanup.sql`을 SQL 편집기에서 한 번 실행합니다(초기 적재용 함수 삭제, 관리자 정책 분리).
