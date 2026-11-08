@@ -23,7 +23,7 @@ export function BestTile({ r, rank, eager, big, inert }: { r: ChartResult; rank?
         <span className={cx("num absolute left-0 top-0 rounded-br-[10px] rounded-tl-[12px] px-1.5 py-0.5 font-bold text-white", big ? "text-[13px]" : "text-[11px]")} style={{ background: "var(--diff)" }}>
           {n}
         </span>
-        {r.apPlus && <span className={cx("grad-bg absolute right-1.5 top-1.5 rounded-full px-1.5 py-0.5 font-bold", big ? "text-[11px]" : "text-[9px]")}>AP+</span>}
+        {r.apPlus && <span className={cx("ap-bg absolute right-1.5 top-1.5 rounded-full px-1.5 py-0.5 font-bold", big ? "text-[11px]" : "text-[9px]")}>AP+</span>}
         {lamp && <span className={cx("absolute right-1.5 top-1.5 rounded-full px-1.5 py-0.5 font-bold text-black/80", lamp === "AP" ? "bg-ap" : "bg-fc", big ? "text-[11px]" : "text-[9px]")}>{lamp}</span>}
         <div className="absolute inset-x-0 bottom-0 rounded-b-[12px] bg-gradient-to-t from-black/85 via-black/45 to-transparent px-2 pb-1.5 pt-6">
           <div className={cx("num leading-tight text-white/80", big ? "text-[13px]" : "text-[11px]")}>{fmtScore(r.score)}</div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { tierStyle } from "@/lib/tiers";
+import { RatingNumber, TierBadge } from "@/components/rating";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useApp } from "@/components/app-provider";
@@ -53,15 +55,22 @@ export function PublicProfile() {
   return (
     <div className="pop">
       <section className="relative overflow-hidden rounded-[22px] border border-line bg-paper/70 p-5 backdrop-blur sm:p-7">
-        <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full opacity-25 blur-2xl" style={{ background: "var(--grad)" }} aria-hidden />
+        {analysis.played > 0 && <div className="tier-glow pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full opacity-30 blur-3xl" style={tierStyle(analysis.rating)} aria-hidden />}
         <div className="relative flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0">
             <div className="text-[14px] text-mist">
               {profile.display_name || profile.handle} · @{profile.handle}
               {!profile.is_public && " · 비공개"}
             </div>
-            <div className="num grad-text mt-1 text-[56px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[68px]">
-              {analysis.played ? analysis.rating.toFixed(3) : "–"}
+            <div className="mt-1 flex items-end gap-3">
+              {analysis.played ? (
+                <>
+                  <TierBadge rating={analysis.rating} size={52} className="mb-1" />
+                  <RatingNumber rating={analysis.rating} className="text-[56px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[68px]" />
+                </>
+              ) : (
+                <span className="num text-[56px] font-bold leading-[0.9] text-mist">–</span>
+              )}
             </div>
           </div>
           <div className="flex gap-6">

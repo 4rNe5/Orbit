@@ -1,5 +1,7 @@
 "use client";
 
+import { nextTier, tierStyle } from "@/lib/tiers";
+import { RatingNumber, TierBadge } from "@/components/rating";
 import { SongButton } from "@/components/song-dialog";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -27,6 +29,7 @@ export default function Home() {
   const empty = analysis.played === 0;
   const name = profile?.display_name || (session ? "트래블러" : "게스트");
   const maxR = version?.theoreticalRating ?? 17.886;
+  const nt = nextTier(analysis.rating);
   const eff = analysis.best.map((b) => b.effective);
   const top = analysis.best.slice(0, 10);
 
@@ -56,7 +59,7 @@ export default function Home() {
     <div className="pop">
       {/* profile banner */}
       <section className="relative overflow-hidden rounded-[22px] border border-line bg-paper/70 p-5 backdrop-blur sm:p-7">
-        <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full opacity-25 blur-2xl" style={{ background: "var(--grad)" }} aria-hidden />
+        <div className="tier-glow pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full opacity-30 blur-3xl" style={tierStyle(analysis.rating)} aria-hidden />
         <div className="relative flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-[14px] text-mist">
@@ -65,7 +68,8 @@ export default function Home() {
               <span>{analysis.played.toLocaleString()}곡</span>
             </div>
             <div className="mt-1 flex items-end gap-3">
-              <span className="num grad-text text-[60px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[76px]">{analysis.rating.toFixed(3)}</span>
+              <TierBadge rating={analysis.rating} size={56} className="mb-1 sm:h-[68px] sm:w-[68px]" />
+              <RatingNumber rating={analysis.rating} className="text-[60px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[76px]" />
               <span className="mb-2 text-[13px] text-mist">
                 이론치 {maxR.toFixed(3)}
                 <br />
@@ -74,6 +78,7 @@ export default function Home() {
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
               <Pill label="다음 +0.001" value={analysis.toNext.toFixed(6)} />
+              {nt && <Pill label="다음 휘장" value={`${nt.min.toFixed(3)}까지 ${(nt.min - analysis.rating).toFixed(3)}`} />}
               <Pill label="완성도" value={fmtPercent(completion.percent)} />
               <Pill label="B40 AP+" value={`${analysis.apPlusInBest}개`} />
             </div>

@@ -79,7 +79,7 @@ export function DiffMark({ d, constant, compact }: { d: Difficulty; constant?: n
 }
 
 export function LampBadge({ lamp, apPlus }: { lamp: Lamp; apPlus?: boolean }) {
-  if (apPlus) return <span className="grad-bg rounded-full px-2 py-0.5 text-[11px] font-bold">AP+</span>;
+  if (apPlus) return <span className="ap-bg rounded-full px-2 py-0.5 text-[11px] font-bold">AP+</span>;
   if (lamp === "ap") return <span className="rounded-full bg-ap px-2 py-0.5 text-[11px] font-bold text-black/80">AP</span>;
   if (lamp === "fc") return <span className="rounded-full bg-fc px-2 py-0.5 text-[11px] font-bold text-black/80">FC</span>;
   return null;

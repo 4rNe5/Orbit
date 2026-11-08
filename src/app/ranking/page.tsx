@@ -1,5 +1,6 @@
 "use client";
 
+import { RatingNumber, TierBadge } from "@/components/rating";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useApp } from "@/components/app-provider";
@@ -51,7 +52,10 @@ export default function RankingPage() {
               <span className="hidden text-[12px] text-mist sm:inline">
                 {r.played}채보{r.completion_percent !== null && `, 완성도 ${fmtPercent(r.completion_percent, 1)}`}
               </span>
-              <span className="num w-20 text-right text-[17px] font-semibold">{r.rating.toFixed(3)}</span>
+              <span className="flex w-28 items-center justify-end gap-1.5">
+                <TierBadge rating={r.rating} size={22} />
+                <RatingNumber rating={r.rating} className="text-[17px] font-bold" />
+              </span>
             </li>
           ))}
         </ol>

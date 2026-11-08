@@ -2,35 +2,35 @@
 
 /*
   Orbit Rating — visual language
-  Difficulty hues are the game's own (I green, II blue, III orange, IV purple,
-  IV-α lavender). Everything else stays out of their way: a near-black violet
-  base like the song select, rose + gold (the AP diamond) for the rating and
-  key marks, cyan for full combo.
+  Rotaeno blue for the system colour on a deep-space base. Difficulty hues are
+  the game's own (I green, II blue, III orange, IV purple, IV-α lavender).
+  The rating numeral takes the colours of the in-game rating emblem tier.
 */
 :root {
-  --bg: #f3f1f6;
-  --bg-2: #ebe8f0;
+  --bg: #f1f4f9;
+  --bg-2: #e8edf5;
   --paper: #ffffff;
-  --paper-2: #f8f6fa;
-  --ink: #19141f;
-  --ink-2: #463e52;
-  --mist: #766d84;
-  --line: #e3dfe9;
-  --line-2: #cbc4d6;
+  --paper-2: #f6f8fc;
+  --ink: #101828;
+  --ink-2: #3a4659;
+  --mist: #6a778d;
+  --line: #e0e6ef;
+  --line-2: #c6d0de;
 
-  --accent: #e0306f;
-  --accent-2: #d48a00;
+  --accent: #0a84d6;
+  --accent-2: #3d63e0;
   --accent-ink: #ffffff;
-  --accent-soft: #fce4ec;
+  --accent-soft: #e0f0fb;
 
   --d1: #14a83b;
-  --d2: #0a6fe0;
+  --d2: #1550d8;
   --d3: #e57300;
   --d4: #9442f0;
   --d5: #ad7ee8;
 
   --fc: #0b9fba;
   --ap: #d48a00;
+  --ap-grad: linear-gradient(118deg, #f2b400 0%, #e07a00 100%);
 
   --good: #13985a;
   --warn: #d6304f;
@@ -53,19 +53,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b0910;
-    --bg-2: #110e18;
-    --paper: #17131f;
-    --paper-2: #1e1929;
-    --ink: #f4f1f8;
-    --ink-2: #c3bbd1;
-    --mist: #8d84a0;
-    --line: #2b2538;
-    --line-2: #3f3752;
-    --accent: #ff4d8d;
-    --accent-2: #ffc24b;
-    --accent-ink: #1a0510;
-    --accent-soft: #3b1424;
+    --bg: #060a14;
+    --bg-2: #0a1020;
+    --paper: #0f1626;
+    --paper-2: #141d31;
+    --ink: #eef3fb;
+    --ink-2: #b2c0d6;
+    --mist: #7d8ba4;
+    --line: #1e2a40;
+    --line-2: #2d3d5a;
+    --accent: #3cb4ff;
+    --accent-2: #6d8cff;
+    --accent-ink: #03121f;
+    --accent-soft: #0e2a44;
     /* in-game difficulty colours */
     --d1: #00ff37;
     --d2: #0080ff;
@@ -74,25 +74,27 @@
     --d5: #c697f7;
     --fc: #2ee6f0;
     --ap: #ffc24b;
+    --ap-grad: linear-gradient(118deg, #ffe27a 0%, #ffb020 100%);
     --good: #3ddc84;
     --warn: #ff5a6e;
     color-scheme: dark;
   }
 }
-:root[data-theme="dark"] {
-  --bg: #0b0910;
-  --bg-2: #110e18;
-  --paper: #17131f;
-  --paper-2: #1e1929;
-  --ink: #f4f1f8;
-  --ink-2: #c3bbd1;
-  --mist: #8d84a0;
-  --line: #2b2538;
-  --line-2: #3f3752;
-  --accent: #ff4d8d;
-  --accent-2: #ffc24b;
-  --accent-ink: #1a0510;
-  --accent-soft: #3b1424;
+/* explicit dark: the whole page, or a subtree such as the export card */
+[data-theme="dark"] {
+  --bg: #060a14;
+  --bg-2: #0a1020;
+  --paper: #0f1626;
+  --paper-2: #141d31;
+  --ink: #eef3fb;
+  --ink-2: #b2c0d6;
+  --mist: #7d8ba4;
+  --line: #1e2a40;
+  --line-2: #2d3d5a;
+  --accent: #3cb4ff;
+  --accent-2: #6d8cff;
+  --accent-ink: #03121f;
+  --accent-soft: #0e2a44;
   /* in-game difficulty colours */
   --d1: #00ff37;
   --d2: #0080ff;
@@ -101,6 +103,7 @@
   --d5: #c697f7;
   --fc: #2ee6f0;
   --ap: #ffc24b;
+  --ap-grad: linear-gradient(118deg, #ffe27a 0%, #ffb020 100%);
   --good: #3ddc84;
   --warn: #ff5a6e;
   color-scheme: dark;
@@ -171,6 +174,23 @@ body {
   background: var(--grad);
   color: var(--accent-ink);
 }
+.ap-bg {
+  background: var(--ap-grad);
+  color: #1f1300;
+}
+
+/* rating numeral coloured by the in-game emblem tier (vars set by tierStyle()) */
+.tier-text {
+  background-image: var(--tg-light);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tier-text { background-image: var(--tg-dark); }
+}
+[data-theme="dark"] .tier-text { background-image: var(--tg-dark); }
+.tier-glow { background: var(--tg-dark); }
 
 :focus-visible {
   outline: 2px solid var(--accent);

@@ -99,7 +99,7 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
 
       <div className="flex items-center gap-1 sm:justify-center" role="group" aria-label="클리어 램프">
         {apPlus ? (
-          <span className="grad-bg rounded-full px-2.5 py-1 text-[11px] font-bold">AP+</span>
+          <span className="ap-bg rounded-full px-2.5 py-1 text-[11px] font-bold">AP+</span>
         ) : (
           (["fc", "ap"] as const).map((l) => (
             <button

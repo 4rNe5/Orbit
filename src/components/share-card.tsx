@@ -1,4 +1,6 @@
 import type { ChartResult } from "@/lib/core/types";
+import { tierStyle } from "@/lib/tiers";
+import { RatingNumber, TierBadge } from "./rating";
 import { BestTile } from "./best-tile";
 import { OrbitGlyph } from "./ui";
 
@@ -33,7 +35,7 @@ function RatingChart({ best, gs }: { best: ChartResult[]; gs: Group[] }) {
   const bw = (W - pad.l - pad.r) / 40;
   const Y = (v: number) => pad.t + (1 - (v - min) / (max - min)) * (H - pad.t - pad.b);
   const ticks = [0, 1, 2, 3].map((i) => min + ((max - min) * i) / 3);
-  const tint = ["var(--accent)", "var(--accent-2)", "var(--fc)"];
+  const tint = ["var(--accent)", "var(--accent-2)", "var(--ap)"];
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="block w-full">
       {ticks.map((v, i) => (
@@ -99,7 +101,7 @@ export function ShareCard({
   const apPlus = best.filter((b) => b.apPlus).length;
   return (
     <div data-theme="dark" style={{ width: 1280 }} className="relative overflow-hidden bg-bg px-8 pb-7 pt-8 font-sans text-ink">
-      <div className="pointer-events-none absolute -right-40 -top-48 h-[520px] w-[520px] rounded-full opacity-30 blur-3xl" style={{ background: "var(--grad)" }} />
+      <div className="tier-glow pointer-events-none absolute -right-40 -top-48 h-[520px] w-[520px] rounded-full opacity-30 blur-3xl" style={tierStyle(rating)} />
 
       {/* header */}
       <header className="relative flex items-end justify-between gap-6">
@@ -124,7 +126,10 @@ export function ShareCard({
         </div>
         <div className="text-right">
           <div className="text-[13px] text-mist">Rating</div>
-          <div className="num grad-text text-[64px] font-bold leading-none tracking-[-0.03em]">{rating.toFixed(3)}</div>
+          <div className="flex items-center justify-end gap-3">
+            <TierBadge rating={rating} size={60} />
+            <RatingNumber rating={rating} className="text-[64px] font-bold leading-none tracking-[-0.03em]" />
+          </div>
         </div>
       </header>
 
