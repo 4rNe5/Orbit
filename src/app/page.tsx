@@ -12,6 +12,86 @@ import { Jacket } from "@/components/jacket";
 import { ButtonLink, DiffMark, Loading } from "@/components/ui";
 import { fmtPercent, fmtScore } from "@/lib/format";
 import { computeTargets } from "@/lib/targets";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { defineDict, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    loading: "궤도를 그리는 중",
+    traveler: "트래블러",
+    guest: "게스트",
+    emptyTitle: "점수를 넣으면 궤도가 돌기 시작해요",
+    emptyLead: "한 곡씩 입력해도 되고, 쓰던 레이팅 시트나 TapTap 세이브를 통째로 가져와도 됩니다. B40·대상곡·완성도가 바로 계산돼요.",
+    enterScores: "점수 입력하기",
+    importSheet: "시트·세이브 가져오기",
+    songCount: "{n}곡",
+    theoretical: "이론치 {v}",
+    next001: "다음 +0.001",
+    nextEmblem: "다음 휘장",
+    nextEmblemValue: "{min}까지 {gap}",
+    completion: "완성도",
+    apCount: "{n}개",
+    b40All: "B40 전체",
+    targets: "대상곡",
+    top10: "상위 10곡",
+    viewAllB40: "B40 전체 보기",
+    recent: "최근 갱신",
+    pushTitle: "조금만 더 치면 오르는 곡",
+    all: "전체",
+    footer: "곡 데이터 {version} · {n}채보 · 곡을 누르면 곡 정보가 열려요 · 자켓·곡 정보 출처 Rotaeno 위키",
+    avgOf: "{label} 평균",
+  },
+  ja: {
+    loading: "軌道を描いています",
+    traveler: "トラベラー",
+    guest: "ゲスト",
+    emptyTitle: "スコアを入れると軌道が回り始めます",
+    emptyLead: "1曲ずつ入力しても、使っていたレートシートやTapTapのセーブデータをまるごと取り込んでもOKです。B40・対象曲・完成度がすぐに計算されます。",
+    enterScores: "スコアを入力",
+    importSheet: "シート・セーブを取り込む",
+    songCount: "{n}曲",
+    theoretical: "理論値 {v}",
+    next001: "次の+0.001",
+    nextEmblem: "次のエンブレム",
+    nextEmblemValue: "{min}まで {gap}",
+    completion: "完成度",
+    apCount: "{n}曲",
+    b40All: "B40一覧",
+    targets: "対象曲",
+    top10: "上位10曲",
+    viewAllB40: "B40をすべて見る",
+    recent: "最近の更新",
+    pushTitle: "あと少しでレートが上がる曲",
+    all: "すべて",
+    footer: "楽曲データ {version} · {n}譜面 · 曲を押すと楽曲情報が開きます · ジャケット・楽曲情報の出典 Rotaeno Wiki",
+    avgOf: "{label} 平均",
+  },
+  zh: {
+    loading: "正在绘制轨道",
+    traveler: "旅行者",
+    guest: "游客",
+    emptyTitle: "录入分数，轨道就会开始转动",
+    emptyLead: "可以逐首录入，也可以把正在用的 Rating 表格或 TapTap 存档整个导入。B40、推分目标和完成度会立即算好。",
+    enterScores: "录入分数",
+    importSheet: "导入表格/存档",
+    songCount: "{n} 首",
+    theoretical: "理论值 {v}",
+    next001: "下一个+0.001",
+    nextEmblem: "下一徽标",
+    nextEmblemValue: "距 {min} 还差 {gap}",
+    completion: "完成度",
+    apCount: "{n} 首",
+    b40All: "完整 B40",
+    targets: "推分目标",
+    top10: "前10首",
+    viewAllB40: "查看完整 B40",
+    recent: "最近更新",
+    pushTitle: "再推一点就能涨分的曲目",
+    all: "全部",
+    footer: "曲目数据 {version} · {n} 个谱面 · 点击曲目可查看曲目信息 · 曲绘与曲目信息来源：Rotaeno Wiki",
+    avgOf: "{label} 平均",
+  },
+});
 
 function avg(v: number[]) {
   return v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0;
@@ -19,16 +99,17 @@ function avg(v: number[]) {
 
 export default function Home() {
   const { ready, analysis, completion, index, scores, version, session, profile, events } = useApp();
+  const t = useT(T);
 
   const targets = useMemo(
     () => (index && analysis && analysis.played > 0 ? computeTargets(index, scores, analysis).slice(0, 4) : []),
     [index, scores, analysis],
   );
 
-  if (!ready || !analysis || !completion) return <Loading label="궤도를 그리는 중" />;
+  if (!ready || !analysis || !completion) return <Loading label={t("loading")} />;
 
   const empty = analysis.played === 0;
-  const name = profile?.display_name || (session ? "트래블러" : "게스트");
+  const name = profile?.display_name || (session ? t("traveler") : t("guest"));
   const maxR = version?.theoreticalRating ?? 17.886;
   const nt = nextTier(analysis.rating);
   const eff = analysis.best.map((b) => b.effective);
@@ -37,20 +118,23 @@ export default function Home() {
   if (empty) {
     return (
       <div className="pop mx-auto max-w-xl pt-6 text-center">
+        <div className="mb-5 flex justify-center">
+          <LanguageSwitcher variant="inline" />
+        </div>
         <div className="mx-auto mb-5 grid grid-cols-4 gap-1.5 opacity-90">
           {["suito", "heavens-cage", "uchronia", "aleph-0", "igallta", "angel-dust", "re-birth", "stage-5"].map((id) => (
             <Jacket key={id} songId={id} title={id} rounded="rounded-md" />
           ))}
         </div>
-        <h1 className="font-display text-[30px] font-bold leading-tight tracking-[-0.02em] sm:text-[36px]">점수를 넣으면 궤도가 돌기 시작해요</h1>
+        <h1 className="font-display text-[30px] font-bold leading-tight tracking-[-0.02em] sm:text-[36px]">{t("emptyTitle")}</h1>
         <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-mist">
-          한 곡씩 입력해도 되고, 쓰던 레이팅 시트나 TapTap 세이브를 통째로 가져와도 됩니다. B40·대상곡·완성도가 바로 계산돼요.
+          {t("emptyLead")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <ButtonLink href="/scores" variant="primary">
-            점수 입력하기
+            {t("enterScores")}
           </ButtonLink>
-          <ButtonLink href="/import">시트·세이브 가져오기</ButtonLink>
+          <ButtonLink href="/import">{t("importSheet")}</ButtonLink>
         </div>
       </div>
     );
@@ -66,29 +150,29 @@ export default function Home() {
             <div className="flex items-center gap-2 text-[14px] text-mist">
               <span className="truncate font-semibold text-ink">{name}</span>
               <span>·</span>
-              <span>{analysis.played.toLocaleString()}곡</span>
+              <span>{t("songCount", { n: analysis.played.toLocaleString() })}</span>
             </div>
             <div className="mt-1 flex items-end gap-3">
               <TierBadge rating={analysis.rating} size={56} className="mb-1 sm:h-[68px] sm:w-[68px]" />
               <RatingNumber rating={analysis.rating} className="text-[60px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[76px]" />
               <span className="mb-2 text-[13px] text-mist">
-                이론치 {maxR.toFixed(3)}
+                {t("theoretical", { v: maxR.toFixed(3) })}
                 <br />
                 <span className="text-ink-2">−{(maxR - analysis.rating).toFixed(3)}</span>
               </span>
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <Pill label="다음 +0.001" value={analysis.toNext.toFixed(6)} />
-              {nt && <Pill label="다음 휘장" value={`${nt.min.toFixed(3)}까지 ${(nt.min - analysis.rating).toFixed(3)}`} />}
-              <Pill label="완성도" value={fmtPercent(completion.percent)} />
-              <Pill label="B40 AP+" value={`${analysis.apPlusInBest}개`} />
+              <Pill label={t("next001")} value={analysis.toNext.toFixed(6)} />
+              {nt && <Pill label={t("nextEmblem")} value={t("nextEmblemValue", { min: nt.min.toFixed(3), gap: (nt.min - analysis.rating).toFixed(3) })} />}
+              <Pill label={t("completion")} value={fmtPercent(completion.percent)} />
+              <Pill label="B40 AP+" value={t("apCount", { n: analysis.apPlusInBest })} />
             </div>
           </div>
           <div className="flex gap-2">
             <ButtonLink href="/best" variant="primary">
-              B40 전체
+              {t("b40All")}
             </ButtonLink>
-            <ButtonLink href="/targets">대상곡</ButtonLink>
+            <ButtonLink href="/targets">{t("targets")}</ButtonLink>
           </div>
         </div>
         <div className="relative mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">
@@ -101,9 +185,9 @@ export default function Home() {
       {/* top charts */}
       <section className="mt-8">
         <div className="mb-3 flex items-baseline justify-between">
-          <h2 className="text-[17px] font-bold">상위 10곡</h2>
+          <h2 className="text-[17px] font-bold">{t("top10")}</h2>
           <Link href="/best" className="text-[13px] font-medium text-accent hover:underline">
-            B40 전체 보기
+            {t("viewAllB40")}
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
@@ -116,7 +200,7 @@ export default function Home() {
       {/* push suggestions */}
       {events.length > 0 && (
         <section className="mt-8">
-          <h2 className="mb-3 text-[17px] font-bold">최근 갱신</h2>
+          <h2 className="mb-3 text-[17px] font-bold">{t("recent")}</h2>
           <RecentUpdates />
         </section>
       )}
@@ -124,9 +208,9 @@ export default function Home() {
       {targets.length > 0 && (
         <section className="mt-8">
           <div className="mb-3 flex items-baseline justify-between">
-            <h2 className="text-[17px] font-bold">조금만 더 치면 오르는 곡</h2>
+            <h2 className="text-[17px] font-bold">{t("pushTitle")}</h2>
             <Link href="/targets" className="text-[13px] font-medium text-accent hover:underline">
-              전체
+              {t("all")}
             </Link>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -149,7 +233,7 @@ export default function Home() {
 
       {version && (
         <p className="mt-8 text-[12px] text-mist">
-          곡 데이터 {version.version} · {version.chartCount.toLocaleString()}채보 · 곡을 누르면 곡 정보가 열려요 · 자켓·곡 정보 출처 Rotaeno 위키
+          {t("footer", { version: version.version, n: version.chartCount.toLocaleString() })}
         </p>
       )}
     </div>
@@ -166,9 +250,10 @@ function Pill({ label, value }: { label: string; value: string }) {
 }
 
 function Mini({ label, value }: { label: string; value: string }) {
+  const t = useT(T);
   return (
     <div>
-      <div className="text-[12px] text-mist">{label} 평균</div>
+      <div className="text-[12px] text-mist">{t("avgOf", { label })}</div>
       <div className="num text-[19px] font-semibold">{value}</div>
     </div>
   );

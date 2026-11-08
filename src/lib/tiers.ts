@@ -52,6 +52,7 @@ export function tierStyle(rating: number): React.CSSProperties {
   return { "--tg-dark": grad(t.dark), "--tg-light": grad(t.light), "--tier": t.dark[1] } as React.CSSProperties;
 }
 
-export function tierRange(t: RatingTier): string {
-  return t.max === null ? `${t.min.toFixed(3)} 이상` : `${t.min.toFixed(3)} – ${(t.max - 0.001).toFixed(3)}`;
+export function tierRange(t: RatingTier, l: "ko" | "ja" | "zh" = "ko"): string {
+  const up = { ko: "이상", ja: "以上", zh: "以上" }[l];
+  return t.max === null ? `${t.min.toFixed(3)} ${up}` : `${t.min.toFixed(3)} – ${(t.max - 0.001).toFixed(3)}`;
 }

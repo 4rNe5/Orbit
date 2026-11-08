@@ -96,7 +96,7 @@ async function bundledCharts(): Promise<{ version: DataVersion; charts: Chart[] 
       chartCount: meta.default.chartCount,
       songCount: meta.default.songCount,
       theoreticalRating: null,
-      source: `${meta.default.source} (앱 내장 데이터)`,
+      source: `${meta.default.source} (bundled)`,
       importedAt: "",
     },
     charts: charts.default as Chart[],

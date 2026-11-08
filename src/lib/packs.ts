@@ -1,3 +1,6 @@
+import packsI18n from "@/data/packs-i18n.json";
+import type { Locale } from "@/lib/i18n";
+
 /**
  * Pack names as shown in the Korean release of Rotaeno, keyed by the pack name
  * used in the rating sheet (Chinese). Categories and order follow the in-game
@@ -91,21 +94,40 @@ export const PACK_CATEGORIES: { name: string; packs: [cn: string, ko: string][] 
   { name: "기타", packs: [["星觅典藏", "별탐구 컬렉션"]] },
 ];
 
+/** Category labels: Korean from the game, Chinese from the CN wiki, Japanese translated. */
+const CATEGORY_I18N: Record<string, { ja: string; zh: string }> = {
+  "메인 스토리": { ja: "メインストーリー", zh: "主线故事" },
+  "서브 스토리": { ja: "サブストーリー", zh: "支线故事" },
+  콜라보: { ja: "コラボ", zh: "联动" },
+  "Virtual/Singer": { ja: "Virtual/Singer", zh: "Virtual/Singer" },
+  음악팩: { ja: "楽曲パック", zh: "曲包" },
+  "성간 항해": { ja: "星間航行", zh: "星际航行" },
+  싱글: { ja: "シングル", zh: "单曲" },
+  기타: { ja: "その他", zh: "其他" },
+  "새 팩": { ja: "新しいパック", zh: "新曲包" },
+};
+/** Pack names in Japanese / Chinese from the CN wiki's song list (src/data/packs-i18n.json). */
+const PACK_I18N = packsI18n as Record<string, { ja: string; zh: string }>;
+
 const KO = new Map<string, { ko: string; category: string; order: number }>();
 let order = 0;
 for (const c of PACK_CATEGORIES) for (const [cn, ko] of c.packs) KO.set(cn, { ko, category: c.name, order: order++ });
 
-/** Korean display name for a sheet pack name; unknown (newer) packs keep their sheet name. */
-export function packName(pack: string): string {
+const categoryLabel = (ko: string, l: Locale) => (l === "ko" ? ko : (CATEGORY_I18N[ko]?.[l] ?? ko));
+
+/** Display name of a sheet pack name in the given language; unknown (newer) packs keep their sheet name. */
+export function packName(pack: string, l: Locale = "ko"): string {
+  if (l !== "ko") return PACK_I18N[pack]?.[l] ?? KO.get(pack)?.ko ?? pack;
   return KO.get(pack)?.ko ?? pack;
 }
 
-export function packCategory(pack: string): string | null {
-  return KO.get(pack)?.category ?? null;
+export function packCategory(pack: string, l: Locale = "ko"): string | null {
+  const c = KO.get(pack)?.category;
+  return c ? categoryLabel(c, l) : null;
 }
 
 /** Groups the given sheet pack names by in-game category, in in-game order. Unknown packs go last. */
-export function groupPacks(packs: Iterable<string>): { category: string; packs: { value: string; label: string }[] }[] {
+export function groupPacks(packs: Iterable<string>, l: Locale = "ko"): { category: string; packs: { value: string; label: string }[] }[] {
   const known = new Map<string, { value: string; label: string; order: number }[]>();
   const unknown: { value: string; label: string }[] = [];
   for (const p of new Set(packs)) {
@@ -113,14 +135,14 @@ export function groupPacks(packs: Iterable<string>): { category: string; packs: 
     if (!k) unknown.push({ value: p, label: p });
     else {
       const list = known.get(k.category) ?? [];
-      list.push({ value: p, label: k.ko, order: k.order });
+      list.push({ value: p, label: packName(p, l), order: k.order });
       known.set(k.category, list);
     }
   }
   const out = PACK_CATEGORIES.filter((c) => known.has(c.name)).map((c) => ({
-    category: c.name,
+    category: categoryLabel(c.name, l),
     packs: known.get(c.name)!.sort((a, b) => a.order - b.order).map(({ value, label }) => ({ value, label })),
   }));
-  if (unknown.length) out.push({ category: "새 팩", packs: unknown.sort((a, b) => a.label.localeCompare(b.label)) });
+  if (unknown.length) out.push({ category: categoryLabel("새 팩", l), packs: unknown.sort((a, b) => a.label.localeCompare(b.label)) });
   return out;
 }

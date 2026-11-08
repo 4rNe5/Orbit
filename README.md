@@ -37,7 +37,8 @@ Rotaeno 레이팅 분석 웹 서비스입니다. B40, 대상곡, 완성도를 �
 - 공개 프로필 링크를 붙이면 레이팅·휘장·상위 5곡이 담긴 미리보기 이미지가 뜹니다.
 - 난이도 색은 게임과 같습니다 (I 초록, II 파랑, III 주황, IV 보라, IV-α 연보라).
 - 레이팅 숫자는 게임의 레이팅 휘장 구간 색으로 칠해집니다.
-- 로그인하지 않아도 이 기기에 저장되고, Google로 로그인하면 계정에 동기화됩니다.
+- 로그인하지 않아도 이 기기에 저장되고, Google로 로그인하면 계정에 동기화됩니다. Google 원탭 로그인을 지원합니다.
+- 한국어·日本語·中文을 지원합니다. 처음 방문하면 브라우저 언어를 따르고, 상단 메뉴에서 바꿀 수 있습니다. 팩 이름은 각 언어판 공식 이름(위키 기준)을 씁니다.
 
 ## 계산 검증
 
@@ -77,6 +78,7 @@ npm run dev                  # http://localhost:3000
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase 프로젝트 URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable 키 (브라우저 공개용) |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | (선택) Google 원탭 로그인용 OAuth 웹 클라이언트 ID. Supabase Google 로그인에 쓰는 것과 같은 ID |
 | `NEXT_PUBLIC_SITE_URL` | (선택) 배포 주소. 링크 미리보기 이미지의 절대 경로에 씁니다. Vercel에서는 생략해도 됩니다 |
 
 ## Supabase 설정
@@ -90,6 +92,7 @@ npm run dev                  # http://localhost:3000
 
    CLI 없이 SQL 편집기에서 파일 이름 순서대로 실행해도 됩니다.
 2. **Google 로그인**: Google Cloud Console에서 OAuth 클라이언트(웹 애플리케이션)를 만들고, 승인된 리디렉션 URI에 `https://<project-ref>.supabase.co/auth/v1/callback`을 넣습니다. Client ID와 Secret을 Supabase의 Authentication → Sign In / Providers → Google에 넣습니다.
+   원탭 로그인을 쓰려면 같은 OAuth 클라이언트의 "승인된 JavaScript 원본"에 `https://<배포 주소>`와 `http://localhost:3000`도 추가합니다.
 3. **리디렉션 URL**: Authentication → URL Configuration에서 Site URL을 배포 주소로 하고, Redirect URLs에 `http://localhost:3000/auth/callback`과 `https://<배포 주소>/auth/callback`을 추가합니다.
 4. **관리자 지정**: 한 번 로그인한 뒤 SQL 편집기에서 실행하고 다시 로그인합니다.
 
@@ -142,6 +145,7 @@ src/lib/targets.ts      대상곡, 목표 레이팅 경로
 src/lib/sheet.ts        분석표 xlsx 읽기 (점수, 곡 마스터)
 src/lib/packs.ts        팩 이름 → 한국판 이름·카테고리
 src/lib/tiers.ts        레이팅 휘장 구간과 색
+src/lib/i18n.tsx        다국어(ko/ja/zh): 파일마다 defineDict로 문구를 두고 useT로 씀
 src/lib/insights.ts     채보 성향 분석 (정수 대비 점수 회귀, 노트 구성별 비교)
 src/lib/server          공개 프로필 요약, 링크 미리보기 이미지
 src/data                내장 곡 데이터, 곡 정보, 자켓 목록

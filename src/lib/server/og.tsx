@@ -23,11 +23,22 @@ async function font(family: string, weight: number, text: string): Promise<Array
 }
 
 async function fonts(text: string) {
-  const [kr, krBold, num] = await Promise.all([font("IBM Plex Sans KR", 500, text), font("IBM Plex Sans KR", 700, text), font("Sora", 700, text)]);
+  const [kr, krBold, num, jp, jpBold, sc] = await Promise.all([
+    font("IBM Plex Sans KR", 500, text),
+    font("IBM Plex Sans KR", 700, text),
+    font("Sora", 700, text),
+    // Japanese / Chinese names: glyphs Plex KR lacks fall back to these
+    font("Noto Sans JP", 500, text),
+    font("Noto Sans JP", 700, text),
+    font("Noto Sans SC", 500, text),
+  ]);
   return [
     kr && { name: "Plex", data: kr, weight: 500 as const, style: "normal" as const },
     krBold && { name: "Plex", data: krBold, weight: 700 as const, style: "normal" as const },
     num && { name: "Sora", data: num, weight: 700 as const, style: "normal" as const },
+    jp && { name: "Noto JP", data: jp, weight: 500 as const, style: "normal" as const },
+    jpBold && { name: "Noto JP", data: jpBold, weight: 700 as const, style: "normal" as const },
+    sc && { name: "Noto SC", data: sc, weight: 500 as const, style: "normal" as const },
   ].filter(Boolean) as { name: string; data: ArrayBuffer; weight: 500 | 700; style: "normal" }[];
 }
 
@@ -60,10 +71,10 @@ export async function profileCard(s: PublicSummary | null, handle: string) {
   if (!s) return siteCard(`@${handle}`);
   const t = tierOf(s.rating);
   const jackets = await Promise.all(s.top.map((x) => jacketPng(x.songId)));
-  const text = `Orbit Rating ${s.name} @${s.handle} ${s.rating.toFixed(3)} 입력한 채보 B40 AP+ 상위 0123456789.,·${s.top.map((x) => x.title + x.difficulty).join("")}`;
+  const text = `Orbit Rating ${s.name} @${s.handle} ${s.rating.toFixed(3)} charts B40 AP+ 0123456789.,·${s.top.map((x) => x.title + x.difficulty).join("")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#060a14", color: "#eef3fb", fontFamily: "Plex", padding: 56, position: "relative" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#060a14", color: "#eef3fb", fontFamily: "Plex, Noto JP, Noto SC", padding: 56, position: "relative" }}>
         <div style={{ position: "absolute", right: -160, top: -220, width: 640, height: 640, borderRadius: 640, background: `linear-gradient(118deg, ${t.dark.join(", ")})`, opacity: 0.28, filter: "blur(90px)" }} />
         <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 26, color: "#b2c0d6", fontWeight: 500 }}>
           <Glyph size={40} />
@@ -74,7 +85,7 @@ export async function profileCard(s: PublicSummary | null, handle: string) {
             <div style={{ display: "flex", fontSize: 60, fontWeight: 700, lineHeight: 1.1, maxWidth: 620, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.name}</div>
             <div style={{ display: "flex", fontSize: 26, color: "#7d8ba4", marginTop: 6 }}>{`@${s.handle}`}</div>
             <div style={{ display: "flex", gap: 28, fontSize: 24, color: "#b2c0d6", marginTop: 22 }}>
-              <span>{`입력한 채보 ${s.played.toLocaleString()}`}</span>
+              <span>{`${s.played.toLocaleString()} charts`}</span>
               <span>{`B40 AP+ ${s.apPlus}`}</span>
             </div>
           </div>
@@ -110,16 +121,16 @@ export async function profileCard(s: PublicSummary | null, handle: string) {
 }
 
 export async function siteCard(sub?: string) {
-  const text = `Orbit Rating Rotaeno 레이팅·B40·대상곡·완성도 분석 ${sub ?? ""}`;
+  const text = `Orbit Rating Rotaeno Rating · B40 · Targets · Completion ${sub ?? ""}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", background: "#060a14", color: "#eef3fb", fontFamily: "Plex", padding: 80, position: "relative" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", background: "#060a14", color: "#eef3fb", fontFamily: "Plex, Noto JP, Noto SC", padding: 80, position: "relative" }}>
         <div style={{ display: "flex", position: "absolute", right: -120, top: -200, width: 640, height: 640, borderRadius: 640, background: "linear-gradient(118deg, #3cb4ff, #6d8cff)", opacity: 0.25, filter: "blur(90px)" }} />
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
           <Glyph size={96} />
           <div style={{ display: "flex", fontFamily: "Sora", fontSize: 88, fontWeight: 700, letterSpacing: -3 }}>Orbit Rating</div>
         </div>
-        <div style={{ display: "flex", fontSize: 36, color: "#b2c0d6", marginTop: 26 }}>Rotaeno 레이팅·B40·대상곡·완성도 분석</div>
+        <div style={{ display: "flex", fontSize: 36, color: "#b2c0d6", marginTop: 26 }}>Rotaeno Rating · B40 · Targets · Completion</div>
         {sub && <div style={{ display: "flex", fontSize: 28, color: "#7d8ba4", marginTop: 14 }}>{sub}</div>}
       </div>
     ),

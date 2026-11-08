@@ -7,25 +7,84 @@ import { BestTile } from "@/components/best-tile";
 import { ShareCard } from "@/components/share-card";
 import { Button, ButtonLink, Empty, Loading, PageHeader } from "@/components/ui";
 import { fmtRating } from "@/lib/format";
+import { defineDict, useLocale, useT } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    share60: "레이팅의 60%",
+    share20: "20%",
+    emptyTitle: "아직 B40이 비어 있어요",
+    enterScores: "점수 입력하기",
+    emptyBody: "점수를 하나라도 넣으면 레이팅이 높은 순으로 40곡이 채워집니다.",
+    saved: "B40 이미지를 저장했어요.",
+    saveFailed: "이미지를 만들지 못했어요. {msg}",
+    lead: "레이팅 = B1–10 평균×0.6 + B11–20 평균×0.2 + B21–40 평균×0.2. 같은 곡의 IV·IV-α는 높은 쪽만 들어가요.",
+    making: "만드는 중…",
+    saveImage: "이미지로 저장",
+    toNext: "다음 +0.001까지",
+    first: "1위",
+    b10ToTheory: "B1–10 이론치까지",
+    points: "{n}점",
+    traveler: "트래블러",
+  },
+  ja: {
+    share60: "レートの60%",
+    share20: "20%",
+    emptyTitle: "B40はまだ空です",
+    enterScores: "スコアを入力",
+    emptyBody: "スコアを1つでも入れると、レートの高い順に40曲が埋まります。",
+    saved: "B40の画像を保存しました。",
+    saveFailed: "画像を作成できませんでした。{msg}",
+    lead: "レート = B1–10平均×0.6 + B11–20平均×0.2 + B21–40平均×0.2。同じ曲のIV・IV-αは高いほうだけが入ります。",
+    making: "作成中…",
+    saveImage: "画像で保存",
+    toNext: "次の+0.001まで",
+    first: "1位",
+    b10ToTheory: "B1–10 理論値まで",
+    points: "{n}点",
+    traveler: "トラベラー",
+  },
+  zh: {
+    share60: "占 Rating 的 60%",
+    share20: "20%",
+    emptyTitle: "B40 还是空的",
+    enterScores: "录入分数",
+    emptyBody: "只要录入一个分数，就会按 Rating 从高到低填满 40 首。",
+    saved: "已保存 B40 图片。",
+    saveFailed: "图片生成失败。{msg}",
+    lead: "Rating = B1–10 平均×0.6 + B11–20 平均×0.2 + B21–40 平均×0.2。同一曲目的 IV 与 IV-α 只计入较高的一个。",
+    making: "生成中…",
+    saveImage: "保存为图片",
+    toNext: "距下一个+0.001",
+    first: "第1名",
+    b10ToTheory: "B1–10 距理论值",
+    points: "{n} 分",
+    traveler: "旅行者",
+  },
+});
+
+const DATE_LOCALE = { ko: "ko-KR", ja: "ja-JP", zh: "zh-CN" } as const;
 
 const GROUPS = [
-  { title: "B1–10", sub: "레이팅의 60%", from: 0, to: 10 },
-  { title: "B11–20", sub: "20%", from: 10, to: 20 },
-  { title: "B21–40", sub: "20%", from: 20, to: 40 },
-];
+  { title: "B1–10", sub: "share60", from: 0, to: 10 },
+  { title: "B11–20", sub: "share20", from: 10, to: 20 },
+  { title: "B21–40", sub: "share20", from: 20, to: 40 },
+] as const;
 
 export default function BestPage() {
   const { ready, analysis, completion, profile, version, toast } = useApp();
   const shareRef = useRef<HTMLDivElement>(null);
   const [saving, setSaving] = useState(false);
+  const t = useT(T);
+  const locale = useLocale();
 
   if (!ready || !analysis || !completion) return <Loading />;
   if (analysis.best.length === 0)
     return (
       <>
         <PageHeader title="B40" />
-        <Empty title="아직 B40이 비어 있어요" action={<ButtonLink href="/scores" variant="primary">점수 입력하기</ButtonLink>}>
-          점수를 하나라도 넣으면 레이팅이 높은 순으로 40곡이 채워집니다.
+        <Empty title={t("emptyTitle")} action={<ButtonLink href="/scores" variant="primary">{t("enterScores")}</ButtonLink>}>
+          {t("emptyBody")}
         </Empty>
       </>
     );
@@ -45,9 +104,9 @@ export default function BestPage() {
       a.href = url;
       a.download = `orbit-b40-${new Date().toISOString().slice(0, 10)}.png`;
       a.click();
-      toast("B40 이미지를 저장했어요.");
+      toast(t("saved"));
     } catch (e) {
-      toast(`이미지를 만들지 못했어요. ${(e as Error).message}`, "error");
+      toast(t("saveFailed", { msg: (e as Error).message }), "error");
     } finally {
       setSaving(false);
     }
@@ -58,20 +117,20 @@ export default function BestPage() {
     <div>
       <PageHeader
         title="B40"
-        lead="레이팅 = B1–10 평균×0.6 + B11–20 평균×0.2 + B21–40 평균×0.2. 같은 곡의 IV·IV-α는 높은 쪽만 들어가요."
+        lead={t("lead")}
         actions={
           <Button onClick={save} disabled={saving} variant="primary">
-            {saving ? "만드는 중…" : "이미지로 저장"}
+            {saving ? t("making") : t("saveImage")}
           </Button>
         }
       />
 
       <div className="mb-6 flex flex-wrap gap-x-6 gap-y-2 rounded-2xl border border-line bg-paper/70 px-5 py-4 text-[13px]">
-        <Fact label="다음 +0.001까지" value={analysis.toNext.toFixed(6)} />
-        <Fact label="1위" value={fmtRating(analysis.pivots.r1, 3)} />
-        <Fact label="B1–10 이론치까지" value={d.b10 === null ? "–" : `${d.b10.toLocaleString()}점`} />
-        <Fact label="B11–20" value={d.b20 === null ? "–" : `${d.b20.toLocaleString()}점`} />
-        <Fact label="B21–40" value={d.b40 === null ? "–" : `${d.b40.toLocaleString()}점`} />
+        <Fact label={t("toNext")} value={analysis.toNext.toFixed(6)} />
+        <Fact label={t("first")} value={fmtRating(analysis.pivots.r1, 3)} />
+        <Fact label={t("b10ToTheory")} value={d.b10 === null ? "–" : t("points", { n: d.b10.toLocaleString() })} />
+        <Fact label="B11–20" value={d.b20 === null ? "–" : t("points", { n: d.b20.toLocaleString() })} />
+        <Fact label="B21–40" value={d.b40 === null ? "–" : t("points", { n: d.b40.toLocaleString() })} />
       </div>
 
       <div className="flex flex-col gap-8">
@@ -82,7 +141,7 @@ export default function BestPage() {
             <section key={g.title}>
               <h2 className="mb-3 flex items-baseline gap-2">
                 <span className="font-display text-[18px] font-bold">{g.title}</span>
-                <span className="text-[12px] text-mist">{g.sub}</span>
+                <span className="text-[12px] text-mist">{t(g.sub)}</span>
               </h2>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5">
                 {items.map((r) => (
@@ -101,9 +160,9 @@ export default function BestPage() {
             best={analysis.best}
             rating={analysis.rating}
             completion={completion.percent}
-            name={profile?.display_name || "트래블러"}
+            name={profile?.display_name || t("traveler")}
             version={version?.version ?? ""}
-            date={new Date().toLocaleDateString("ko-KR")}
+            date={new Date().toLocaleDateString(DATE_LOCALE[locale])}
           />
         </div>
       </div>

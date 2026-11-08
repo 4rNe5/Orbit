@@ -6,7 +6,42 @@ import { analyzeCompletion, type CompletionAnalysis } from "@/lib/core/completio
 import { analyze, indexCharts, type ChartIndex } from "@/lib/core/rating";
 import type { Chart, Lamp, RatingAnalysis, ScoreEntry, ScoreMap } from "@/lib/core/types";
 import { loadCharts, type DataVersion } from "@/lib/data/charts";
+import { currentLocale, defineDict, translate } from "@/lib/i18n";
 import { selectAll, supabase } from "@/lib/supabase";
+
+const T = defineDict({
+  ko: {
+    loadCharts: "곡 데이터를 불러오지 못했습니다. {msg}",
+    saveFailed: "저장하지 못했습니다. 입력은 이 기기에 보관했다가 다시 보냅니다. ({msg})",
+    moved: "이 기기에 저장된 점수 {n}개를 계정으로 옮겼습니다.",
+    loadScores: "점수를 불러오지 못해 저장을 멈췄습니다. 새로고침해 주세요. ({msg})",
+    blocked: "점수를 불러오지 못한 상태라 저장하지 않았습니다. 새로고침해 주세요.",
+    deleteFailed: "삭제하지 못했습니다. {msg}",
+    deleted: "모든 점수를 삭제했습니다.",
+    signedOut: "로그아웃했습니다.",
+  },
+  ja: {
+    loadCharts: "楽曲データを読み込めませんでした。{msg}",
+    saveFailed: "保存できませんでした。入力内容はこの端末に保管し、あとで再送します。({msg})",
+    moved: "この端末に保存されていたスコア {n} 件をアカウントに移しました。",
+    loadScores: "スコアを読み込めなかったため保存を停止しました。再読み込みしてください。({msg})",
+    blocked: "スコアを読み込めていないため保存しませんでした。再読み込みしてください。",
+    deleteFailed: "削除できませんでした。{msg}",
+    deleted: "すべてのスコアを削除しました。",
+    signedOut: "ログアウトしました。",
+  },
+  zh: {
+    loadCharts: "无法加载曲目数据。{msg}",
+    saveFailed: "保存失败。输入内容已保存在本设备，稍后会重新上传。({msg})",
+    moved: "已将本设备上的 {n} 条分数移至账号。",
+    loadScores: "无法加载分数，已暂停保存。请刷新页面。({msg})",
+    blocked: "分数尚未加载，未进行保存。请刷新页面。",
+    deleteFailed: "删除失败。{msg}",
+    deleted: "已删除所有分数。",
+    signedOut: "已退出登录。",
+  },
+});
+const tr = (k: keyof typeof T.ko, vars?: Record<string, string | number>) => translate(T, currentLocale(), k, vars);
 
 export interface Profile {
   user_id: string;
@@ -181,7 +216,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setVersion(version);
         setCharts(charts);
       })
-      .catch((e: Error) => setError(`곡 데이터를 불러오지 못했습니다. ${e.message}`));
+      .catch((e: Error) => setError(tr("loadCharts", { msg: e.message })));
   }, []);
 
   // auth
@@ -261,7 +296,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       for (const [id, entry] of batch) if (!pending.current.has(id)) pending.current.set(id, entry);
       inflight.current = new Map();
       persistPending();
-      toast(`저장하지 못했습니다. 입력은 이 기기에 보관했다가 다시 보냅니다. (${(e as Error).message})`, "error");
+      toast(tr("saveFailed", { msg: (e as Error).message }), "error");
       return false;
     } finally {
       setSyncing(false);
@@ -363,7 +398,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           for (const [id, e] of Object.entries(queued)) pending.current.set(id, e);
           persistPending();
           const ok = await flush();
-          if (ok && moved) toast(`이 기기에 저장된 점수 ${moved}개를 계정으로 옮겼습니다.`);
+          if (ok && moved) toast(tr("moved", { n: moved }));
         }
         if (Object.keys(local).length) {
           writeLocal(LOCAL_SCORES, {});
@@ -374,7 +409,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       } catch (e) {
         if (!cancelled) {
           writesBlocked.current = true;
-          setSyncError(`점수를 불러오지 못해 저장을 멈췄습니다. 새로고침해 주세요. (${(e as Error).message})`);
+          setSyncError(tr("loadScores", { msg: (e as Error).message }));
         }
       } finally {
         if (!cancelled) setScoresLoading(false);
@@ -387,7 +422,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const blocked = useCallback(() => {
     if (!writesBlocked.current) return false;
-    toast("점수를 불러오지 못한 상태라 저장하지 않았습니다. 새로고침해 주세요.", "error");
+    toast(tr("blocked"), "error");
     return true;
   }, [toast]);
 
@@ -500,7 +535,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       await chain.current;
       const { error } = await supabase().from("scores").delete().eq("user_id", userId);
       if (error) {
-        toast(`삭제하지 못했습니다. ${error.message}`, "error");
+        toast(tr("deleteFailed", { msg: error.message }), "error");
         return;
       }
       await supabase().from("score_events").delete().eq("user_id", userId);
@@ -511,13 +546,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     setScores({});
     setEvents([]);
-    toast("모든 점수를 삭제했습니다.");
+    toast(tr("deleted"));
   }, [userId, toast, persistPending, blocked]);
 
   const signOut = useCallback(async () => {
     await flush();
     await supabase().auth.signOut();
-    toast("로그아웃했습니다.");
+    toast(tr("signedOut"));
   }, [flush, toast]);
 
   const index = useMemo(() => (charts.length ? indexCharts(charts) : null), [charts]);

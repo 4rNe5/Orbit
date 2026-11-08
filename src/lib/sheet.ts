@@ -1,5 +1,37 @@
 import type { Chart, Difficulty, Lamp, ScoreMap } from "@/lib/core/types";
 import type { ConstantHistory } from "@/lib/data/charts";
+import { currentLocale, defineDict, translate, type Vars } from "@/lib/i18n";
+
+const T = defineDict({
+  ko: {
+    noScoreSheet: "'{sheet}' 시트를 찾지 못했습니다. Rotaeno 레이팅 분석표 xlsx 파일인지 확인해 주세요.",
+    noScoreColumns: "분석표의 '曲名', '难度', '分数' 열을 찾지 못했습니다.",
+    noSheet: "'{sheet}' 시트를 찾지 못했습니다.",
+    missingColumn: "'{col}' 열이 없습니다. 2.1x 이후 형식의 분석표가 필요합니다.",
+    noVersion: "첫 시트에서 게임 버전(ver x.y.z)을 찾지 못했습니다.",
+    unknownDifficulty: "알 수 없는 난이도 '{diff}'",
+    duplicateChart: "같은 곡 ID와 난이도가 두 번 나옵니다.",
+  },
+  ja: {
+    noScoreSheet: "「{sheet}」シートが見つかりません。Rotaeno レート分析表の xlsx ファイルか確認してください。",
+    noScoreColumns: "分析表に「曲名」「难度」「分数」列が見つかりません。",
+    noSheet: "「{sheet}」シートが見つかりません。",
+    missingColumn: "「{col}」列がありません。2.1x 以降の形式の分析表が必要です。",
+    noVersion: "最初のシートにゲームバージョン(ver x.y.z)が見つかりません。",
+    unknownDifficulty: "不明な難易度「{diff}」",
+    duplicateChart: "同じ楽曲 ID と難易度の組み合わせが重複しています。",
+  },
+  zh: {
+    noScoreSheet: "找不到“{sheet}”工作表。请确认这是 Rotaeno Rating 分析表的 xlsx 文件。",
+    noScoreColumns: "分析表中找不到“曲名”“难度”“分数”列。",
+    noSheet: "找不到“{sheet}”工作表。",
+    missingColumn: "缺少“{col}”列。需要 2.1x 及以后格式的分析表。",
+    noVersion: "在第一个工作表中找不到游戏版本(ver x.y.z)。",
+    unknownDifficulty: "未知的难度“{diff}”",
+    duplicateChart: "存在重复的曲目 ID 与难度组合。",
+  },
+});
+const msg = (k: keyof (typeof T)["ko"], vars?: Vars) => translate(T, currentLocale(), k, vars);
 
 export type Cell = string | number | boolean | Date | null | undefined;
 export interface SheetTable {
@@ -45,11 +77,11 @@ export interface ScoreImport {
  */
 export function readScoreSheet(tables: SheetTable[], charts: Chart[]): ScoreImport {
   const t = findScoreSheet(tables);
-  if (!t) throw new Error(`'${SCORE_SHEET}' 시트를 찾지 못했습니다. Rotaeno 레이팅 분석표 xlsx 파일인지 확인해 주세요.`);
+  if (!t) throw new Error(msg("noScoreSheet", { sheet: SCORE_SHEET }));
   const h = headerIndex(t.data[0] ?? []);
   const col = (k: string) => h[k];
   if (col("分数") === undefined || col("难度") === undefined || col("曲名") === undefined)
-    throw new Error("분석표의 '曲名', '难度', '分数' 열을 찾지 못했습니다.");
+    throw new Error(msg("noScoreColumns"));
 
   const byId = new Map(charts.map((c) => [c.id, c]));
   const byTitle = new Map<string, Chart>();
@@ -107,14 +139,14 @@ function levelLabel(c: number) {
 /** Reads chart master data (constants, packs, versions, deleted flags) from the analysis workbook. */
 export function readMasterSheet(tables: SheetTable[]): MasterImport {
   const t = findScoreSheet(tables);
-  if (!t) throw new Error(`'${SCORE_SHEET}' 시트를 찾지 못했습니다.`);
+  if (!t) throw new Error(msg("noSheet", { sheet: SCORE_SHEET }));
   const h = headerIndex(t.data[0] ?? []);
   for (const k of ["曲包", "默认序号", "更新序号", "歌曲ID", "版本", "曲名", "难度", "定数", "是否下架"])
-    if (h[k] === undefined) throw new Error(`'${k}' 열이 없습니다. 2.1x 이후 형식의 분석표가 필요합니다.`);
+    if (h[k] === undefined) throw new Error(msg("missingColumn", { col: k }));
 
   const guideCells = tables[0]?.data ?? [];
   const title = guideCells.flat().map(str).find((s) => /ver\s*[\d.]+/.test(s));
-  if (!title) throw new Error("첫 시트에서 게임 버전(ver x.y.z)을 찾지 못했습니다.");
+  if (!title) throw new Error(msg("noVersion"));
   const version = title.match(/ver\s*([\d.]+)/)![1];
   let theoretical: number | null = null;
   for (const row of guideCells) {
@@ -127,7 +159,7 @@ export function readMasterSheet(tables: SheetTable[]): MasterImport {
     const name = row[h["曲名"]];
     if (name === null || name === undefined || name === "") continue;
     const diff = str(row[h["难度"]]) as Difficulty;
-    if (!DIFFS.includes(diff)) throw new Error(`알 수 없는 난이도 '${diff}'`);
+    if (!DIFFS.includes(diff)) throw new Error(msg("unknownDifficulty", { diff }));
     const songId = str(row[h["歌曲ID"]]);
     const c = Math.round(Number(row[h["定数"]]) * 10) / 10;
     charts.push({
@@ -158,7 +190,7 @@ export function readMasterSheet(tables: SheetTable[]): MasterImport {
       c.songPack = pack;
     }
   }
-  if (new Set(charts.map((c) => c.id)).size !== charts.length) throw new Error("같은 곡 ID와 난이도가 두 번 나옵니다.");
+  if (new Set(charts.map((c) => c.id)).size !== charts.length) throw new Error(msg("duplicateChart"));
 
   let history: ConstantHistory | null = null;
   const hs = tables.find((x) => x.sheet === "定数编年史");
