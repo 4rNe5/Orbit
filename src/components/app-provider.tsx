@@ -29,6 +29,39 @@ interface Toast {
   tone: "info" | "error";
 }
 
+/** A score going up or a lamp changing (mirrors public.score_events). Newest first in state. */
+export interface ScoreEvent {
+  chartId: string;
+  score: number;
+  prevScore: number | null;
+  lamp: Lamp;
+  prevLamp: Lamp | null;
+  at: string;
+}
+
+interface EventRow {
+  chart_id: string;
+  score: number;
+  prev_score: number | null;
+  lamp: Lamp;
+  prev_lamp: Lamp | null;
+  created_at: string;
+}
+const EVENT_COLS = "chart_id, score, prev_score, lamp, prev_lamp, created_at";
+const toEvent = (r: EventRow): ScoreEvent => ({ chartId: r.chart_id, score: r.score, prevScore: r.prev_score, lamp: r.lamp, prevLamp: r.prev_lamp, at: r.created_at });
+
+/** Same rule as the database trigger: a new chart, a higher score, or a different lamp. */
+function diffEvents(prev: ScoreMap, changed: Record<string, ScoreEntry | null>, at: string): ScoreEvent[] {
+  const out: ScoreEvent[] = [];
+  for (const [id, e] of Object.entries(changed)) {
+    if (!e) continue;
+    const p = prev[id];
+    if (!p || e.score > p.score || e.lamp !== p.lamp) out.push({ chartId: id, score: e.score, prevScore: p?.score ?? null, lamp: e.lamp, prevLamp: p?.lamp ?? null, at });
+  }
+  return out;
+}
+const sameEvent = (a: ScoreEvent, b: ScoreEvent) => a.chartId === b.chartId && a.score === b.score && a.lamp === b.lamp && a.prevScore === b.prevScore;
+
 export interface ApplyResult {
   changed: number;
   saved: boolean;
@@ -61,12 +94,18 @@ interface AppState {
   toast: (text: string, tone?: "info" | "error") => void;
   toasts: Toast[];
   snapshots: () => Promise<Snapshot[]>;
+  /** Most recent score events (cloud: last 300, local: last 3000). */
+  events: ScoreEvent[];
+  /** Full history for these charts, newest first. */
+  chartEvents: (chartIds: string[]) => Promise<ScoreEvent[]>;
 }
 
 const Ctx = createContext<AppState | null>(null);
 
 const LOCAL_SCORES = "orbit:scores:v1";
 const LOCAL_SNAPSHOTS = "orbit:snapshots:v1";
+const LOCAL_EVENTS = "orbit:events:v1";
+const LOCAL_EVENTS_MAX = 3000;
 const pendingKey = (uid: string) => `orbit:pending:${uid}`;
 const SNAPSHOT_WINDOW_MS = 10 * 60 * 1000;
 
@@ -120,6 +159,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [syncError, setSyncError] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [events, setEvents] = useState<ScoreEvent[]>([]);
 
   const userId = session?.user.id ?? null;
   const pending = useRef<Pending>(new Map());
@@ -285,6 +325,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (!userId) {
         if (!cancelled) {
           setScores(local);
+          setEvents(readLocal<ScoreEvent[]>(LOCAL_EVENTS, []));
           setScoresLoading(false);
         }
         return;
@@ -324,7 +365,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           const ok = await flush();
           if (ok && moved) toast(`이 기기에 저장된 점수 ${moved}개를 계정으로 옮겼습니다.`);
         }
-        if (Object.keys(local).length) writeLocal(LOCAL_SCORES, {});
+        if (Object.keys(local).length) {
+          writeLocal(LOCAL_SCORES, {});
+          writeLocal(LOCAL_EVENTS, []); // the server trigger logs the moved scores
+        }
+        const ev = await supabase().from("score_events").select(EVENT_COLS).eq("user_id", userId).order("created_at", { ascending: false }).limit(300);
+        if (!cancelled && !ev.error) setEvents((ev.data as EventRow[]).map(toEvent));
       } catch (e) {
         if (!cancelled) {
           writesBlocked.current = true;
@@ -345,12 +391,28 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return true;
   }, [toast]);
 
+  const logEvents = useCallback(
+    (prev: ScoreMap, changed: Record<string, ScoreEntry | null>) => {
+      const fresh = diffEvents(prev, changed, new Date().toISOString());
+      if (!fresh.length) return;
+      setEvents((cur) => {
+        const add = fresh.filter((e) => !cur.slice(0, fresh.length).some((c) => sameEvent(c, e)));
+        if (!add.length) return cur;
+        const all = [...add.reverse(), ...cur].slice(0, userId ? 500 : LOCAL_EVENTS_MAX);
+        if (!userId) writeLocal(LOCAL_EVENTS, all);
+        return all;
+      });
+    },
+    [userId],
+  );
+
   const commit = useCallback(
-    (next: ScoreMap, changed: Record<string, ScoreEntry | null>) => {
+    (prev: ScoreMap, next: ScoreMap, changed: Record<string, ScoreEntry | null>) => {
       if (userId) enqueue(changed);
       else writeLocal(LOCAL_SCORES, next);
+      logEvents(prev, changed);
     },
-    [userId, enqueue],
+    [userId, enqueue, logEvents],
   );
 
   const setScore = useCallback(
@@ -360,7 +422,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         const next = { ...prev };
         if (entry) next[chartId] = entry;
         else delete next[chartId];
-        commit(next, { [chartId]: entry });
+        commit(prev, next, { [chartId]: entry });
         return next;
       });
     },
@@ -378,7 +440,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           entry = { score, lamp: score >= 1_010_000 ? "ap" : prev[chartId]?.lamp ?? "none" };
           next[chartId] = entry;
         }
-        commit(next, { [chartId]: entry });
+        commit(prev, next, { [chartId]: entry });
         return next;
       });
     },
@@ -393,7 +455,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         if (!cur) return prev;
         const entry = { ...cur, lamp };
         const next = { ...prev, [chartId]: entry };
-        commit(next, { [chartId]: entry });
+        commit(prev, next, { [chartId]: entry });
         return next;
       });
     },
@@ -423,7 +485,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (!n) return { changed: 0, saved: true };
       scoresRef.current = next;
       setScores(next);
-      commit(next, changed);
+      commit(base, next, changed);
       const saved = userId ? await flush() : true;
       return { changed: n, saved };
     },
@@ -441,9 +503,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         toast(`삭제하지 못했습니다. ${error.message}`, "error");
         return;
       }
+      await supabase().from("score_events").delete().eq("user_id", userId);
       persistPending();
-    } else writeLocal(LOCAL_SCORES, {});
+    } else {
+      writeLocal(LOCAL_SCORES, {});
+      writeLocal(LOCAL_EVENTS, []);
+    }
     setScores({});
+    setEvents([]);
     toast("모든 점수를 삭제했습니다.");
   }, [userId, toast, persistPending, blocked]);
 
@@ -511,6 +578,27 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return rows.map((r) => ({ ...r, rating: Number(r.rating), completion_percent: r.completion_percent === null ? null : Number(r.completion_percent) }));
   }, [userId]);
 
+  const chartEvents = useCallback(
+    async (ids: string[]): Promise<ScoreEvent[]> => {
+      const want = new Set(ids);
+      const known = events.filter((e) => want.has(e.chartId));
+      if (!userId || !ids.length) return known;
+      const { data, error } = await supabase()
+        .from("score_events")
+        .select(EVENT_COLS)
+        .eq("user_id", userId)
+        .in("chart_id", ids)
+        .order("created_at", { ascending: false })
+        .limit(200);
+      if (error) return known;
+      const remote = (data as EventRow[]).map(toEvent);
+      // events logged this session may not be flushed yet
+      const extra = known.filter((k) => !remote.some((r) => sameEvent(r, k)));
+      return [...extra, ...remote].sort((a, b) => b.at.localeCompare(a.at));
+    },
+    [userId, events],
+  );
+
   const isAdmin = (session?.user.app_metadata as { role?: string } | undefined)?.role === "admin";
 
   const value: AppState = {
@@ -538,6 +626,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     toast,
     toasts,
     snapshots,
+    events,
+    chartEvents,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

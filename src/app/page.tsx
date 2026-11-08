@@ -3,6 +3,7 @@
 import { nextTier, tierStyle } from "@/lib/tiers";
 import { RatingNumber, TierBadge } from "@/components/rating";
 import { SongButton } from "@/components/song-dialog";
+import { RecentUpdates } from "@/components/recent-updates";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useApp } from "@/components/app-provider";
@@ -17,7 +18,7 @@ function avg(v: number[]) {
 }
 
 export default function Home() {
-  const { ready, analysis, completion, index, scores, version, session, profile } = useApp();
+  const { ready, analysis, completion, index, scores, version, session, profile, events } = useApp();
 
   const targets = useMemo(
     () => (index && analysis && analysis.played > 0 ? computeTargets(index, scores, analysis).slice(0, 4) : []),
@@ -113,6 +114,13 @@ export default function Home() {
       </section>
 
       {/* push suggestions */}
+      {events.length > 0 && (
+        <section className="mt-8">
+          <h2 className="mb-3 text-[17px] font-bold">최근 갱신</h2>
+          <RecentUpdates />
+        </section>
+      )}
+
       {targets.length > 0 && (
         <section className="mt-8">
           <div className="mb-3 flex items-baseline justify-between">
@@ -124,7 +132,7 @@ export default function Home() {
           <div className="grid gap-2 sm:grid-cols-2">
             {targets.map((t) => (
               <SongButton key={t.chart.id} songId={t.chart.songId} label={t.chart.title} className="flex w-full items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-4 transition hover:border-line-2">
-                <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-lg" className="w-12" />
+                <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-lg" className="w-12" thumb />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[14px] font-semibold">{t.chart.title}</div>
                   <div className="num text-[12px] text-mist">

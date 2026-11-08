@@ -11,12 +11,15 @@ const plex = IBM_Plex_Sans_KR({ variable: "--font-plex", subsets: ["latin"], wei
 export const metadata: Metadata = {
   title: { default: "Orbit Rating", template: "%s | Orbit Rating" },
   description: "Rotaeno 레이팅·B40·대상곡·완성도 분석",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://orbit-rating.vercel.app"),
+  applicationName: "Orbit Rating",
+  appleWebApp: { capable: true, title: "Orbit", statusBarStyle: "black-translucent" },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f1f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0910" },
+    { media: "(prefers-color-scheme: light)", color: "#f1f4f9" },
+    { media: "(prefers-color-scheme: dark)", color: "#060a14" },
   ],
 };
 

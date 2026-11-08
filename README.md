@@ -21,6 +21,8 @@ Rotaeno 레이팅 분석 웹 서비스입니다. B40, 대상곡, 완성도를 �
 | B40 `/best` | 구간별(B1–10 / B11–20 / B21–40) 자켓 타일, 이미지로 저장 |
 | 대상곡 `/targets` | 채보별로 레이팅을 +0.001 올리는 최소 점수, 목표 레이팅까지의 경로 |
 | 완성도 `/completion` | 완성도와 난이도 구간별 분석 |
+| 채보 성향 `/insights` | 노트 구성(Tap·Flick·Slide·Catch·Rotate 비중, 노트 밀도)별로 내 평균보다 잘 치는지·못 치는지, 평소 점수보다 낮은 B40 후보곡, 약점 연습곡 |
+| 곡 `/song/<id>` | 곡별 정적 페이지 (공유·검색용) |
 | 기록 `/history` | 레이팅 변화 그래프 |
 | 도구 `/tools` | 랜덤 곡, 랜덤 챌린지, 정수 연대기 |
 | 랭킹 `/ranking`, `/u/<handle>` | 공개 프로필 랭킹과 공개 프로필 |
@@ -29,7 +31,10 @@ Rotaeno 레이팅 분석 웹 서비스입니다. B40, 대상곡, 완성도를 �
 
 공통
 
-- 어떤 화면이든 곡을 누르면 곡 정보 창이 열립니다. 작곡가, 팩, 버전, 길이, 채보별 정수·노트 수·채보 디자이너, 내 기록, +0.001에 필요한 점수가 나옵니다.
+- 어떤 화면이든 곡을 누르면 곡 정보 창이 열립니다. 작곡가, 팩, 버전, 길이, 채보별 정수·노트 수·채보 디자이너, 내 기록과 갱신 이력, +0.001에 필요한 점수가 나옵니다. 창을 연 주소(`?song=<id>`)를 그대로 공유할 수 있습니다.
+- 점수가 오르거나 램프가 바뀔 때마다 기록이 남고, 홈에 최근 갱신이 보입니다.
+- 홈 화면에 설치할 수 있고(PWA), 한 번 열어 둔 뒤에는 오프라인에서도 계산됩니다.
+- 공개 프로필 링크를 붙이면 레이팅·휘장·상위 5곡이 담긴 미리보기 이미지가 뜹니다.
 - 난이도 색은 게임과 같습니다 (I 초록, II 파랑, III 주황, IV 보라, IV-α 연보라).
 - 레이팅 숫자는 게임의 레이팅 휘장 구간 색으로 칠해집니다.
 - 로그인하지 않아도 이 기기에 저장되고, Google로 로그인하면 계정에 동기화됩니다.
@@ -51,6 +56,7 @@ ROTAENO_SHEET=/path/to/filled-2.27.0.xlsx npm test   # xlsx 가져오기 테스�
 
 - Next.js 16 (App Router), React 19, Tailwind CSS 4, TypeScript
 - Supabase: Postgres + RLS, Auth(Google), Edge Function(Deno)
+- `next/og` + sharp (링크 미리보기 이미지), 서비스 워커(오프라인)
 - Vitest, Vercel
 
 ## 로컬에서 실행하기
@@ -71,6 +77,7 @@ npm run dev                  # http://localhost:3000
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase 프로젝트 URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable 키 (브라우저 공개용) |
+| `NEXT_PUBLIC_SITE_URL` | (선택) 배포 주소. 링크 미리보기 이미지의 절대 경로에 씁니다. Vercel에서는 생략해도 됩니다 |
 
 ## Supabase 설정
 
@@ -106,9 +113,20 @@ supabase secrets set TAPTAP_CLIENT_ID_GLOBAL=... TAPTAP_CLIENT_ID_CN=... \
 
 시크릿이 없으면 가져오기 화면에 "서버 설정이 끝나지 않았습니다"가 표시되고, 나머지 기능은 그대로 동작합니다.
 
+## 곡 정보·자켓 갱신
+
+곡 정보(`src/data/songinfo.json`)와 자켓(`public/jackets`)은 Rotaeno 중문 위키에서 가져옵니다.
+
+```bash
+npm run sync:wiki                       # 바뀐 곡 정보, 없는 자켓만 받기
+node scripts/sync-wiki.mjs --refresh-jackets   # 자켓 전부 다시 받기
+```
+
+`.github/workflows/sync-wiki.yml`이 매주 월요일 이 스크립트를 돌리고, 바뀐 게 있으면 PR을 엽니다. 저장소 설정의 Actions → General에서 "Allow GitHub Actions to create and approve pull requests"를 켜 두어야 합니다. 정수는 이 스크립트로 바꾸지 않습니다.
+
 ## 데이터와 보안
 
-- 점수, 레이팅 기록, 프로필은 본인만 읽고 씁니다. 프로필을 공개하면 다른 사람도 프로필과 점수를 볼 수 있습니다.
+- 점수, 점수 갱신 기록, 레이팅 기록, 프로필은 본인만 읽고 씁니다. 점수 갱신 기록은 DB 트리거만 씁니다. 프로필을 공개하면 다른 사람도 프로필과 점수를 볼 수 있습니다.
 - 곡 데이터는 누구나 읽고, `app_metadata.role = 'admin'`인 계정만 씁니다. (`user_metadata`는 사용자가 바꿀 수 있어서 권한 판단에 쓰지 않습니다.)
 - TapTap 토큰과 게임 세션 토큰은 Edge Function 안에서 한 번 쓰고 저장하거나 로그에 남기지 않습니다. 세이브는 읽기만 합니다.
 
@@ -122,12 +140,16 @@ src/lib/targets.ts      대상곡, 목표 레이팅 경로
 src/lib/sheet.ts        분석표 xlsx 읽기 (점수, 곡 마스터)
 src/lib/packs.ts        팩 이름 → 한국판 이름·카테고리
 src/lib/tiers.ts        레이팅 휘장 구간과 색
+src/lib/insights.ts     채보 성향 분석 (정수 대비 점수 회귀, 노트 구성별 비교)
+src/lib/server          공개 프로필 요약, 링크 미리보기 이미지
 src/data                내장 곡 데이터, 곡 정보, 자켓 목록
-public/jackets          자켓 이미지 (256px webp)
+public/jackets          자켓 이미지 (256px webp, sm/ 128px)
+public/sw.js            서비스 워커
 public/tiers            레이팅 휘장 이미지
 supabase/migrations     스키마, RLS
 supabase/functions      TapTap 가져오기 Edge Function
 scripts/extract_sheet.py  분석표 xlsx → src/data/*.json
+scripts/sync-wiki.mjs   위키 → 곡 정보·자켓
 tests                   Vitest
 ```
 

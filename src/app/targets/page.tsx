@@ -160,7 +160,7 @@ export default function TargetsPage() {
           return (
             <li key={t.chart.id} className={`flex items-center gap-3 px-3 py-2.5 sm:px-4 ${pick === t.chart.id ? "bg-accent-soft" : ""}`}>
               <SongButton songId={t.chart.songId} label={t.chart.title} className="group flex min-w-0 flex-1 items-center gap-3">
-              <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-[10px]" className="w-11 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" />
+              <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-[10px]" className="w-11 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" thumb />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <DiffMark d={t.chart.difficulty} constant={t.chart.constant} />

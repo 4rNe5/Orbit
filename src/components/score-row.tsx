@@ -52,7 +52,7 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
   return (
     <li className={cx("row-auto grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 px-3 py-3 sm:grid-cols-[minmax(0,1fr)_150px_96px_92px] sm:px-4", chart.deleted && "opacity-55")}>
       <SongButton songId={chart.songId} label={chart.title} className="group flex min-w-0 items-center gap-3 rounded-[12px]">
-        <Jacket songId={chart.songId} title={chart.songTitle || chart.title} difficulty={chart.difficulty} rounded="rounded-[10px]" className="w-12 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" />
+        <Jacket songId={chart.songId} title={chart.songTitle || chart.title} difficulty={chart.difficulty} rounded="rounded-[10px]" className="w-12 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" thumb />
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <DiffMark d={chart.difficulty} constant={chart.constant} />

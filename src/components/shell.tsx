@@ -12,6 +12,7 @@ const MAIN = [
   { href: "/best", label: "B40" },
   { href: "/targets", label: "대상곡" },
   { href: "/completion", label: "완성도" },
+  { href: "/insights", label: "성향" },
   { href: "/history", label: "기록" },
   { href: "/tools", label: "도구" },
   { href: "/ranking", label: "랭킹" },
@@ -193,6 +194,11 @@ function MobileNavLive() {
 export function Shell({ children }: { children: React.ReactNode }) {
   const { toasts, error, syncError } = useApp();
   const [more, setMore] = useState(false);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js", { scope: "/", updateViaCache: "none" }).catch(() => {});
+  }, []);
 
   return (
     <div className="starfield min-h-dvh">

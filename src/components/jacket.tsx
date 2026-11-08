@@ -29,6 +29,7 @@ export function Jacket({
   className,
   rounded = "rounded-lg",
   eager,
+  thumb,
 }: {
   songId: string;
   title: string;
@@ -36,6 +37,8 @@ export function Jacket({
   className?: string;
   rounded?: string;
   eager?: boolean;
+  /** 128px file for list rows (≤ 64px on screen); default is the 256px art. */
+  thumb?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   const show = HAS.has(songId) && !failed;
@@ -48,7 +51,7 @@ export function Jacket({
       {show ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={`/jackets/${songId}.webp`}
+          src={thumb ? `/jackets/sm/${songId}.webp` : `/jackets/${songId}.webp`}
           alt=""
           loading={eager ? "eager" : "lazy"}
           decoding="async"

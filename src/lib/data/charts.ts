@@ -103,9 +103,31 @@ async function bundledCharts(): Promise<{ version: DataVersion; charts: Chart[] 
   };
 }
 
+/** Last cached charts (any version); the bundled ones when `orBundled` and nothing is cached. */
+async function offlineCharts(): Promise<{ version: DataVersion; charts: Chart[] }>;
+async function offlineCharts(orBundled: false): Promise<{ version: DataVersion; charts: Chart[] } | null>;
+async function offlineCharts(orBundled = true) {
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) ?? "null");
+    if (cached?.charts?.length) return { version: (cached.versionInfo as DataVersion) ?? (await bundledCharts()).version, charts: cached.charts as Chart[] };
+  } catch {
+    /* cache unavailable */
+  }
+  return orBundled ? bundledCharts() : null;
+}
+
 /** Charts for the current data version, cached per version in localStorage. */
 export async function loadCharts(): Promise<{ version: DataVersion; charts: Chart[] }> {
-  const version = await fetchCurrentVersion();
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return offlineCharts();
+  let version: DataVersion | null;
+  try {
+    version = await fetchCurrentVersion();
+  } catch (e) {
+    // Supabase unreachable: last cached charts if any
+    const off = await offlineCharts(false);
+    if (off) return off;
+    throw e;
+  }
   if (!version) return bundledCharts();
   try {
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY) ?? "null");
@@ -125,7 +147,7 @@ export async function loadCharts(): Promise<{ version: DataVersion; charts: Char
   );
   const charts = rows.map(rowToChart);
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ version: version.version, importedAt: version.importedAt, charts }));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ version: version.version, importedAt: version.importedAt, versionInfo: version, charts }));
   } catch {
     /* quota or private mode */
   }
