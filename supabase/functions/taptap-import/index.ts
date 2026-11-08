@@ -128,13 +128,16 @@ async function poll(region: Region, deviceCode: string, deviceId: string) {
   if (!union?.data?.kid) throw new Error("XD 계정 연결에 실패했습니다.");
 
   const key = lcKey(region);
+  // authData login creates a new _User when none is linked; failOnNotExist makes it return 211 instead,
+  // so a TapTap account that never played leaves nothing behind on the game server.
   const user = await (
-    await fetch(`${cfg.lcServer}/1.1/users`, {
+    await fetch(`${cfg.lcServer}/1.1/users?failOnNotExist=true`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-LC-Id": cfg.lcId, "X-LC-Key": key },
       body: JSON.stringify({ authData: { xdg: { access_token: `${union.data.kid} ${union.data.macKey}`, uid: "should_be_replaced_after_validation", device_id: deviceId } } }),
     })
   ).json();
+  if (user?.code === 211) throw new Error("이 TapTap 계정으로 Rotaeno에 로그인한 기록이 없습니다. 게임에서 TapTap 로그인을 한 계정인지 확인해 주세요.");
   if (!user?.sessionToken || !user?.objectId) throw new Error("Rotaeno 계정을 찾지 못했습니다. 게임에서 TapTap 로그인을 한 계정인지 확인해 주세요.");
 
   const where = encodeURIComponent(JSON.stringify({ user: { __type: "Pointer", className: "_User", objectId: user.objectId } }));
