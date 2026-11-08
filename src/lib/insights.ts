@@ -1,5 +1,6 @@
 import type { ChartIndex } from "@/lib/core/rating";
 import type { Chart, RatingAnalysis, ScoreMap } from "@/lib/core/types";
+import type { Locale } from "@/lib/i18n";
 
 /** Per-song wiki data the analysis needs: duration (s) and note counts per difficulty. */
 export interface NoteInfo {
@@ -9,13 +10,20 @@ export interface NoteInfo {
 
 export type FeatureKey = "tap" | "flick" | "slide" | "catch" | "rotate" | "density";
 
-export const FEATURES: { key: FeatureKey; label: string; unit: string }[] = [
-  { key: "tap", label: "Tap 비중", unit: "%" },
-  { key: "flick", label: "Flick 비중", unit: "%" },
-  { key: "slide", label: "Slide 비중", unit: "%" },
-  { key: "catch", label: "Catch 비중", unit: "%" },
-  { key: "rotate", label: "Rotate 비중", unit: "%" },
-  { key: "density", label: "노트 밀도", unit: "개/초" },
+/** A UI string in each locale. */
+export type Localized = Record<Locale, string>;
+
+const PCT: Localized = { ko: "%", ja: "%", zh: "%" };
+/** Notes per second. */
+const PER_SEC: Localized = { ko: "개/초", ja: "個/秒", zh: "个/秒" };
+
+export const FEATURES: { key: FeatureKey; label: Localized; unit: Localized }[] = [
+  { key: "tap", label: { ko: "Tap 비중", ja: "Tap 比率", zh: "Tap 占比" }, unit: PCT },
+  { key: "flick", label: { ko: "Flick 비중", ja: "Flick 比率", zh: "Flick 占比" }, unit: PCT },
+  { key: "slide", label: { ko: "Slide 비중", ja: "Slide 比率", zh: "Slide 占比" }, unit: PCT },
+  { key: "catch", label: { ko: "Catch 비중", ja: "Catch 比率", zh: "Catch 占比" }, unit: PCT },
+  { key: "rotate", label: { ko: "Rotate 비중", ja: "Rotate 比率", zh: "Rotate 占比" }, unit: PCT },
+  { key: "density", label: { ko: "노트 밀도", ja: "ノーツ密度", zh: "音符密度" }, unit: PER_SEC },
 ];
 
 export interface Sample {
@@ -29,8 +37,8 @@ export interface Sample {
 
 export interface FeatureResult {
   key: FeatureKey;
-  label: string;
-  unit: string;
+  label: Localized;
+  unit: Localized;
   /** Mean residual of the top third minus the bottom third (points). Negative = weaker on charts heavy in this. */
   diff: number;
   /** Welch t statistic of that difference. |t| < 2 → weak evidence. */
@@ -139,4 +147,4 @@ export function analyzeInsights(index: ChartIndex, scores: ScoreMap, analysis: R
   return { count: rows.length, samples, minConstant, features, expectedAt };
 }
 
-export const fmtFeature = (key: FeatureKey, v: number) => (key === "density" ? `${v.toFixed(1)}개/초` : `${Math.round(v * 100)}%`);
+export const fmtFeature = (key: FeatureKey, v: number, l: Locale = "ko") => (key === "density" ? `${v.toFixed(1)}${PER_SEC[l]}` : `${Math.round(v * 100)}%`);

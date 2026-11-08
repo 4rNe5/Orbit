@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useApp, type Profile } from "@/components/app-provider";
 import { Button, ButtonLink, Loading, PageHeader, Panel, Segmented, TextInput } from "@/components/ui";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { defineDict, useT } from "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
 
@@ -216,6 +217,9 @@ export default function SettingsPage() {
                 { value: "dark", label: t("themeDark") },
               ]}
             />
+          </div>
+          <div className="mt-3">
+            <LanguageSwitcher variant="inline" />
           </div>
         </Panel>
         <Panel className="flex flex-wrap items-center justify-between gap-3 p-5 sm:p-6">
