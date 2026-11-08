@@ -124,6 +124,8 @@ node scripts/sync-wiki.mjs --refresh-jackets   # 자켓 전부 다시 받기
 
 `.github/workflows/sync-wiki.yml`이 매주 월요일 이 스크립트를 돌리고, 바뀐 게 있으면 PR을 엽니다. 저장소 설정의 Actions → General에서 "Allow GitHub Actions to create and approve pull requests"를 켜 두어야 합니다. 정수는 이 스크립트로 바꾸지 않습니다.
 
+GitHub Actions 러너에서는 위키 서버 접속이 끊겨서, Edge Function `wiki-proxy`(위키의 곡 목록·노트 통계·자켓 경로만 허용하는 읽기 전용 릴레이)를 거칩니다. 직접 운영한다면 `supabase functions deploy wiki-proxy --no-verify-jwt`로 배포하고 저장소 변수 `WIKI_PROXY`에 함수 주소를 넣으세요.
+
 ## 데이터와 보안
 
 - 점수, 점수 갱신 기록, 레이팅 기록, 프로필은 본인만 읽고 씁니다. 점수 갱신 기록은 DB 트리거만 씁니다. 프로필을 공개하면 다른 사람도 프로필과 점수를 볼 수 있습니다.
@@ -147,7 +149,7 @@ public/jackets          자켓 이미지 (256px webp, sm/ 128px)
 public/sw.js            서비스 워커
 public/tiers            레이팅 휘장 이미지
 supabase/migrations     스키마, RLS
-supabase/functions      TapTap 가져오기 Edge Function
+supabase/functions      Edge Function (TapTap 가져오기, 위키 릴레이)
 scripts/extract_sheet.py  분석표 xlsx → src/data/*.json
 scripts/sync-wiki.mjs   위키 → 곡 정보·자켓
 tests                   Vitest
