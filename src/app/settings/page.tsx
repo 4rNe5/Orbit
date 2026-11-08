@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useApp, type Profile } from "@/components/app-provider";
-import { Button, ButtonLink, Loading, PageHeader, Panel, Segmented, TextInput } from "@/components/ui";
+import { Button, ButtonLink, Loading, PageHeader, Panel, Segmented } from "@/components/ui";
+import { HandleField, NAME_MAX, NicknameField, useHandleStatus, VisibilityField } from "@/components/profile-fields";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { defineDict, useT } from "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
@@ -11,15 +12,10 @@ import { supabase } from "@/lib/supabase";
 const T = defineDict({
   ko: {
     loadingProfile: "프로필을 불러오는 중",
-    handleTaken: "이미 쓰이는 주소입니다. 다른 주소를 입력해 주세요.",
+    handleTaken: "이미 쓰이는 아이디예요. 다른 아이디를 입력해 주세요.",
     saveFailed: "저장하지 못했습니다. {msg}",
     saved: "프로필을 저장했습니다.",
     profile: "프로필",
-    displayName: "표시 이름",
-    handle: "프로필 주소",
-    handleRule: "영문 소문자·숫자·-·_ 3–24자, 첫 글자는 영문이나 숫자",
-    makePublic: "프로필 공개",
-    makePublicHint: "켜면 랭킹에 오르고, 프로필 주소로 누구나 B40과 점수를 볼 수 있습니다.",
     showCompletion: "공개 프로필과 랭킹에 완성도 표시",
     saving: "저장하는 중",
     save: "프로필 저장",
@@ -38,15 +34,10 @@ const T = defineDict({
   },
   ja: {
     loadingProfile: "プロフィールを読み込み中",
-    handleTaken: "この URL はすでに使われています。別の URL を入力してください。",
+    handleTaken: "この ID はすでに使われています。別の ID を入力してください。",
     saveFailed: "保存できませんでした。{msg}",
     saved: "プロフィールを保存しました。",
     profile: "プロフィール",
-    displayName: "表示名",
-    handle: "プロフィール URL",
-    handleRule: "半角英小文字・数字・-・_ で3〜24文字、先頭は英字か数字",
-    makePublic: "プロフィールを公開",
-    makePublicHint: "オンにするとランキングに掲載され、プロフィール URL から誰でも B40 とスコアを見られます。",
     showCompletion: "公開プロフィールとランキングに完成度を表示",
     saving: "保存中",
     save: "プロフィールを保存",
@@ -65,15 +56,10 @@ const T = defineDict({
   },
   zh: {
     loadingProfile: "正在加载个人资料",
-    handleTaken: "该地址已被使用，请换一个地址。",
+    handleTaken: "此 ID 已被使用，请换一个。",
     saveFailed: "保存失败。{msg}",
     saved: "个人资料已保存。",
     profile: "个人资料",
-    displayName: "显示名称",
-    handle: "个人资料地址",
-    handleRule: "小写字母、数字、- 和 _，3–24 个字符，首字符须为字母或数字",
-    makePublic: "公开个人资料",
-    makePublicHint: "开启后会出现在排行榜上，任何人都能通过个人资料地址查看你的 B40 和分数。",
     showCompletion: "在公开个人资料和排行榜中显示完成度",
     saving: "正在保存",
     save: "保存个人资料",
@@ -119,8 +105,6 @@ function useTheme(): [Theme, (t: Theme) => void] {
   return [theme, set];
 }
 
-const HANDLE = /^[a-z0-9][a-z0-9_-]{2,23}$/;
-
 function ProfileForm() {
   const { profile, session } = useApp();
   const t = useT(T);
@@ -137,13 +121,14 @@ function ProfileFields({ profile }: { profile: Profile }) {
   const [pub, setPub] = useState(profile.is_public);
   const [showC, setShowC] = useState(profile.show_completion);
   const [saving, setSaving] = useState(false);
-  const handleOk = HANDLE.test(handle);
+  const status = useHandleStatus(handle, profile.handle);
+  const handleOk = status === "ok" || status === "unknown";
 
   const save = async () => {
     setSaving(true);
     const { error } = await supabase()
       .from("profiles")
-      .update({ display_name: name.trim().slice(0, 40), handle, is_public: pub, show_completion: showC })
+      .update({ display_name: name.trim().slice(0, NAME_MAX), handle, is_public: pub, show_completion: showC, onboarded: true })
       .eq("user_id", profile.user_id);
     setSaving(false);
     if (error) {
@@ -158,25 +143,9 @@ function ProfileFields({ profile }: { profile: Profile }) {
     <Panel className="p-5 sm:p-6">
       <h2 className="text-[17px] font-semibold">{t("profile")}</h2>
       <div className="mt-4 grid gap-4 sm:max-w-md">
-        <label className="flex flex-col gap-1.5 text-[13px] text-mist">
-          {t("displayName")}
-          <TextInput value={name} maxLength={40} onChange={(e) => setName(e.target.value)} />
-        </label>
-        <label className="flex flex-col gap-1.5 text-[13px] text-mist">
-          {t("handle")}
-          <div className="flex items-center gap-1 text-ink">
-            <span className="text-mist">/u/</span>
-            <TextInput value={handle} onChange={(e) => setHandle(e.target.value.toLowerCase())} aria-invalid={!handleOk} className="flex-1" />
-          </div>
-          {!handleOk && <span className="text-[12px] text-danger">{t("handleRule")}</span>}
-        </label>
-        <label className="flex items-start gap-3 text-[14px]">
-          <input type="checkbox" checked={pub} onChange={(e) => setPub(e.target.checked)} className="mt-1 accent-[var(--orbit)]" />
-          <span>
-            {t("makePublic")}
-            <span className="block text-[12px] text-mist">{t("makePublicHint")}</span>
-          </span>
-        </label>
+        <NicknameField value={name} onChange={setName} />
+        <HandleField value={handle} onChange={setHandle} status={status} />
+        <VisibilityField value={pub} onChange={setPub} />
         <label className="flex items-start gap-3 text-[14px]">
           <input type="checkbox" checked={showC} onChange={(e) => setShowC(e.target.checked)} className="mt-1 accent-[var(--orbit)]" />
           <span>{t("showCompletion")}</span>

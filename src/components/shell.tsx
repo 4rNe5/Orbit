@@ -7,23 +7,24 @@ import { defineDict, LOCALES, setLocale, useLocale, useT } from "@/lib/i18n";
 import { useApp } from "./app-provider";
 import { LanguageSwitcher } from "./language-switcher";
 import { GoogleOneTap } from "./one-tap";
+import { ProfileSetup } from "./profile-setup";
 import { cx, OrbitGlyph } from "./ui";
 
 const T = defineDict({
   ko: {
-    home: "홈", scores: "점수", best: "B40", targets: "대상곡", completion: "완성도", insights: "성향", history: "기록", tools: "도구", ranking: "랭킹",
+    home: "홈", scores: "점수", best: "B40", targets: "대상곡", completion: "완성도", insights: "성향", history: "기록", tools: "도구", ranking: "랭킹", songs: "악곡",
     login: "로그인", logout: "로그아웃", saving: "저장 중", myProfile: "내 공개 프로필", importExport: "가져오기·내보내기", settings: "설정", admin: "곡 데이터 관리",
     ratingHistory: "레이팅 기록", toolsLong: "랜덤·챌린지·정수 연대기", more: "더보기", close: "닫기", skip: "본문으로 건너뛰기", mainNav: "주 메뉴", bottomNav: "하단 메뉴",
     homeLabel: "Orbit Rating 홈", traveler: "트래블러", language: "언어",
   },
   ja: {
-    home: "ホーム", scores: "スコア", best: "B40", targets: "対象曲", completion: "完成度", insights: "傾向", history: "履歴", tools: "ツール", ranking: "ランキング",
+    home: "ホーム", scores: "スコア", best: "B40", targets: "対象曲", completion: "完成度", insights: "傾向", history: "履歴", tools: "ツール", ranking: "ランキング", songs: "楽曲",
     login: "ログイン", logout: "ログアウト", saving: "保存中", myProfile: "公開プロフィール", importExport: "インポート・エクスポート", settings: "設定", admin: "楽曲データ管理",
     ratingHistory: "レート履歴", toolsLong: "ランダム・チャレンジ・定数の変遷", more: "その他", close: "閉じる", skip: "本文へスキップ", mainNav: "メインメニュー", bottomNav: "下部メニュー",
     homeLabel: "Orbit Rating ホーム", traveler: "トラベラー", language: "言語",
   },
   zh: {
-    home: "首页", scores: "分数", best: "B40", targets: "推分目标", completion: "完成度", insights: "倾向", history: "记录", tools: "工具", ranking: "排行榜",
+    home: "首页", scores: "分数", best: "B40", targets: "推分目标", completion: "完成度", insights: "倾向", history: "记录", tools: "工具", ranking: "排行榜", songs: "曲目",
     login: "登录", logout: "退出登录", saving: "保存中", myProfile: "我的公开主页", importExport: "导入·导出", settings: "设置", admin: "曲目数据管理",
     ratingHistory: "Rating 记录", toolsLong: "随机·挑战·定数变化史", more: "更多", close: "关闭", skip: "跳到正文", mainNav: "主菜单", bottomNav: "底部菜单",
     homeLabel: "Orbit Rating 首页", traveler: "旅行者", language: "语言",
@@ -41,6 +42,7 @@ const MAIN: { href: string; key: K }[] = [
   { href: "/history", key: "history" },
   { href: "/tools", key: "tools" },
   { href: "/ranking", key: "ranking" },
+  { href: "/songs", key: "songs" },
 ];
 
 const MOBILE = [
@@ -203,6 +205,7 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
     { href: "/history", key: "ratingHistory" },
     { href: "/tools", key: "toolsLong" },
     { href: "/ranking", key: "ranking" },
+    { href: "/songs", key: "songs" },
     { href: "/import", key: "importExport" },
     { href: "/settings", key: "settings" },
     ...(session ? [] : [{ href: "/login", key: "login" as K }]),
@@ -236,7 +239,7 @@ function DesktopNav({ path }: { path: string | null }) {
             key={m.href}
             href={m.href}
             aria-current={on ? "page" : undefined}
-            className={cx("relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-[14px] transition lg:px-3", on ? "font-semibold text-ink" : "text-mist hover:text-ink")}
+            className={cx("relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-[14px] transition xl:px-3", on ? "font-semibold text-ink" : "text-mist hover:text-ink")}
           >
             {t(m.key)}
             {on && <span className="absolute inset-x-3 -bottom-[11px] h-[2px] rounded-full bg-orbit" />}
@@ -333,6 +336,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       </nav>
       {more && <MoreSheet onClose={() => setMore(false)} />}
       <GoogleOneTap />
+      <ProfileSetup />
 
       <div className="pointer-events-none fixed inset-x-0 bottom-20 z-50 flex flex-col items-center gap-2 px-4 lg:bottom-6" aria-live="polite">
         {toasts.map((t) => (

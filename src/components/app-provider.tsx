@@ -49,6 +49,8 @@ export interface Profile {
   display_name: string;
   is_public: boolean;
   show_completion: boolean;
+  /** False until a new account confirms nickname, handle and visibility (first sign-in setup). */
+  onboarded: boolean;
 }
 
 export interface Snapshot {
@@ -234,7 +236,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (!userId) return;
     const { data } = await supabase()
       .from("profiles")
-      .select("user_id, handle, display_name, is_public, show_completion")
+      .select("user_id, handle, display_name, is_public, show_completion, onboarded")
       .eq("user_id", userId)
       .maybeSingle();
     setProfile((data as Profile) ?? null);
@@ -245,7 +247,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false;
     supabase()
       .from("profiles")
-      .select("user_id, handle, display_name, is_public, show_completion")
+      .select("user_id, handle, display_name, is_public, show_completion, onboarded")
       .eq("user_id", userId)
       .maybeSingle()
       .then(({ data }) => {

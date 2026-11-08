@@ -184,6 +184,15 @@ export function Loading({ label }: { label?: string }) {
   );
 }
 
+/** Tray-with-arrow icon for import actions. */
+export function ImportIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M4.5 15.5v3a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-3" />
+    </svg>
+  );
+}
+
 /** Orbit logo: ring, one note arc and a satellite dot. */
 export function OrbitGlyph({ size = 26 }: { size?: number }) {
   return (

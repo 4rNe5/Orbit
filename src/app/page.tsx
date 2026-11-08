@@ -9,7 +9,7 @@ import { useMemo } from "react";
 import { useApp } from "@/components/app-provider";
 import { BestTile } from "@/components/best-tile";
 import { Jacket } from "@/components/jacket";
-import { ButtonLink, DiffMark, Loading } from "@/components/ui";
+import { ButtonLink, DiffMark, ImportIcon, Loading } from "@/components/ui";
 import { fmtPercent, fmtScore } from "@/lib/format";
 import { computeTargets } from "@/lib/targets";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -24,6 +24,7 @@ const T = defineDict({
     emptyLead: "한 곡씩 입력해도 되고, 쓰던 레이팅 시트나 TapTap 세이브를 통째로 가져와도 됩니다. B40·대상곡·완성도가 바로 계산돼요.",
     enterScores: "점수 입력하기",
     importSheet: "시트·세이브 가져오기",
+    importScores: "점수 가져오기",
     songCount: "{n}곡",
     theoretical: "이론치 {v}",
     next001: "다음 +0.001",
@@ -49,6 +50,7 @@ const T = defineDict({
     emptyLead: "1曲ずつ入力しても、使っていたレートシートやTapTapのセーブデータをまるごと取り込んでもOKです。B40・対象曲・完成度がすぐに計算されます。",
     enterScores: "スコアを入力",
     importSheet: "シート・セーブを取り込む",
+    importScores: "スコアを取り込む",
     songCount: "{n}曲",
     theoretical: "理論値 {v}",
     next001: "次の+0.001",
@@ -74,6 +76,7 @@ const T = defineDict({
     emptyLead: "可以逐首录入，也可以把正在用的 Rating 表格或 TapTap 存档整个导入。B40、推分目标和完成度会立即算好。",
     enterScores: "录入分数",
     importSheet: "导入表格/存档",
+    importScores: "导入分数",
     songCount: "{n} 首",
     theoretical: "理论值 {v}",
     next001: "下一个+0.001",
@@ -168,11 +171,15 @@ export default function Home() {
               <Pill label="B40 AP+" value={t("apCount", { n: analysis.apPlusInBest })} />
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <ButtonLink href="/best" variant="primary">
               {t("b40All")}
             </ButtonLink>
             <ButtonLink href="/targets">{t("targets")}</ButtonLink>
+            <ButtonLink href="/import">
+              <ImportIcon />
+              {t("importScores")}
+            </ButtonLink>
           </div>
         </div>
         <div className="relative mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">

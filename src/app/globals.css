@@ -197,6 +197,10 @@ body {
   outline-offset: 2px;
   border-radius: 8px;
 }
+/* Programmatic focus targets (dialog headings) don't need a ring. */
+[tabindex="-1"]:focus-visible {
+  outline: none;
+}
 
 .diff-I { --diff: var(--d1); }
 .diff-II { --diff: var(--d2); }

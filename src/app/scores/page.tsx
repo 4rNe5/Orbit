@@ -4,13 +4,14 @@ import { useCallback, useMemo, useState } from "react";
 import { useApp } from "@/components/app-provider";
 import { applyChartFilter, ChartFilterBar, useChartFilter } from "@/components/chart-filter";
 import { ScoreRow } from "@/components/score-row";
-import { Button, Chip, Loading, PageHeader, Segmented } from "@/components/ui";
+import { Button, ButtonLink, Chip, ImportIcon, Loading, PageHeader, Segmented } from "@/components/ui";
 import type { Lamp } from "@/lib/core/types";
 import { defineDict, useT } from "@/lib/i18n";
 
 const T = defineDict({
   ko: {
     title: "점수 입력",
+    importScores: "점수 가져오기",
     lead: "점수를 입력하고 Enter를 누르면 저장되고 다음 칸으로 넘어갑니다. ",
     saveAccount: "계정에 자동 저장됩니다.",
     saveLocal: "로그인 전에는 이 기기에만 저장됩니다.",
@@ -34,6 +35,7 @@ const T = defineDict({
   },
   ja: {
     title: "スコア入力",
+    importScores: "スコアを取り込む",
     lead: "スコアを入力して Enter を押すと保存され、次の欄に移動します。",
     saveAccount: "アカウントに自動保存されます。",
     saveLocal: "ログインするまではこの端末にのみ保存されます。",
@@ -57,6 +59,7 @@ const T = defineDict({
   },
   zh: {
     title: "录入分数",
+    importScores: "导入分数",
     lead: "输入分数后按 Enter 即可保存并跳到下一栏。",
     saveAccount: "将自动保存到账号。",
     saveLocal: "登录前仅保存在本设备上。",
@@ -121,6 +124,12 @@ export default function ScoresPage() {
     <div>
       <PageHeader
         title={t("title")}
+        actions={
+          <ButtonLink href="/import">
+            <ImportIcon />
+            {t("importScores")}
+          </ButtonLink>
+        }
         lead={
           <>
             {t("lead")}
