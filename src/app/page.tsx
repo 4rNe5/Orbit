@@ -1,6 +1,6 @@
 "use client";
 
-import { nextTier } from "@/lib/tiers";
+import { nextTier, tierStyle } from "@/lib/tiers";
 import { RatingNumber, TierBadge } from "@/components/rating";
 import { SongButton } from "@/components/song-dialog";
 import { RecentUpdates } from "@/components/recent-updates";
@@ -27,6 +27,7 @@ const T = defineDict({
     importScores: "점수 가져오기",
     songCount: "{n}곡",
     theoretical: "이론치 {v}",
+    theoreticalShort: "이론치",
     next001: "다음 +0.001",
     nextEmblem: "다음 휘장",
     nextEmblemValue: "{min}까지 {gap}",
@@ -53,6 +54,7 @@ const T = defineDict({
     importScores: "スコアを取り込む",
     songCount: "{n}曲",
     theoretical: "理論値 {v}",
+    theoreticalShort: "理論値",
     next001: "次の+0.001",
     nextEmblem: "次のエンブレム",
     nextEmblemValue: "{min}まで {gap}",
@@ -79,6 +81,7 @@ const T = defineDict({
     importScores: "导入分数",
     songCount: "{n} 首",
     theoretical: "理论值 {v}",
+    theoreticalShort: "理论值",
     next001: "下一个+0.001",
     nextEmblem: "下一徽标",
     nextEmblemValue: "距 {min} 还差 {gap}",
@@ -147,8 +150,9 @@ export default function Home() {
   return (
     <div>
       {/* rating */}
-      <section className="rounded-[var(--radius-panel)] border border-line bg-paper p-5 sm:p-6">
-        <div className="flex flex-wrap items-end justify-between gap-5">
+      <section className="relative overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper p-5 sm:p-6">
+        <div className="tier-glow pointer-events-none absolute -right-16 -top-20 h-52 w-52 rounded-full opacity-20 blur-3xl sm:-right-20 sm:-top-24 sm:h-80 sm:w-80" style={tierStyle(analysis.rating)} aria-hidden />
+        <div className="relative flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-[14px] text-mist">
               <span className="truncate font-semibold text-ink">{name}</span>
@@ -158,13 +162,14 @@ export default function Home() {
             <div className="mt-1 flex items-end gap-3">
               <TierBadge rating={analysis.rating} size={56} className="mb-1 sm:h-[64px] sm:w-[64px]" />
               <RatingNumber rating={analysis.rating} className="text-[56px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[68px]" />
-              <span className="mb-1.5 text-[13px] text-mist">
+              <span className="mb-1.5 hidden text-[13px] text-mist sm:block">
                 {t("theoretical", { v: maxR.toFixed(3) })}
                 <br />
                 <span className="num text-ink-2">−{(maxR - analysis.rating).toFixed(3)}</span>
               </span>
             </div>
             <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px]">
+              <Fact label={t("theoreticalShort")} value={`${maxR.toFixed(3)} (−${(maxR - analysis.rating).toFixed(3)})`} className="sm:hidden" />
               <Fact label={t("next001")} value={analysis.toNext.toFixed(6)} />
               {nt && <Fact label={t("nextEmblem")} value={t("nextEmblemValue", { min: nt.min.toFixed(3), gap: (nt.min - analysis.rating).toFixed(3) })} />}
               <Fact label={t("completion")} value={fmtPercent(completion.percent)} />
@@ -182,7 +187,7 @@ export default function Home() {
             </ButtonLink>
           </div>
         </div>
-        <div className="mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">
+        <div className="relative mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">
           <Mini label="B1–10" value={avg(eff.slice(0, 10)).toFixed(3)} />
           <Mini label="B11–20" value={avg(eff.slice(10, 20)).toFixed(3)} />
           <Mini label="B21–40" value={avg(eff.slice(20, 40)).toFixed(3)} />
@@ -252,9 +257,9 @@ export default function Home() {
   );
 }
 
-function Fact({ label, value }: { label: string; value: string }) {
+function Fact({ label, value, className }: { label: string; value: string; className?: string }) {
   return (
-    <div className="flex items-baseline gap-1.5">
+    <div className={`flex items-baseline gap-1.5 ${className ?? ""}`}>
       <dt className="text-mist">{label}</dt>
       <dd className="num font-semibold text-ink">{value}</dd>
     </div>

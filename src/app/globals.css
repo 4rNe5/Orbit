@@ -168,6 +168,8 @@ body {
   :root:not([data-theme="light"]) .tier-text { background-image: var(--tg-dark); }
 }
 [data-theme="dark"] .tier-text { background-image: var(--tg-dark); }
+/* soft light behind the rating, in the emblem tier's colours */
+.tier-glow { background: var(--tg-dark); }
 
 :focus-visible {
   outline: 2px solid var(--accent);

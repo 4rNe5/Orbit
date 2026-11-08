@@ -1,6 +1,6 @@
 "use client";
 
-import { toPng } from "html-to-image";
+import { toJpeg } from "html-to-image";
 import { useRef, useState } from "react";
 import { useApp } from "@/components/app-provider";
 import { BestTile } from "@/components/best-tile";
@@ -99,10 +99,11 @@ export default function BestPage() {
           (img) => img.complete || new Promise((res) => { img.onload = img.onerror = res; }),
         ),
       );
-      const url = await toPng(shareRef.current, { pixelRatio: 2, cacheBust: true });
+      // JPEG keeps the 3840px image well under the 5 MB most social sites accept (PNG was ~7 MB)
+      const url = await toJpeg(shareRef.current, { pixelRatio: 2, quality: 0.92, cacheBust: true, backgroundColor: "#060a14" });
       const a = document.createElement("a");
       a.href = url;
-      a.download = `orbit-b40-${new Date().toISOString().slice(0, 10)}.png`;
+      a.download = `orbit-b40-${new Date().toISOString().slice(0, 10)}.jpg`;
       a.click();
       toast(t("saved"));
     } catch (e) {
@@ -128,7 +129,7 @@ export default function BestPage() {
       <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8">
         {/* facts: a wrapped line on small screens, a sticky column on wide ones */}
         <aside className="mb-6 lg:mb-0">
-          <dl className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] lg:sticky lg:top-20 lg:flex-col lg:gap-y-3">
+          <dl className="flex flex-wrap gap-x-6 gap-y-2 rounded-[var(--radius-panel)] border border-line bg-paper px-4 py-3 text-[13px] lg:sticky lg:top-20 lg:flex-col lg:gap-y-3.5 lg:px-5 lg:py-4">
             <Fact label={t("toNext")} value={analysis.toNext.toFixed(6)} />
             <Fact label={t("first")} value={fmtRating(analysis.pivots.r1, 3)} />
             <Fact label={t("b10ToTheory")} value={d.b10 === null ? "–" : t("points", { n: d.b10.toLocaleString() })} />
@@ -168,6 +169,8 @@ export default function BestPage() {
             name={profile?.display_name || t("traveler")}
             version={version?.version ?? ""}
             date={new Date().toLocaleDateString(DATE_LOCALE[locale])}
+            toNext={analysis.toNext}
+            theoretical={version?.theoreticalRating ?? null}
           />
         </div>
       </div>

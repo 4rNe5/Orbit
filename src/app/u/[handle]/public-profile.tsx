@@ -1,6 +1,7 @@
 "use client";
 
 import { RatingNumber, TierBadge } from "@/components/rating";
+import { tierStyle } from "@/lib/tiers";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useApp } from "@/components/app-provider";
@@ -82,8 +83,9 @@ export function PublicProfile() {
 
   return (
     <div>
-      <section className="rounded-[var(--radius-panel)] border border-line bg-paper p-5 sm:p-6">
-        <div className="flex flex-wrap items-end justify-between gap-5">
+      <section className="relative overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper p-5 sm:p-6">
+        {analysis.played > 0 && <div className="tier-glow pointer-events-none absolute -right-16 -top-20 h-52 w-52 rounded-full opacity-20 blur-3xl sm:-right-20 sm:-top-24 sm:h-80 sm:w-80" style={tierStyle(analysis.rating)} aria-hidden />}
+        <div className="relative flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0">
             <div className="text-[14px] text-mist">
               {profile.display_name || profile.handle} · @{profile.handle}

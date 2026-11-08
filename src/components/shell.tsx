@@ -32,20 +32,17 @@ const T = defineDict({
 });
 type K = keyof typeof T.ko;
 
-/** Desktop top bar: everyday pages first, the rest under "more". */
 const MAIN: { href: string; key: K }[] = [
   { href: "/", key: "home" },
   { href: "/scores", key: "scores" },
   { href: "/best", key: "best" },
   { href: "/targets", key: "targets" },
-  { href: "/songs", key: "songs" },
-  { href: "/ranking", key: "ranking" },
-];
-const EXTRA: { href: string; key: K }[] = [
   { href: "/completion", key: "completion" },
   { href: "/insights", key: "insights" },
-  { href: "/history", key: "ratingHistory" },
-  { href: "/tools", key: "toolsLong" },
+  { href: "/history", key: "history" },
+  { href: "/tools", key: "tools" },
+  { href: "/ranking", key: "ranking" },
+  { href: "/songs", key: "songs" },
 ];
 
 const MOBILE = [
@@ -203,9 +200,12 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
   const { session } = useApp();
   const t = useT(T);
   const items: { href: string; key: K }[] = [
-    { href: "/songs", key: "songs" },
+    { href: "/completion", key: "completion" },
+    { href: "/insights", key: "insights" },
+    { href: "/history", key: "ratingHistory" },
+    { href: "/tools", key: "toolsLong" },
     { href: "/ranking", key: "ranking" },
-    ...EXTRA,
+    { href: "/songs", key: "songs" },
     { href: "/import", key: "importExport" },
     { href: "/settings", key: "settings" },
     ...(session ? [] : [{ href: "/login", key: "login" as K }]),
@@ -228,51 +228,6 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
   );
 }
 
-function NavMore({ path }: { path: string | null }) {
-  const t = useT(T);
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const h = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
-    document.addEventListener("mousedown", h);
-    return () => document.removeEventListener("mousedown", h);
-  }, []);
-  const current = EXTRA.find((m) => path !== null && isActive(path, m.href));
-  return (
-    <div ref={ref} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        className={cx("relative flex items-center gap-1 whitespace-nowrap px-3 py-1.5 text-[14px] transition", current ? "font-semibold text-ink" : "text-mist hover:text-ink")}
-      >
-        {current ? t(current.key === "ratingHistory" ? "history" : current.key === "toolsLong" ? "tools" : current.key) : t("more")}
-        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden className={cx("transition", open && "rotate-180")}>
-          <path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        {current && <span className="absolute inset-x-3 -bottom-[11px] h-[2px] bg-orbit" />}
-      </button>
-      {open && (
-        <div className="absolute left-0 z-40 mt-2 w-56 overflow-hidden rounded-[8px] border border-line bg-paper py-1 text-sm shadow-[0_8px_24px_-12px_rgba(15,30,51,0.3)]" role="menu">
-          {EXTRA.map((m) => (
-            <Link
-              key={m.href}
-              href={m.href}
-              role="menuitem"
-              onClick={() => setOpen(false)}
-              aria-current={current?.href === m.href ? "page" : undefined}
-              className={cx("block px-4 py-2.5 hover:bg-orbit-soft", current?.href === m.href && "font-semibold text-orbit")}
-            >
-              {t(m.key)}
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function DesktopNav({ path }: { path: string | null }) {
   const t = useT(T);
   return (
@@ -284,14 +239,13 @@ function DesktopNav({ path }: { path: string | null }) {
             key={m.href}
             href={m.href}
             aria-current={on ? "page" : undefined}
-            className={cx("relative whitespace-nowrap px-3 py-1.5 text-[14px] transition", on ? "font-semibold text-ink" : "text-mist hover:text-ink")}
+            className={cx("relative whitespace-nowrap px-2.5 py-1.5 text-[14px] transition xl:px-3", on ? "font-semibold text-ink" : "text-mist hover:text-ink")}
           >
             {t(m.key)}
             {on && <span className="absolute inset-x-3 -bottom-[11px] h-[2px] bg-orbit" />}
           </Link>
         );
       })}
-      <NavMore path={path} />
     </nav>
   );
 }
