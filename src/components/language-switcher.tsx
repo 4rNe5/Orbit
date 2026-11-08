@@ -3,14 +3,14 @@
 import { LOCALES, setLocale, useLocale } from "@/lib/i18n";
 import { cx } from "./ui";
 
-/** 한국어 / 日本語 / 中文 toggle. `variant="pill"` for headers, `"inline"` for page bodies. */
-export function LanguageSwitcher({ variant = "pill", className }: { variant?: "pill" | "inline"; className?: string }) {
+/** 한국어 / 日本語 / 中文 toggle. (`variant` is accepted for older call sites; both render the same.) */
+export function LanguageSwitcher({ className }: { variant?: "pill" | "inline"; className?: string }) {
   const l = useLocale();
   return (
     <div
       role="radiogroup"
       aria-label="Language / 언어 / 言語 / 语言"
-      className={cx("inline-flex items-center rounded-full border border-line bg-paper/70 p-0.5", variant === "inline" && "bg-paper", className)}
+      className={cx("inline-flex items-center rounded-[8px] border border-line bg-paper p-0.5", className)}
     >
       {LOCALES.map((x) => (
         <button
@@ -21,7 +21,7 @@ export function LanguageSwitcher({ variant = "pill", className }: { variant?: "p
           lang={x.html}
           onClick={() => setLocale(x.id)}
           className={cx(
-            "rounded-full px-2.5 py-1 text-[12px] font-semibold transition",
+            "rounded-[6px] px-2.5 py-1 text-[12px] font-semibold transition",
             l === x.id ? "bg-ink text-sky" : "text-mist hover:text-ink",
           )}
         >

@@ -19,6 +19,7 @@ const T = defineDict({
     needTitle: "정수 {c} 이상 점수가 {n}개 필요해요",
     goScores: "점수 입력하기",
     needBody: "지금 {n}개예요. 비슷한 난이도에서 어떤 노트 구성의 채보를 잘 치고 못 치는지 비교하려면 표본이 더 있어야 합니다.",
+    meta: "정수 {c} 이상 · {n}채보",
     lead: "정수 {c} 이상 {n}개 채보의 점수를 내 정수별 평균선과 비교하고, 노트 구성에 따라 차이가 나는지 봅니다.",
     weak: "{label}{iga} 높은 채보(상위 1/3, {cut} 이상)에서 예상보다 평균 {pts} 낮아요.",
     strong: " 반대로 {label}{iga} 높은 채보는 {pts} 높아요.",
@@ -46,6 +47,7 @@ const T = defineDict({
     needTitle: "定数 {c} 以上のスコアが {n} 件必要です",
     goScores: "スコアを入力する",
     needBody: "現在 {n} 件です。近い難易度の中で、どんなノーツ構成の譜面が得意・苦手かを比べるには、もっとサンプルが必要です。",
+    meta: "定数 {c} 以上 · {n}譜面",
     lead: "定数 {c} 以上の {n} 譜面のスコアを、自分の定数ごとの平均線と比べ、ノーツ構成によって差が出るかを調べます。",
     weak: "{label}が高い譜面（上位1/3、{cut} 以上）では、予想より平均 {pts} 低いです。",
     strong: "逆に、{label}が高い譜面では {pts} 高いです。",
@@ -73,6 +75,7 @@ const T = defineDict({
     needTitle: "需要 {n} 个定数 {c} 以上的分数",
     goScores: "去录入分数",
     needBody: "目前有 {n} 个。要比较相近难度下哪些音符构成的谱面打得好、哪些打得差，需要更多样本。",
+    meta: "定数 {c} 以上 · {n} 个谱面",
     lead: "将定数 {c} 以上 {n} 个谱面的分数与你各定数的平均线比较，看看音符构成不同是否会带来差异。",
     weak: "在{label}高的谱面（前 1/3，{cut} 以上）上，比预期平均低 {pts}。",
     strong: "相反，{label}高的谱面高出 {pts}。",
@@ -162,7 +165,8 @@ export default function InsightsPage() {
     <div>
       <PageHeader
         title={t("title")}
-        lead={t("lead", { c: res.minConstant.toFixed(1), n: res.count })}
+        meta={t("meta", { c: res.minConstant.toFixed(1), n: res.count })}
+        help={t("lead", { c: res.minConstant.toFixed(1), n: res.count })}
       />
 
       <section className="rounded-[var(--radius-panel)] border border-line bg-paper p-4 sm:p-6">
@@ -203,8 +207,8 @@ export default function InsightsPage() {
           <ul className="grid gap-2 sm:grid-cols-2">
             {practice.map(({ t, s }) => (
               <li key={t.chart.id}>
-                <SongButton songId={t.chart.songId} label={t.chart.title} className="group flex w-full items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-4 hover:border-line-2">
-                  <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-lg" className="w-12" thumb />
+                <SongButton songId={t.chart.songId} label={t.chart.title} className="group flex w-full items-center gap-3 rounded-[8px] border border-line bg-paper p-2.5 pr-4 hover:border-line-2">
+                  <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-[6px]" className="w-11" thumb />
                   <div className="min-w-0 flex-1">
                     <div className="truncate text-[14px] font-semibold group-hover:text-accent">{t.chart.title}</div>
                     <div className="flex items-center gap-2 text-[12px] text-mist">
@@ -248,7 +252,7 @@ function UnderRow({ s }: { s: Sample }) {
   return (
     <li>
       <SongButton songId={s.chart.songId} label={s.chart.title} className="group flex w-full items-center gap-3 px-3 py-2.5 sm:px-4">
-        <Jacket songId={s.chart.songId} title={s.chart.songTitle || s.chart.title} difficulty={s.chart.difficulty} rounded="rounded-lg" className="w-10 ring-1 ring-inset ring-line" thumb />
+        <Jacket songId={s.chart.songId} title={s.chart.songTitle || s.chart.title} difficulty={s.chart.difficulty} rounded="rounded-[6px]" className="w-10 ring-1 ring-inset ring-line" thumb />
         <div className="min-w-0 flex-1">
           <div className="truncate text-[14px] font-medium group-hover:text-accent">{s.chart.title}</div>
           <DiffMark d={s.chart.difficulty} constant={s.chart.constant} />

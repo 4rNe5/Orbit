@@ -78,7 +78,7 @@ export function RecentUpdates({ limit = 6 }: { limit?: number }) {
 
   if (!index || !items.length) return null;
   return (
-    <ol className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-paper/70">
+    <ol className="divide-y divide-line overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper">
       {items.map((it, i) => {
         if (it.kind === "batch")
           return (
@@ -96,7 +96,7 @@ export function RecentUpdates({ limit = 6 }: { limit?: number }) {
         return (
           <li key={`${it.e.at}-${it.e.chartId}`}>
             <SongButton songId={c.songId} label={c.title} className="group flex w-full items-center gap-3 px-3 py-2 sm:px-4">
-              <Jacket songId={c.songId} title={c.songTitle || c.title} difficulty={c.difficulty} rounded="rounded-lg" className="w-10" thumb />
+              <Jacket songId={c.songId} title={c.songTitle || c.title} difficulty={c.difficulty} rounded="rounded-[6px]" className="w-10" thumb />
               <div className="min-w-0 flex-1">
                 <div className="truncate text-[14px] font-medium group-hover:text-accent">{c.title}</div>
                 <DiffMark d={c.difficulty} constant={c.constant} />

@@ -219,13 +219,13 @@ function SongDialog({ songId, onClose, onDismiss }: { songId: string; onClose: (
 
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-labelledby="song-title">
-      <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" onClick={onClose} aria-hidden />
-      <div className="pop relative flex max-h-[90dvh] w-full max-w-[640px] flex-col overflow-hidden rounded-t-[22px] border border-line bg-paper shadow-2xl sm:rounded-[22px]">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} aria-hidden />
+      <div className="pop relative flex max-h-[90dvh] w-full max-w-[600px] flex-col overflow-hidden rounded-t-[14px] border border-line bg-paper shadow-2xl sm:rounded-[14px]">
         <button
           ref={closeRef}
           type="button"
           onClick={onClose}
-          className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white hover:bg-black/60"
+          className="absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-[8px] bg-black/45 text-white hover:bg-black/60"
           aria-label={t("close")}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
@@ -327,13 +327,13 @@ export function SongDetail({
   return (
     <>
       {/* header: jacket over its own blurred art */}
-      <div className={cx("relative shrink-0 overflow-hidden", page && "rounded-[22px] border border-line")}>
+      <div className={cx("relative shrink-0 overflow-hidden", page && "rounded-[14px] border border-line")}>
         <div className="absolute inset-0 scale-125 opacity-60 blur-2xl" aria-hidden>
           <Jacket songId={songId} title={title} rounded="rounded-none" className="h-full w-full" eager />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-paper/70 to-paper" aria-hidden />
         <div className={cx("relative flex gap-4 p-5 pt-6 sm:gap-5 sm:p-6", page && "sm:p-8")}>
-          <Jacket songId={songId} title={title} rounded="rounded-[14px]" className={cx("shadow-xl ring-1 ring-white/15", page ? "w-32 sm:w-48" : "w-28 sm:w-36")} eager />
+          <Jacket songId={songId} title={title} rounded="rounded-[8px]" className={cx("shadow-lg ring-1 ring-white/15", page ? "w-28 sm:w-36" : "w-24 sm:w-28")} eager />
           <div className="min-w-0 flex-1 self-end">
             <div className="text-[12px] font-medium text-ink-2">
               {packName(pack, locale)}
@@ -363,7 +363,7 @@ export function SongDetail({
       </div>
 
       <div className={cx(page ? "mt-5" : "min-h-0 overflow-y-auto px-5 pb-5 sm:px-6 sm:pb-6")}>
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-[14px] border border-line bg-paper-2 px-4 py-3 text-[13px] sm:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-[8px] border border-line bg-paper-2 px-4 py-3 text-[13px] sm:grid-cols-4">
           <Fact k={t("version")} v={info?.v ?? main.version} />
           <Fact k={t("length")} v={info ? mmss(info.d) : "–"} />
           <Fact k={t("jacket")} v={info?.jd ?? "–"} />
@@ -380,7 +380,7 @@ export function SongDetail({
             const next = engine && !c.deleted && (e?.score ?? 0) < MAX_SCORE ? engine.minScore(c.id) : null;
             const hist = events.filter((h) => h.chartId === c.id);
             return (
-              <li key={c.id} className={cx(diffClass(c.difficulty), "overflow-hidden rounded-[14px] border border-line bg-paper")}>
+              <li key={c.id} className={cx(diffClass(c.difficulty), "overflow-hidden rounded-[8px] border border-line bg-paper")}>
                 <div className="flex items-stretch">
                   <div className="flex w-[72px] shrink-0 flex-col items-center justify-center gap-0.5 py-2.5 text-[#0b0910]" style={{ background: "var(--diff)" }}>
                     <span className="num text-[13px] font-bold leading-none">{c.difficulty}</span>
@@ -410,7 +410,7 @@ export function SongDetail({
                               {r.excluded ? <span className="line-through">{r.rating.toFixed(4)}</span> : r.effective.toFixed(4)}
                             </span>
                           )}
-                          {inBest && <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{r.rank}</span>}
+                          {inBest && <span className="num rounded-[4px] bg-accent-soft px-1 text-[11px] font-semibold text-accent">B{r.rank}</span>}
                         </>
                       ) : (
                         <span className="text-[13px] text-mist">{t("noRecord")}</span>

@@ -1,6 +1,5 @@
 "use client";
 
-import { tierStyle } from "@/lib/tiers";
 import { RatingNumber, TierBadge } from "@/components/rating";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -82,10 +81,9 @@ export function PublicProfile() {
   if (!ready || !profile || !analysis || !completion) return <Loading />;
 
   return (
-    <div className="pop">
-      <section className="relative overflow-hidden rounded-[22px] border border-line bg-paper/70 p-5 backdrop-blur sm:p-7">
-        {analysis.played > 0 && <div className="tier-glow pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full opacity-30 blur-3xl" style={tierStyle(analysis.rating)} aria-hidden />}
-        <div className="relative flex flex-wrap items-end justify-between gap-5">
+    <div>
+      <section className="rounded-[var(--radius-panel)] border border-line bg-paper p-5 sm:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0">
             <div className="text-[14px] text-mist">
               {profile.display_name || profile.handle} · @{profile.handle}
@@ -109,7 +107,7 @@ export function PublicProfile() {
           </div>
         </div>
       </section>
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5">
+      <div className="mt-6 grid grid-cols-3 gap-2.5 sm:grid-cols-5 lg:grid-cols-8">
         {analysis.best.map((r) => (
           <BestTile key={r.chart.id} r={r} />
         ))}

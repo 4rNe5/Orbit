@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { useId, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import type { Difficulty, Lamp } from "@/lib/core/types";
 import { diffClass } from "@/lib/format";
 import { defineDict, useT } from "@/lib/i18n";
 
 const T = defineDict({
-  ko: { loading: "불러오는 중" },
-  ja: { loading: "読み込み中" },
-  zh: { loading: "加载中" },
+  ko: { loading: "불러오는 중", help: "설명 보기" },
+  ja: { loading: "読み込み中", help: "説明を見る" },
+  zh: { loading: "加载中", help: "查看说明" },
 });
 
 export function cx(...v: (string | false | null | undefined)[]) {
@@ -34,7 +34,7 @@ export function Button({
     <button
       {...rest}
       className={cx(
-        "inline-flex items-center justify-center gap-2 rounded-full font-medium transition disabled:cursor-not-allowed disabled:opacity-50",
+        "inline-flex items-center justify-center gap-2 rounded-[8px] font-medium transition disabled:cursor-not-allowed disabled:opacity-50",
         size === "sm" ? "h-8 px-3 text-[13px]" : "h-10 px-4 text-sm",
         BTN[variant],
         className,
@@ -47,7 +47,7 @@ export function ButtonLink({ href, children, variant = "quiet", className }: { h
   return (
     <Link
       href={href}
-      className={cx("inline-flex h-10 items-center justify-center gap-2 rounded-full px-4 text-sm font-medium transition", BTN[variant], className)}
+      className={cx("inline-flex h-10 items-center justify-center gap-2 rounded-[8px] px-4 text-sm font-medium transition", BTN[variant], className)}
     >
       {children}
     </Link>
@@ -58,14 +58,45 @@ export function Panel({ children, className, as: As = "section" }: { children: R
   return <As className={cx("rounded-[var(--radius-panel)] border border-line bg-paper", className)}>{children}</As>;
 }
 
-export function PageHeader({ title, lead, actions }: { title: string; lead?: ReactNode; actions?: ReactNode }) {
+/**
+ * Page title row. `meta` is one short line of facts (counts, version, where data is saved);
+ * `help` is the longer explanation, hidden behind a "?" toggle so pages open on their data.
+ */
+export function PageHeader({ title, meta, help, actions }: { title: string; meta?: ReactNode; help?: ReactNode; actions?: ReactNode }) {
+  const t = useT(T);
+  const [open, setOpen] = useState(false);
+  const id = useId();
   return (
-    <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-      <div className="max-w-2xl">
-        <h1 className="font-display text-[28px] font-semibold leading-tight tracking-[-0.02em] sm:text-[32px]">{title}</h1>
-        {lead && <p className="mt-2 text-[15px] leading-relaxed text-mist">{lead}</p>}
+    <header className="mb-5 border-b border-line pb-3">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <h1 className="font-display text-[22px] font-semibold leading-tight tracking-[-0.01em] sm:text-[24px]">{title}</h1>
+            {help && (
+              <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                aria-expanded={open}
+                aria-controls={id}
+                aria-label={t("help")}
+                className={cx(
+                  "grid h-6 w-6 place-items-center rounded-full border text-[12px] font-semibold transition",
+                  open ? "border-ink bg-ink text-bg" : "border-line-2 text-mist hover:text-ink",
+                )}
+              >
+                ?
+              </button>
+            )}
+          </div>
+          {meta && <p className="mt-1 text-[13px] text-mist">{meta}</p>}
+        </div>
+        {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
       </div>
-      {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
+      {help && open && (
+        <div id={id} className="mt-3 max-w-2xl rounded-[8px] bg-paper-2 px-3.5 py-2.5 text-[13px] leading-relaxed text-ink-2">
+          {help}
+        </div>
+      )}
     </header>
   );
 }
@@ -86,9 +117,9 @@ export function DiffMark({ d, constant, compact }: { d: Difficulty; constant?: n
 }
 
 export function LampBadge({ lamp, apPlus }: { lamp: Lamp; apPlus?: boolean }) {
-  if (apPlus) return <span className="ap-bg rounded-full px-2 py-0.5 text-[11px] font-bold">AP+</span>;
-  if (lamp === "ap") return <span className="rounded-full bg-ap px-2 py-0.5 text-[11px] font-bold text-black/80">AP</span>;
-  if (lamp === "fc") return <span className="rounded-full bg-fc px-2 py-0.5 text-[11px] font-bold text-black/80">FC</span>;
+  if (apPlus) return <span className="max-bg rounded-[4px] px-1.5 py-0.5 text-[11px] font-bold">AP+</span>;
+  if (lamp === "ap") return <span className="rounded-[4px] bg-ap px-1.5 py-0.5 text-[11px] font-bold text-[#1a1206]">AP</span>;
+  if (lamp === "fc") return <span className="rounded-[4px] bg-fc px-1.5 py-0.5 text-[11px] font-bold text-white">FC</span>;
   return null;
 }
 
@@ -114,7 +145,7 @@ export function Segmented<T extends string>({
   label: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex rounded-full border border-line bg-paper p-0.5">
+    <div role="radiogroup" aria-label={label} className="inline-flex rounded-[8px] border border-line bg-paper p-0.5">
       {options.map((o) => (
         <button
           key={o.value}
@@ -122,7 +153,7 @@ export function Segmented<T extends string>({
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
           className={cx(
-            "h-8 rounded-full px-3 text-[13px] font-medium transition",
+            "h-8 rounded-[6px] px-3 text-[13px] font-medium transition",
             value === o.value ? "bg-ink text-sky" : "text-mist hover:text-ink",
           )}
         >
@@ -139,7 +170,7 @@ export function Chip({ active, onClick, children, className }: { active: boolean
       aria-pressed={active}
       onClick={onClick}
       className={cx(
-        "h-8 rounded-full border px-3 text-[13px] font-medium transition",
+        "h-8 rounded-[8px] border px-3 text-[13px] font-medium transition",
         active ? "border-ink bg-ink text-sky" : "border-line bg-paper text-mist hover:text-ink",
         className,
       )}
@@ -154,7 +185,7 @@ export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={cx(
-        "h-10 rounded-[10px] border border-line bg-paper px-3 text-sm text-ink placeholder:text-mist/70 focus:border-orbit focus:outline-none",
+        "h-10 rounded-[8px] border border-line bg-paper px-3 text-sm text-ink placeholder:text-mist/70 focus:border-orbit focus:outline-none",
         props.className,
       )}
     />
@@ -200,7 +231,7 @@ export function OrbitGlyph({ size = 26 }: { size?: number }) {
       <circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" strokeOpacity="0.28" strokeWidth="2" />
       <path d="M6.5 10.5 A 11 11 0 0 1 21.5 6.4" fill="none" stroke="var(--orbit)" strokeWidth="3.2" strokeLinecap="round" />
       <circle cx="16" cy="16" r="3.2" fill="currentColor" />
-      <circle cx="26.5" cy="21" r="2" fill="var(--alpha)" />
+      <circle cx="26.5" cy="21" r="2" fill="currentColor" fillOpacity="0.55" />
     </svg>
   );
 }

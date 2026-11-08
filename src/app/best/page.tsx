@@ -117,7 +117,7 @@ export default function BestPage() {
     <div>
       <PageHeader
         title="B40"
-        lead={t("lead")}
+        help={t("lead")}
         actions={
           <Button onClick={save} disabled={saving} variant="primary">
             {saving ? t("making") : t("saveImage")}
@@ -125,25 +125,29 @@ export default function BestPage() {
         }
       />
 
-      <div className="mb-6 flex flex-wrap gap-x-6 gap-y-2 rounded-2xl border border-line bg-paper/70 px-5 py-4 text-[13px]">
-        <Fact label={t("toNext")} value={analysis.toNext.toFixed(6)} />
-        <Fact label={t("first")} value={fmtRating(analysis.pivots.r1, 3)} />
-        <Fact label={t("b10ToTheory")} value={d.b10 === null ? "–" : t("points", { n: d.b10.toLocaleString() })} />
-        <Fact label="B11–20" value={d.b20 === null ? "–" : t("points", { n: d.b20.toLocaleString() })} />
-        <Fact label="B21–40" value={d.b40 === null ? "–" : t("points", { n: d.b40.toLocaleString() })} />
-      </div>
+      <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8">
+        {/* facts: a wrapped line on small screens, a sticky column on wide ones */}
+        <aside className="mb-6 lg:mb-0">
+          <dl className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] lg:sticky lg:top-20 lg:flex-col lg:gap-y-3">
+            <Fact label={t("toNext")} value={analysis.toNext.toFixed(6)} />
+            <Fact label={t("first")} value={fmtRating(analysis.pivots.r1, 3)} />
+            <Fact label={t("b10ToTheory")} value={d.b10 === null ? "–" : t("points", { n: d.b10.toLocaleString() })} />
+            <Fact label="B11–20" value={d.b20 === null ? "–" : t("points", { n: d.b20.toLocaleString() })} />
+            <Fact label="B21–40" value={d.b40 === null ? "–" : t("points", { n: d.b40.toLocaleString() })} />
+          </dl>
+        </aside>
 
-      <div className="flex flex-col gap-8">
+      <div className="flex min-w-0 flex-col gap-8">
         {GROUPS.map((g) => {
           const items = analysis.best.slice(g.from, g.to);
           if (!items.length) return null;
           return (
             <section key={g.title}>
               <h2 className="mb-3 flex items-baseline gap-2">
-                <span className="font-display text-[18px] font-bold">{g.title}</span>
+                <span className="font-display text-[16px] font-bold">{g.title}</span>
                 <span className="text-[12px] text-mist">{t(g.sub)}</span>
               </h2>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5">
+              <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-5">
                 {items.map((r) => (
                   <BestTile key={r.chart.id} r={r} />
                 ))}
@@ -151,6 +155,7 @@ export default function BestPage() {
             </section>
           );
         })}
+      </div>
       </div>
 
       {/* off-screen export target */}
@@ -172,9 +177,9 @@ export default function BestPage() {
 
 function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <span className="inline-flex items-baseline gap-1.5">
-      <span className="text-mist">{label}</span>
-      <span className="num font-semibold text-ink">{value}</span>
-    </span>
+    <div className="flex items-baseline gap-1.5 lg:flex-col lg:gap-0.5">
+      <dt className="text-mist">{label}</dt>
+      <dd className="num font-semibold text-ink lg:text-[15px]">{value}</dd>
+    </div>
   );
 }

@@ -16,6 +16,9 @@ const T = defineDict({
     saveAccount: "계정에 자동 저장됩니다.",
     saveLocal: "로그인 전에는 이 기기에만 저장됩니다.",
     reach: " 지금은 정수 {c} 이상만 B40에 들어갈 수 있습니다.",
+    metaAccount: "계정에 자동 저장",
+    metaLocal: "이 기기에만 저장 (로그인 전)",
+    metaReach: "B40 진입 정수 {c}+",
     onlyReachable: "B40 진입 가능만",
     status: "입력 상태",
     all: "전체",
@@ -40,6 +43,9 @@ const T = defineDict({
     saveAccount: "アカウントに自動保存されます。",
     saveLocal: "ログインするまではこの端末にのみ保存されます。",
     reach: "現在は定数 {c} 以上の譜面のみ B40 に入れます。",
+    metaAccount: "アカウントに自動保存",
+    metaLocal: "この端末にのみ保存（ログイン前）",
+    metaReach: "B40 入り 定数 {c}+",
     onlyReachable: "B40 入り可能のみ",
     status: "入力状態",
     all: "すべて",
@@ -64,6 +70,9 @@ const T = defineDict({
     saveAccount: "将自动保存到账号。",
     saveLocal: "登录前仅保存在本设备上。",
     reach: "目前只有定数 {c} 以上的谱面能进入 B40。",
+    metaAccount: "自动保存到账号",
+    metaLocal: "仅保存在本设备（登录前）",
+    metaReach: "进 B40 需定数 {c}+",
     onlyReachable: "仅显示可进 B40",
     status: "录入状态",
     all: "全部",
@@ -130,7 +139,8 @@ export default function ScoresPage() {
             {t("importScores")}
           </ButtonLink>
         }
-        lead={
+        meta={[session ? t("metaAccount") : t("metaLocal"), minC !== null ? t("metaReach", { c: minC.toFixed(1) }) : null].filter(Boolean).join(" · ")}
+        help={
           <>
             {t("lead")}
             {session ? t("saveAccount") : t("saveLocal")}

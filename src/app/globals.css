@@ -2,9 +2,10 @@
 
 /*
   Orbit Rating — visual language
-  Rotaeno blue for the system colour on a deep-space base. Difficulty hues are
-  the game's own (I green, II blue, III orange, IV purple, IV-α lavender).
-  The rating numeral takes the colours of the in-game rating emblem tier.
+  One flat system blue, no decorative gradients or glows. Colour carries meaning only:
+  difficulty hues are the game's own (I green, II blue, III orange, IV purple, IV-α lavender),
+  clear states follow the game (FC blue, AP yellow, 1,010,000 rainbow), and the rating
+  numeral takes the colours of the in-game rating emblem tier. Radii: 4 / 8 / 14 px.
 */
 :root {
   --bg: #f1f4f9;
@@ -18,9 +19,8 @@
   --line-2: #c6d0de;
 
   --accent: #0a84d6;
-  --accent-2: #3d63e0;
   --accent-ink: #ffffff;
-  --accent-soft: #e0f0fb;
+  --accent-soft: #e3f1fb;
 
   --d1: #14a83b;
   --d2: #1550d8;
@@ -28,14 +28,13 @@
   --d4: #9442f0;
   --d5: #ad7ee8;
 
-  --fc: #0b9fba;
-  --ap: #d48a00;
-  --ap-grad: linear-gradient(118deg, #f2b400 0%, #e07a00 100%);
+  /* clear states, as in the game: FC blue, AP yellow, theoretical max rainbow */
+  --fc: #1d64d8;
+  --ap: #e2a500;
+  --max-grad: linear-gradient(100deg, #ff6b6b 0%, #ffb347 22%, #ffe14d 42%, #6fdc8c 62%, #4fb6ff 81%, #a98bff 100%);
 
   --good: #13985a;
   --warn: #d6304f;
-
-  --grad: linear-gradient(118deg, var(--accent) 0%, var(--accent-2) 100%);
   color-scheme: light;
 }
 
@@ -46,7 +45,6 @@
   --orbit: var(--accent);
   --orbit-ink: var(--accent-ink);
   --orbit-soft: var(--accent-soft);
-  --alpha: var(--accent-2);
   --danger: var(--warn);
   --ok: var(--good);
 }
@@ -63,18 +61,16 @@
     --line: #1e2a40;
     --line-2: #2d3d5a;
     --accent: #3cb4ff;
-    --accent-2: #6d8cff;
     --accent-ink: #03121f;
-    --accent-soft: #0e2a44;
+    --accent-soft: #0f2a40;
     /* in-game difficulty colours */
     --d1: #00ff37;
     --d2: #0080ff;
     --d3: #ff8800;
     --d4: #a454fa;
     --d5: #c697f7;
-    --fc: #2ee6f0;
-    --ap: #ffc24b;
-    --ap-grad: linear-gradient(118deg, #ffe27a 0%, #ffb020 100%);
+    --fc: #4a8cff;
+    --ap: #ffd43b;
     --good: #3ddc84;
     --warn: #ff5a6e;
     color-scheme: dark;
@@ -92,18 +88,16 @@
   --line: #1e2a40;
   --line-2: #2d3d5a;
   --accent: #3cb4ff;
-  --accent-2: #6d8cff;
   --accent-ink: #03121f;
-  --accent-soft: #0e2a44;
+  --accent-soft: #0f2a40;
   /* in-game difficulty colours */
   --d1: #00ff37;
   --d2: #0080ff;
   --d3: #ff8800;
   --d4: #a454fa;
   --d5: #c697f7;
-  --fc: #2ee6f0;
-  --ap: #ffc24b;
-  --ap-grad: linear-gradient(118deg, #ffe27a 0%, #ffb020 100%);
+  --fc: #4a8cff;
+  --ap: #ffd43b;
   --good: #3ddc84;
   --warn: #ff5a6e;
   color-scheme: dark;
@@ -119,7 +113,6 @@
   --color-line: var(--line);
   --color-line-2: var(--line-2);
   --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
   --color-good: var(--good);
@@ -128,7 +121,7 @@
   --color-warn: var(--warn);
   --font-sans: var(--font-plex), "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", "Noto Sans CJK JP", sans-serif;
   --font-display: var(--font-sora), var(--font-plex), "Apple SD Gothic Neo", sans-serif;
-  --radius-panel: 16px;
+  --radius-panel: 14px;
 
   /* back-compat aliases so existing utility classes map onto the new palette */
   --color-sky: var(--bg);
@@ -136,7 +129,6 @@
   --color-orbit: var(--accent);
   --color-orbit-ink: var(--accent-ink);
   --color-orbit-soft: var(--accent-soft);
-  --color-alpha: var(--accent-2);
   --color-danger: var(--warn);
   --color-ok: var(--good);
 }
@@ -147,11 +139,7 @@ html {
 }
 body {
   min-height: 100dvh;
-  background:
-    radial-gradient(1200px 520px at 85% -8%, color-mix(in oklab, var(--accent-2) 14%, transparent), transparent 60%),
-    radial-gradient(900px 480px at -5% 0%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 55%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -163,20 +151,10 @@ body {
   letter-spacing: -0.015em;
 }
 
-/* the one place the gradient lives: the rating numeral + key marks */
-.grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.grad-bg {
-  background: var(--grad);
-  color: var(--accent-ink);
-}
-.ap-bg {
-  background: var(--ap-grad);
-  color: #1f1300;
+/* Gradients exist in two places only, both from the game: the 1,010,000 rainbow and the emblem tier. */
+.max-bg {
+  background: var(--max-grad);
+  color: #1a1206;
 }
 
 /* rating numeral coloured by the in-game emblem tier (vars set by tierStyle()) */
@@ -190,7 +168,6 @@ body {
   :root:not([data-theme="light"]) .tier-text { background-image: var(--tg-dark); }
 }
 [data-theme="dark"] .tier-text { background-image: var(--tg-dark); }
-.tier-glow { background: var(--tg-dark); }
 
 :focus-visible {
   outline: 2px solid var(--accent);

@@ -147,7 +147,7 @@ export function VisibilityField({ value, onChange }: { value: boolean; onChange:
             aria-checked={value === o.v}
             onClick={() => onChange(o.v)}
             className={cx(
-              "rounded-[12px] border p-3 text-left transition",
+              "rounded-[8px] border p-3 text-left transition",
               value === o.v ? "border-orbit bg-orbit-soft" : "border-line bg-paper hover:border-line-strong",
             )}
           >

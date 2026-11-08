@@ -26,14 +26,14 @@ export function BestTile({ r, rank, eager, big, inert }: { r: ChartResult; rank?
       {...(inert ? {} : { role: "button", tabIndex: 0, "aria-label": t("info", { title: c.title }), onClick: () => open(c.songId), onKeyDown: (e: React.KeyboardEvent) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), open(c.songId)) })}
     >
       <div className="relative transition-transform duration-200 group-hover:-translate-y-0.5">
-        <Jacket songId={c.songId} title={c.songTitle || c.title} difficulty={c.difficulty} rounded="rounded-[12px]" className="w-full" eager={eager} />
-        <span className="pointer-events-none absolute inset-0 rounded-[12px]" style={{ boxShadow: "inset 0 0 0 2.5px var(--diff)" }} aria-hidden />
-        <span className={cx("num absolute left-0 top-0 rounded-br-[10px] rounded-tl-[12px] px-1.5 py-0.5 font-bold text-white", big ? "text-[13px]" : "text-[11px]")} style={{ background: "var(--diff)" }}>
+        <Jacket songId={c.songId} title={c.songTitle || c.title} difficulty={c.difficulty} rounded="rounded-[8px]" className="w-full" eager={eager} />
+        <span className="pointer-events-none absolute inset-0 rounded-[8px]" style={{ boxShadow: "inset 0 0 0 2px var(--diff)" }} aria-hidden />
+        <span className={cx("num absolute left-0 top-0 rounded-br-[6px] rounded-tl-[8px] px-1.5 py-0.5 font-bold text-white", big ? "text-[13px]" : "text-[11px]")} style={{ background: "var(--diff)" }}>
           {n}
         </span>
-        {r.apPlus && <span className={cx("ap-bg absolute right-1.5 top-1.5 rounded-full px-1.5 py-0.5 font-bold", big ? "text-[11px]" : "text-[9px]")}>AP+</span>}
-        {lamp && <span className={cx("absolute right-1.5 top-1.5 rounded-full px-1.5 py-0.5 font-bold text-black/80", lamp === "AP" ? "bg-ap" : "bg-fc", big ? "text-[11px]" : "text-[9px]")}>{lamp}</span>}
-        <div className="absolute inset-x-0 bottom-0 rounded-b-[12px] bg-gradient-to-t from-black/85 via-black/45 to-transparent px-2 pb-1.5 pt-6">
+        {r.apPlus && <span className={cx("max-bg absolute right-1.5 top-1.5 rounded-[4px] px-1 py-px font-bold", big ? "text-[11px]" : "text-[9px]")}>AP+</span>}
+        {lamp && <span className={cx("absolute right-1.5 top-1.5 rounded-[4px] px-1 py-px font-bold", lamp === "AP" ? "bg-ap text-[#1a1206]" : "bg-fc text-white", big ? "text-[11px]" : "text-[9px]")}>{lamp}</span>}
+        <div className="absolute inset-x-0 bottom-0 rounded-b-[8px] bg-gradient-to-t from-black/85 via-black/45 to-transparent px-2 pb-1.5 pt-6">
           <div className={cx("num leading-tight text-white/80", big ? "text-[13px]" : "text-[11px]")}>{fmtScore(r.score)}</div>
           <div className="flex items-baseline justify-between">
             <span className={cx("num font-bold leading-none text-white", big ? "text-[21px]" : "text-[16px]")}>{r.effective.toFixed(3)}</span>

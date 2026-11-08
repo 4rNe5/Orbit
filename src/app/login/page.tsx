@@ -71,7 +71,7 @@ export default function LoginPage() {
           <button
             onClick={signIn}
             disabled={busy}
-            className="mt-6 flex h-12 w-full items-center justify-center gap-3 rounded-full border border-line bg-paper text-[15px] font-medium transition hover:border-line-strong disabled:opacity-60"
+            className="mt-6 flex h-12 w-full items-center justify-center gap-3 rounded-[8px] border border-line bg-paper text-[15px] font-medium transition hover:border-line-strong disabled:opacity-60"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
               <path fill="#4285F4" d="M22.6 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h6a5.1 5.1 0 0 1-2.2 3.4v2.8h3.6c2-1.9 3.2-4.7 3.2-8.2Z" />

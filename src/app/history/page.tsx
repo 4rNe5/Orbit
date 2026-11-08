@@ -109,7 +109,7 @@ export default function HistoryPage() {
     <div>
       <PageHeader
         title={t("title")}
-        lead={t("lead", { where: session ? t("savedToAccount") : t("localOnly") })}
+        help={t("lead", { where: session ? t("savedToAccount") : t("localOnly") })}
       />
       {data.length < 2 ? (
         <Empty title={t("emptyTitle")} action={<ButtonLink href="/scores">{t("enterScores")}</ButtonLink>}>

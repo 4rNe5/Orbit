@@ -48,7 +48,7 @@ function Glyph({ size }: { size: number }) {
       <circle cx="32" cy="32" r="19" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="4" />
       <path d="M15.55 22.5 A 19 19 0 0 1 41.5 15.55" fill="none" stroke="#3cb4ff" strokeWidth="7" strokeLinecap="round" />
       <circle cx="32" cy="32" r="5.6" fill="#eef3fb" />
-      <circle cx="49.2" cy="40" r="4" fill="#6d8cff" />
+      <circle cx="49.2" cy="40" r="4" fill="#eef3fb" fillOpacity="0.55" />
     </svg>
   );
 }
@@ -75,7 +75,6 @@ export async function profileCard(s: PublicSummary | null, handle: string) {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#060a14", color: "#eef3fb", fontFamily: "Plex, Noto JP, Noto SC", padding: 56, position: "relative" }}>
-        <div style={{ position: "absolute", right: -160, top: -220, width: 640, height: 640, borderRadius: 640, background: `linear-gradient(118deg, ${t.dark.join(", ")})`, opacity: 0.28, filter: "blur(90px)" }} />
         <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 26, color: "#b2c0d6", fontWeight: 500 }}>
           <Glyph size={40} />
           Orbit Rating
@@ -125,7 +124,6 @@ export async function siteCard(sub?: string) {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", background: "#060a14", color: "#eef3fb", fontFamily: "Plex, Noto JP, Noto SC", padding: 80, position: "relative" }}>
-        <div style={{ display: "flex", position: "absolute", right: -120, top: -200, width: 640, height: 640, borderRadius: 640, background: "linear-gradient(118deg, #3cb4ff, #6d8cff)", opacity: 0.25, filter: "blur(90px)" }} />
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
           <Glyph size={96} />
           <div style={{ display: "flex", fontFamily: "Sora", fontSize: 88, fontWeight: 700, letterSpacing: -3 }}>Orbit Rating</div>

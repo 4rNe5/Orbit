@@ -13,7 +13,7 @@ import { buildSongs, compareVersion, metaFromRows, type SongRow } from "@/lib/so
 const T = defineDict({
   ko: {
     title: "악곡 정보",
-    lead: "{songs}곡 · {charts}채보 · 곡 데이터 {version}. 곡을 누르면 정수·노트 수·채보 제작자를 볼 수 있어요.",
+    meta: "{songs}곡 · {charts}채보 · 곡 데이터 {version}",
     search: "제목·아티스트 검색",
     view: "분류",
     byPack: "팩별",
@@ -28,7 +28,7 @@ const T = defineDict({
   },
   ja: {
     title: "楽曲一覧",
-    lead: "{songs}曲 · {charts}譜面 · 楽曲データ {version}。曲を押すと定数・ノーツ数・譜面制作者を確認できます。",
+    meta: "{songs}曲 · {charts}譜面 · 楽曲データ {version}",
     search: "曲名・アーティストで検索",
     view: "分類",
     byPack: "パック別",
@@ -43,7 +43,7 @@ const T = defineDict({
   },
   zh: {
     title: "曲目一览",
-    lead: "{songs} 首 · {charts} 个谱面 · 曲目数据 {version}。点击曲目可查看定数、物量和谱师。",
+    meta: "{songs} 首 · {charts} 个谱面 · 曲目数据 {version}",
     search: "搜索曲名或曲师",
     view: "分类",
     byPack: "按曲包",
@@ -115,13 +115,13 @@ export function SongsBrowser({ initial, dataVersion }: { initial: SongRow[]; dat
   const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <div className="pop">
+    <div>
       <PageHeader
         title={t("title")}
-        lead={t("lead", { songs: rows.length.toLocaleString(), charts: chartCount.toLocaleString(), version: version?.version ?? dataVersion })}
+        meta={t("meta", { songs: rows.length.toLocaleString(), charts: chartCount.toLocaleString(), version: version?.version ?? dataVersion })}
       />
 
-      <div className="sticky top-14 z-20 -mx-4 mb-5 flex flex-wrap items-center gap-2 border-b border-line/70 bg-sky/85 px-4 py-3 backdrop-blur-md">
+      <div className="sticky top-14 z-20 -mx-4 mb-5 flex flex-wrap items-center gap-2 border-b border-line bg-bg px-4 py-3">
         <TextInput
           type="search"
           value={q}
@@ -143,7 +143,7 @@ export function SongsBrowser({ initial, dataVersion }: { initial: SongRow[]; dat
           aria-label={t("jump")}
           value=""
           onChange={(e) => e.target.value && jump(e.target.value)}
-          className="h-10 rounded-[10px] border border-line bg-paper px-2 text-[13px] text-ink lg:hidden"
+          className="h-10 rounded-[8px] border border-line bg-paper px-2 text-[13px] text-ink lg:hidden"
         >
           <option value="">{t("jump")}</option>
           {sections.map((s) =>
@@ -199,7 +199,7 @@ export function SongsBrowser({ initial, dataVersion }: { initial: SongRow[]; dat
             <section key={s.id} id={s.id} className="mb-10 scroll-mt-36">
               <h2 className="mb-3 flex items-baseline gap-2 border-b border-line pb-2">
                 <span className="text-[20px] font-bold tracking-[-0.01em]">{s.label}</span>
-                {s.badge && <span className="rounded-full bg-orbit-soft px-2 py-0.5 text-[11px] font-semibold text-orbit">{s.badge}</span>}
+                {s.badge && <span className="rounded-[4px] bg-orbit-soft px-1.5 py-0.5 text-[11px] font-semibold text-orbit">{s.badge}</span>}
                 <span className="num text-[13px] text-mist">{t("songs", { n: s.count })}</span>
               </h2>
               {s.parts.map((p) => (
@@ -242,15 +242,15 @@ function SongCard({ r, showPack }: { r: SongRow; showPack: boolean }) {
         open(r.id);
       }}
       className={cx(
-        "flex h-full items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-3 transition hover:border-line-strong",
+        "flex h-full items-center gap-3 rounded-[8px] border border-line bg-paper p-2 pr-3 transition hover:border-line-strong",
         r.deleted && "opacity-60",
       )}
     >
-      <Jacket songId={r.id} title={r.title} rounded="rounded-lg" className="w-14" thumb />
+      <Jacket songId={r.id} title={r.title} rounded="rounded-[5px]" className="w-12" thumb />
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1.5">
           <span className="truncate text-[14px] font-semibold">{r.title}</span>
-          {r.deleted && <span className="shrink-0 rounded-full border border-line px-1.5 text-[10px] text-mist">{t("deleted")}</span>}
+          {r.deleted && <span className="shrink-0 rounded-[4px] border border-line px-1 text-[10px] text-mist">{t("deleted")}</span>}
         </div>
         <div className="truncate text-[12px] text-mist">
           {r.artist || "—"}

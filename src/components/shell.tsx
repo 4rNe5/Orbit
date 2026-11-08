@@ -32,17 +32,20 @@ const T = defineDict({
 });
 type K = keyof typeof T.ko;
 
+/** Desktop top bar: everyday pages first, the rest under "more". */
 const MAIN: { href: string; key: K }[] = [
   { href: "/", key: "home" },
   { href: "/scores", key: "scores" },
   { href: "/best", key: "best" },
   { href: "/targets", key: "targets" },
+  { href: "/songs", key: "songs" },
+  { href: "/ranking", key: "ranking" },
+];
+const EXTRA: { href: string; key: K }[] = [
   { href: "/completion", key: "completion" },
   { href: "/insights", key: "insights" },
-  { href: "/history", key: "history" },
-  { href: "/tools", key: "tools" },
-  { href: "/ranking", key: "ranking" },
-  { href: "/songs", key: "songs" },
+  { href: "/history", key: "ratingHistory" },
+  { href: "/tools", key: "toolsLong" },
 ];
 
 const MOBILE = [
@@ -104,13 +107,13 @@ function LanguageMenu() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={`${t("language")}: ${LOCALES.find((x) => x.id === l)?.label}`}
-        className="flex h-9 items-center gap-1 rounded-full px-2 text-[12px] font-semibold uppercase text-mist hover:text-ink"
+        className="flex h-9 items-center gap-1 rounded-[8px] px-2 text-[12px] font-semibold uppercase text-mist hover:text-ink"
       >
         <Icon name="globe" />
         <span className="hidden sm:inline">{l}</span>
       </button>
       {open && (
-        <div className="absolute right-0 z-40 mt-2 w-36 overflow-hidden rounded-[12px] border border-line bg-paper py-1 text-sm shadow-[0_12px_32px_-12px_rgba(15,30,51,0.25)]" role="menu">
+        <div className="absolute right-0 z-40 mt-2 w-36 overflow-hidden rounded-[8px] border border-line bg-paper py-1 text-sm shadow-[0_8px_24px_-12px_rgba(15,30,51,0.3)]" role="menu">
           {LOCALES.map((x) => (
             <button
               key={x.id}
@@ -145,7 +148,7 @@ function AccountMenu() {
 
   if (!session)
     return (
-      <Link href="/login" className="inline-flex h-9 items-center rounded-full bg-ink px-4 text-[13px] font-semibold text-sky">
+      <Link href="/login" className="inline-flex h-9 items-center rounded-[8px] bg-ink px-4 text-[13px] font-semibold text-sky">
         {t("login")}
       </Link>
     );
@@ -155,16 +158,16 @@ function AccountMenu() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex h-9 items-center gap-2 rounded-full border border-line bg-paper pl-1 pr-3 text-[13px] font-medium"
+        className="flex h-9 items-center gap-2 rounded-[8px] border border-line bg-paper pl-1 pr-3 text-[13px] font-medium"
       >
-        <span className="grid h-7 w-7 place-items-center rounded-full bg-orbit-soft text-[12px] font-semibold text-orbit">
+        <span className="grid h-7 w-7 place-items-center rounded-[6px] bg-orbit-soft text-[12px] font-semibold text-orbit">
           {name.slice(0, 1).toUpperCase()}
         </span>
         <span className="max-w-[9rem] truncate">{name}</span>
         {syncing && <span className="h-1.5 w-1.5 rounded-full bg-orbit" title={t("saving")} />}
       </button>
       {open && (
-        <div className="absolute right-0 z-40 mt-2 w-52 overflow-hidden rounded-[12px] border border-line bg-paper py-1 text-sm shadow-[0_12px_32px_-12px_rgba(15,30,51,0.25)]">
+        <div className="absolute right-0 z-40 mt-2 w-52 overflow-hidden rounded-[8px] border border-line bg-paper py-1 text-sm shadow-[0_8px_24px_-12px_rgba(15,30,51,0.3)]">
           {profile && (
             <Link onClick={() => setOpen(false)} className="block px-4 py-2.5 hover:bg-orbit-soft" href={`/u/${profile.handle}`}>
               {t("myProfile")}
@@ -200,12 +203,9 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
   const { session } = useApp();
   const t = useT(T);
   const items: { href: string; key: K }[] = [
-    { href: "/completion", key: "completion" },
-    { href: "/insights", key: "insights" },
-    { href: "/history", key: "ratingHistory" },
-    { href: "/tools", key: "toolsLong" },
-    { href: "/ranking", key: "ranking" },
     { href: "/songs", key: "songs" },
+    { href: "/ranking", key: "ranking" },
+    ...EXTRA,
     { href: "/import", key: "importExport" },
     { href: "/settings", key: "settings" },
     ...(session ? [] : [{ href: "/login", key: "login" as K }]),
@@ -213,17 +213,62 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal aria-label={t("more")}>
       <button className="absolute inset-0 bg-ink/30" aria-label={t("close")} onClick={onClose} />
-      <div className="absolute inset-x-0 bottom-0 rounded-t-[20px] border-t border-line bg-paper px-4 pb-[calc(env(safe-area-inset-bottom)+16px)] pt-3">
+      <div className="absolute inset-x-0 bottom-0 rounded-t-[14px] border-t border-line bg-paper px-4 pb-[calc(env(safe-area-inset-bottom)+16px)] pt-3">
         <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line-strong" />
         <div className="mb-2 flex justify-center">
           <LanguageSwitcher />
         </div>
         {items.map((i) => (
-          <Link key={i.href} href={i.href} onClick={onClose} className="block rounded-[10px] px-3 py-3 text-[15px] hover:bg-orbit-soft">
+          <Link key={i.href} href={i.href} onClick={onClose} className="block rounded-[8px] px-3 py-3 text-[15px] hover:bg-orbit-soft">
             {t(i.key)}
           </Link>
         ))}
       </div>
+    </div>
+  );
+}
+
+function NavMore({ path }: { path: string | null }) {
+  const t = useT(T);
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const h = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, []);
+  const current = EXTRA.find((m) => path !== null && isActive(path, m.href));
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className={cx("relative flex items-center gap-1 whitespace-nowrap px-3 py-1.5 text-[14px] transition", current ? "font-semibold text-ink" : "text-mist hover:text-ink")}
+      >
+        {current ? t(current.key === "ratingHistory" ? "history" : current.key === "toolsLong" ? "tools" : current.key) : t("more")}
+        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden className={cx("transition", open && "rotate-180")}>
+          <path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        {current && <span className="absolute inset-x-3 -bottom-[11px] h-[2px] bg-orbit" />}
+      </button>
+      {open && (
+        <div className="absolute left-0 z-40 mt-2 w-56 overflow-hidden rounded-[8px] border border-line bg-paper py-1 text-sm shadow-[0_8px_24px_-12px_rgba(15,30,51,0.3)]" role="menu">
+          {EXTRA.map((m) => (
+            <Link
+              key={m.href}
+              href={m.href}
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              aria-current={current?.href === m.href ? "page" : undefined}
+              className={cx("block px-4 py-2.5 hover:bg-orbit-soft", current?.href === m.href && "font-semibold text-orbit")}
+            >
+              {t(m.key)}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -239,13 +284,14 @@ function DesktopNav({ path }: { path: string | null }) {
             key={m.href}
             href={m.href}
             aria-current={on ? "page" : undefined}
-            className={cx("relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-[14px] transition xl:px-3", on ? "font-semibold text-ink" : "text-mist hover:text-ink")}
+            className={cx("relative whitespace-nowrap px-3 py-1.5 text-[14px] transition", on ? "font-semibold text-ink" : "text-mist hover:text-ink")}
           >
             {t(m.key)}
-            {on && <span className="absolute inset-x-3 -bottom-[11px] h-[2px] rounded-full bg-orbit" />}
+            {on && <span className="absolute inset-x-3 -bottom-[11px] h-[2px] bg-orbit" />}
           </Link>
         );
       })}
+      <NavMore path={path} />
     </nav>
   );
 }
@@ -295,11 +341,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="starfield min-h-dvh">
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-paper focus:px-4 focus:py-2">
+    <div className="min-h-dvh">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-[8px] focus:bg-paper focus:px-4 focus:py-2">
         {t("skip")}
       </a>
-      <header className="sticky top-0 z-30 border-b border-line/80 bg-sky/85 backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b border-line bg-paper">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4">
           <Link href="/" className="flex items-center gap-2 text-ink" aria-label={t("homeLabel")}>
             <OrbitGlyph />
@@ -315,13 +361,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main id="main" className="mx-auto max-w-6xl px-4 pb-28 pt-6 md:pt-10 lg:pb-16">
-        {syncError && <div className="mb-6 rounded-[12px] border border-danger/40 bg-paper p-4 text-sm text-danger">{syncError}</div>}
-        {error ? <div className="rounded-[12px] border border-danger/40 bg-paper p-4 text-sm text-danger">{error}</div> : children}
+      <main id="main" className="mx-auto max-w-6xl px-4 pb-28 pt-5 md:pt-7 lg:pb-16">
+        {syncError && <div className="mb-6 rounded-[8px] border border-danger/40 bg-paper p-4 text-sm text-danger">{syncError}</div>}
+        {error ? <div className="rounded-[8px] border border-danger/40 bg-paper p-4 text-sm text-danger">{error}</div> : children}
       </main>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)] lg:hidden"
         aria-label={t("bottomNav")}
       >
         <div className="grid grid-cols-5">
@@ -343,7 +389,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <div
             key={t.id}
             className={cx(
-              "pointer-events-auto max-w-md rounded-full border px-4 py-2.5 text-[13px] shadow-[0_10px_30px_-12px_rgba(15,30,51,0.35)]",
+              "pointer-events-auto max-w-md rounded-[8px] border px-4 py-2.5 text-[13px] shadow-[0_8px_24px_-12px_rgba(15,30,51,0.35)]",
               t.tone === "error" ? "border-danger/40 bg-paper text-danger" : "border-line bg-ink text-sky",
             )}
           >

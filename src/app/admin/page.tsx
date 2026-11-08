@@ -172,7 +172,7 @@ export default function AdminPage() {
     <div>
       <PageHeader
         title={t("title")}
-        lead={t("lead", { version: String(version?.version), n: String(version?.chartCount.toLocaleString()) })}
+        meta={t("lead", { version: String(version?.version), n: String(version?.chartCount.toLocaleString()) })}
       />
       <Panel className="p-5 sm:p-6">
         <input ref={input} type="file" accept=".xlsx" className="sr-only" onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} />
@@ -194,7 +194,7 @@ export default function AdminPage() {
               })}
             </p>
             {data.diff.constant.length > 0 && (
-              <ul className="mt-3 max-h-72 divide-y divide-line overflow-auto rounded-[12px] border border-line">
+              <ul className="mt-3 max-h-72 divide-y divide-line overflow-auto rounded-[8px] border border-line">
                 {data.diff.constant.map(({ chart, from }) => (
                   <li key={chart.id} className="flex items-center gap-3 px-3 py-2 text-[13px]">
                     <DiffMark d={chart.difficulty} compact />

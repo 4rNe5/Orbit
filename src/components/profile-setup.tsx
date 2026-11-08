@@ -93,14 +93,14 @@ function SetupDialog({ profile }: { profile: Profile }) {
   const canSave = !busy && (status === "ok" || status === "unknown");
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-ink/40 backdrop-blur-sm sm:items-center sm:p-4" role="dialog" aria-modal aria-labelledby="setup-title">
+    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/55 sm:items-center sm:p-4" role="dialog" aria-modal aria-labelledby="setup-title">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           if (!trimmed) return setError(t("nameRequired"));
           if (canSave) void write({ display_name: trimmed, handle, is_public: pub }, "save");
         }}
-        className="pop max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-[22px] border border-line bg-paper p-6 pb-[calc(env(safe-area-inset-bottom)+24px)] shadow-[0_24px_60px_-20px_rgba(15,30,51,0.45)] sm:rounded-[22px] sm:pb-6"
+        className="pop max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-[14px] border border-line bg-paper p-6 pb-[calc(env(safe-area-inset-bottom)+24px)] shadow-[0_16px_40px_-20px_rgba(15,30,51,0.5)] sm:rounded-[14px] sm:pb-6"
       >
         <div className="flex items-center gap-2 text-ink">
           <OrbitGlyph size={24} />

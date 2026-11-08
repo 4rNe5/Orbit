@@ -70,7 +70,7 @@ export default function RankingPage() {
     <div>
       <PageHeader
         title={t("title")}
-        lead={t("lead")}
+        help={t("lead")}
         actions={session && profile && !profile.is_public && <ButtonLink href="/settings">{t("makePublic")}</ButtonLink>}
       />
       {error && <p className="text-sm text-danger">{t("loadFailed", { msg: error })}</p>}

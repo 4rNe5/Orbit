@@ -197,7 +197,7 @@ function Preview({
   const higher = ids.filter((id) => !scores[id] || incoming[id].score > scores[id].score).length;
   const lower = ids.filter((id) => scores[id] && incoming[id].score < scores[id].score).length;
   return (
-    <div className="mt-5 rounded-[12px] border border-orbit/50 bg-orbit-soft/40 p-4">
+    <div className="mt-5 rounded-[8px] border border-orbit/50 bg-orbit-soft p-4">
       <div className="text-[15px] font-semibold">{title}</div>
       <p className="mt-1 text-[13px] text-mist">
         {t("previewCounts", { total: ids.length.toLocaleString(), higher: higher.toLocaleString(), lower: lower.toLocaleString() })}
@@ -399,7 +399,7 @@ function TapTapImport() {
       {status && <p className="mt-3 text-[13px] text-mist">{status}</p>}
       {qr && (
         <div className="mt-4 flex flex-wrap items-center gap-4">
-          <div className="w-44 rounded-[12px] border border-line bg-white p-2" dangerouslySetInnerHTML={{ __html: qr.svg }} />
+          <div className="w-44 rounded-[8px] border border-line bg-white p-2" dangerouslySetInnerHTML={{ __html: qr.svg }} />
           <div className="max-w-sm text-[13px] leading-relaxed text-mist">
             <p>
               <span className="font-semibold text-ink">{t("qrPcLabel")}</span> {t("qrPcBody")}
@@ -508,7 +508,7 @@ export default function ImportPage() {
   if (!ready) return <Loading />;
   return (
     <div>
-      <PageHeader title={t("pageTitle")} lead={t("pageLead")} />
+      <PageHeader title={t("pageTitle")} help={t("pageLead")} />
       <div className="flex flex-col gap-4">
         <TapTapImport />
         <SheetImport />

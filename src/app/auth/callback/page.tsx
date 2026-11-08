@@ -42,7 +42,7 @@ export default function AuthCallback() {
 
   if (error)
     return (
-      <div className="mx-auto max-w-md rounded-[12px] border border-danger/40 bg-paper p-5 text-sm">
+      <div className="mx-auto max-w-md rounded-[8px] border border-danger/40 bg-paper p-5 text-sm">
         <p className="font-semibold text-danger">{t("failed")}</p>
         <p className="mt-1 text-mist">{error}</p>
         <a href="/login" className="mt-3 inline-block font-medium text-orbit">

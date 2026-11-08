@@ -40,7 +40,7 @@ export default async function SongPage({ params }: PageProps<"/song/[id]">) {
   const s = songOf(decodeURIComponent(id));
   if (!s) notFound();
   return (
-    <div className="pop mx-auto max-w-3xl">
+    <div className="mx-auto max-w-3xl">
       <SongDetail songId={s.main.songId} variant="page" initialInfo={s.info} fallbackCharts={s.list} />
     </div>
   );

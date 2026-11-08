@@ -100,7 +100,7 @@ export default function CompletionPage() {
     <div>
       <PageHeader
         title={t("title")}
-        lead={t("lead")}
+        help={t("lead")}
       />
 
       <Panel className="grid gap-6 p-5 sm:grid-cols-[1fr_2fr] sm:p-6">
@@ -170,7 +170,7 @@ export default function CompletionPage() {
           {slots.map((s) => (
             <li key={s.chart.id} className="flex items-center gap-3 px-3 py-2 sm:px-4">
               <SongButton songId={s.chart.songId} label={s.chart.title} className="group flex min-w-0 flex-1 items-center gap-3">
-                <Jacket songId={s.chart.songId} title={s.chart.songTitle || s.chart.title} difficulty={s.chart.difficulty} rounded="rounded-lg" className="w-9 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" thumb />
+                <Jacket songId={s.chart.songId} title={s.chart.songTitle || s.chart.title} difficulty={s.chart.difficulty} rounded="rounded-[6px]" className="w-9 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" thumb />
                 <DiffMark d={s.chart.difficulty} constant={s.chart.constant} />
                 <span className="min-w-0 flex-1 truncate text-[14px] group-hover:text-accent">{s.chart.title}</span>
               </SongButton>

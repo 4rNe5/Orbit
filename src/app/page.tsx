@@ -1,6 +1,6 @@
 "use client";
 
-import { nextTier, tierStyle } from "@/lib/tiers";
+import { nextTier } from "@/lib/tiers";
 import { RatingNumber, TierBadge } from "@/components/rating";
 import { SongButton } from "@/components/song-dialog";
 import { RecentUpdates } from "@/components/recent-updates";
@@ -20,8 +20,8 @@ const T = defineDict({
     loading: "궤도를 그리는 중",
     traveler: "트래블러",
     guest: "게스트",
-    emptyTitle: "점수를 넣으면 궤도가 돌기 시작해요",
-    emptyLead: "한 곡씩 입력해도 되고, 쓰던 레이팅 시트나 TapTap 세이브를 통째로 가져와도 됩니다. B40·대상곡·완성도가 바로 계산돼요.",
+    emptyTitle: "아직 기록이 없어요",
+    emptyLead: "점수를 직접 입력하거나 TapTap 세이브·분석표를 가져오면 B40, 대상곡, 완성도가 계산됩니다.",
     enterScores: "점수 입력하기",
     importSheet: "시트·세이브 가져오기",
     importScores: "점수 가져오기",
@@ -35,19 +35,19 @@ const T = defineDict({
     b40All: "B40 전체",
     targets: "대상곡",
     top10: "상위 10곡",
-    viewAllB40: "B40 전체 보기",
+    viewAllB40: "B40 전체",
     recent: "최근 갱신",
     pushTitle: "조금만 더 치면 오르는 곡",
     all: "전체",
-    footer: "곡 데이터 {version} · {n}채보 · 곡을 누르면 곡 정보가 열려요 · 자켓·곡 정보 출처 Rotaeno 위키",
+    footer: "곡 데이터 {version} · {n}채보 · 자켓·곡 정보 출처 Rotaeno 위키",
     avgOf: "{label} 평균",
   },
   ja: {
     loading: "軌道を描いています",
     traveler: "トラベラー",
     guest: "ゲスト",
-    emptyTitle: "スコアを入れると軌道が回り始めます",
-    emptyLead: "1曲ずつ入力しても、使っていたレートシートやTapTapのセーブデータをまるごと取り込んでもOKです。B40・対象曲・完成度がすぐに計算されます。",
+    emptyTitle: "まだ記録がありません",
+    emptyLead: "スコアを入力するか、TapTap のセーブやレート分析表を取り込むと、B40・対象曲・完成度が計算されます。",
     enterScores: "スコアを入力",
     importSheet: "シート・セーブを取り込む",
     importScores: "スコアを取り込む",
@@ -61,19 +61,19 @@ const T = defineDict({
     b40All: "B40一覧",
     targets: "対象曲",
     top10: "上位10曲",
-    viewAllB40: "B40をすべて見る",
+    viewAllB40: "B40一覧",
     recent: "最近の更新",
     pushTitle: "あと少しでレートが上がる曲",
     all: "すべて",
-    footer: "楽曲データ {version} · {n}譜面 · 曲を押すと楽曲情報が開きます · ジャケット・楽曲情報の出典 Rotaeno Wiki",
+    footer: "楽曲データ {version} · {n}譜面 · ジャケット・楽曲情報の出典 Rotaeno Wiki",
     avgOf: "{label} 平均",
   },
   zh: {
     loading: "正在绘制轨道",
     traveler: "旅行者",
     guest: "游客",
-    emptyTitle: "录入分数，轨道就会开始转动",
-    emptyLead: "可以逐首录入，也可以把正在用的 Rating 表格或 TapTap 存档整个导入。B40、推分目标和完成度会立即算好。",
+    emptyTitle: "还没有记录",
+    emptyLead: "录入分数，或导入 TapTap 存档、Rating 分析表后，即可计算 B40、推分目标和完成度。",
     enterScores: "录入分数",
     importSheet: "导入表格/存档",
     importScores: "导入分数",
@@ -87,11 +87,11 @@ const T = defineDict({
     b40All: "完整 B40",
     targets: "推分目标",
     top10: "前10首",
-    viewAllB40: "查看完整 B40",
+    viewAllB40: "完整 B40",
     recent: "最近更新",
     pushTitle: "再推一点就能涨分的曲目",
     all: "全部",
-    footer: "曲目数据 {version} · {n} 个谱面 · 点击曲目可查看曲目信息 · 曲绘与曲目信息来源：Rotaeno Wiki",
+    footer: "曲目数据 {version} · {n} 个谱面 · 曲绘与曲目信息来源：Rotaeno Wiki",
     avgOf: "{label} 平均",
   },
 });
@@ -120,35 +120,35 @@ export default function Home() {
 
   if (empty) {
     return (
-      <div className="pop mx-auto max-w-xl pt-6 text-center">
-        <div className="mb-5 flex justify-center">
-          <LanguageSwitcher variant="inline" />
-        </div>
-        <div className="mx-auto mb-5 grid grid-cols-4 gap-1.5 opacity-90">
+      <div className="max-w-2xl pt-2">
+        <div className="mb-6 flex gap-1.5">
           {["suito", "heavens-cage", "uchronia", "aleph-0", "igallta", "angel-dust", "re-birth", "stage-5"].map((id) => (
-            <Jacket key={id} songId={id} title={id} rounded="rounded-md" />
+            <Jacket key={id} songId={id} title={id} rounded="rounded-[6px]" className="w-12 sm:w-14" thumb />
           ))}
         </div>
-        <h1 className="font-display text-[30px] font-bold leading-tight tracking-[-0.02em] sm:text-[36px]">{t("emptyTitle")}</h1>
-        <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-mist">
-          {t("emptyLead")}
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <h1 className="font-display text-[24px] font-bold leading-tight tracking-[-0.01em] sm:text-[28px]">{t("emptyTitle")}</h1>
+        <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-ink-2">{t("emptyLead")}</p>
+        <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href="/scores" variant="primary">
             {t("enterScores")}
           </ButtonLink>
-          <ButtonLink href="/import">{t("importSheet")}</ButtonLink>
+          <ButtonLink href="/import">
+            <ImportIcon />
+            {t("importSheet")}
+          </ButtonLink>
+        </div>
+        <div className="mt-8 border-t border-line pt-4">
+          <LanguageSwitcher variant="inline" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="pop">
-      {/* profile banner */}
-      <section className="relative overflow-hidden rounded-[22px] border border-line bg-paper/70 p-5 backdrop-blur sm:p-7">
-        <div className="tier-glow pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full opacity-30 blur-3xl" style={tierStyle(analysis.rating)} aria-hidden />
-        <div className="relative flex flex-wrap items-end justify-between gap-5">
+    <div>
+      {/* rating */}
+      <section className="rounded-[var(--radius-panel)] border border-line bg-paper p-5 sm:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-[14px] text-mist">
               <span className="truncate font-semibold text-ink">{name}</span>
@@ -156,20 +156,20 @@ export default function Home() {
               <span>{t("songCount", { n: analysis.played.toLocaleString() })}</span>
             </div>
             <div className="mt-1 flex items-end gap-3">
-              <TierBadge rating={analysis.rating} size={56} className="mb-1 sm:h-[68px] sm:w-[68px]" />
-              <RatingNumber rating={analysis.rating} className="text-[60px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[76px]" />
-              <span className="mb-2 text-[13px] text-mist">
+              <TierBadge rating={analysis.rating} size={56} className="mb-1 sm:h-[64px] sm:w-[64px]" />
+              <RatingNumber rating={analysis.rating} className="text-[56px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[68px]" />
+              <span className="mb-1.5 text-[13px] text-mist">
                 {t("theoretical", { v: maxR.toFixed(3) })}
                 <br />
-                <span className="text-ink-2">−{(maxR - analysis.rating).toFixed(3)}</span>
+                <span className="num text-ink-2">−{(maxR - analysis.rating).toFixed(3)}</span>
               </span>
             </div>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              <Pill label={t("next001")} value={analysis.toNext.toFixed(6)} />
-              {nt && <Pill label={t("nextEmblem")} value={t("nextEmblemValue", { min: nt.min.toFixed(3), gap: (nt.min - analysis.rating).toFixed(3) })} />}
-              <Pill label={t("completion")} value={fmtPercent(completion.percent)} />
-              <Pill label="B40 AP+" value={t("apCount", { n: analysis.apPlusInBest })} />
-            </div>
+            <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px]">
+              <Fact label={t("next001")} value={analysis.toNext.toFixed(6)} />
+              {nt && <Fact label={t("nextEmblem")} value={t("nextEmblemValue", { min: nt.min.toFixed(3), gap: (nt.min - analysis.rating).toFixed(3) })} />}
+              <Fact label={t("completion")} value={fmtPercent(completion.percent)} />
+              <Fact label="B40 AP+" value={t("apCount", { n: analysis.apPlusInBest })} />
+            </dl>
           </div>
           <div className="flex flex-wrap gap-2">
             <ButtonLink href="/best" variant="primary">
@@ -182,61 +182,66 @@ export default function Home() {
             </ButtonLink>
           </div>
         </div>
-        <div className="relative mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">
+        <div className="mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">
           <Mini label="B1–10" value={avg(eff.slice(0, 10)).toFixed(3)} />
           <Mini label="B11–20" value={avg(eff.slice(10, 20)).toFixed(3)} />
           <Mini label="B21–40" value={avg(eff.slice(20, 40)).toFixed(3)} />
         </div>
       </section>
 
-      {/* top charts */}
-      <section className="mt-8">
-        <div className="mb-3 flex items-baseline justify-between">
-          <h2 className="text-[17px] font-bold">{t("top10")}</h2>
-          <Link href="/best" className="text-[13px] font-medium text-accent hover:underline">
-            {t("viewAllB40")}
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-          {top.map((r) => (
-            <BestTile key={r.chart.id} r={r} />
-          ))}
-        </div>
-      </section>
-
-      {/* push suggestions */}
-      {events.length > 0 && (
-        <section className="mt-8">
-          <h2 className="mb-3 text-[17px] font-bold">{t("recent")}</h2>
-          <RecentUpdates />
-        </section>
-      )}
-
-      {targets.length > 0 && (
-        <section className="mt-8">
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+        {/* top charts */}
+        <section className="min-w-0">
           <div className="mb-3 flex items-baseline justify-between">
-            <h2 className="text-[17px] font-bold">{t("pushTitle")}</h2>
-            <Link href="/targets" className="text-[13px] font-medium text-accent hover:underline">
-              {t("all")}
+            <h2 className="text-[16px] font-bold">{t("top10")}</h2>
+            <Link href="/best" className="text-[13px] font-medium text-accent hover:underline">
+              {t("viewAllB40")}
             </Link>
           </div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            {targets.map((t) => (
-              <SongButton key={t.chart.id} songId={t.chart.songId} label={t.chart.title} className="flex w-full items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-4 transition hover:border-line-2">
-                <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-lg" className="w-12" thumb />
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[14px] font-semibold">{t.chart.title}</div>
-                  <div className="num text-[12px] text-mist">
-                    {fmtScore(t.current)} → {fmtScore(t.minScore)}
-                  </div>
-                </div>
-                <DiffMark d={t.chart.difficulty} compact />
-                <span className="num text-[15px] font-bold text-accent">+{t.need.toLocaleString()}</span>
-              </SongButton>
+          <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-5">
+            {top.map((r) => (
+              <BestTile key={r.chart.id} r={r} />
             ))}
           </div>
         </section>
-      )}
+
+        <aside className="flex min-w-0 flex-col gap-8">
+          {targets.length > 0 && (
+            <section>
+              <div className="mb-3 flex items-baseline justify-between">
+                <h2 className="text-[16px] font-bold">{t("pushTitle")}</h2>
+                <Link href="/targets" className="text-[13px] font-medium text-accent hover:underline">
+                  {t("all")}
+                </Link>
+              </div>
+              <ol className="divide-y divide-line overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper">
+                {targets.map((tg) => (
+                  <li key={tg.chart.id}>
+                    <SongButton songId={tg.chart.songId} label={tg.chart.title} className="flex w-full items-center gap-3 px-3 py-2.5 transition hover:bg-paper-2">
+                      <Jacket songId={tg.chart.songId} title={tg.chart.songTitle || tg.chart.title} difficulty={tg.chart.difficulty} rounded="rounded-[6px]" className="w-10" thumb />
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-[14px] font-semibold">{tg.chart.title}</div>
+                        <div className="flex items-center gap-2 text-[12px] text-mist">
+                          <DiffMark d={tg.chart.difficulty} constant={tg.chart.constant} />
+                          <span className="num truncate">→ {fmtScore(tg.minScore)}</span>
+                        </div>
+                      </div>
+                      <span className="num shrink-0 text-right text-[14px] font-bold text-accent">+{tg.need.toLocaleString()}</span>
+                    </SongButton>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          {events.length > 0 && (
+            <section>
+              <h2 className="mb-3 text-[16px] font-bold">{t("recent")}</h2>
+              <RecentUpdates />
+            </section>
+          )}
+        </aside>
+      </div>
 
       {version && (
         <p className="mt-8 text-[12px] text-mist">
@@ -247,12 +252,12 @@ export default function Home() {
   );
 }
 
-function Pill({ label, value }: { label: string; value: string }) {
+function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 text-[12px]">
-      <span className="text-mist">{label}</span>
-      <span className="num font-semibold text-ink">{value}</span>
-    </span>
+    <div className="flex items-baseline gap-1.5">
+      <dt className="text-mist">{label}</dt>
+      <dd className="num font-semibold text-ink">{value}</dd>
+    </div>
   );
 }
 

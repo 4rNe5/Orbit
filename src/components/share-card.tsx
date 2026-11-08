@@ -1,5 +1,4 @@
 import type { ChartResult } from "@/lib/core/types";
-import { tierStyle } from "@/lib/tiers";
 import { RatingNumber, TierBadge } from "./rating";
 import { BestTile } from "./best-tile";
 import { OrbitGlyph } from "./ui";
@@ -70,7 +69,8 @@ function RatingChart({ best, gs }: { best: ChartResult[]; gs: Group[] }) {
   const bw = (W - pad.l - pad.r) / 40;
   const Y = (v: number) => pad.t + (1 - (v - min) / (max - min)) * (H - pad.t - pad.b);
   const ticks = [0, 1, 2, 3].map((i) => min + ((max - min) * i) / 3);
-  const tint = ["var(--accent)", "var(--accent-2)", "var(--ap)"];
+  // one colour, fading with the bracket weight (60% / 20% / 20%)
+  const tint = [1, 0.55, 0.32];
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="block w-full">
       {ticks.map((v, i) => (
@@ -94,8 +94,8 @@ function RatingChart({ best, gs }: { best: ChartResult[]; gs: Group[] }) {
                 width={bw - 4}
                 height={H - pad.b - Y(r.effective)}
                 rx="2"
-                fill={tint[gi]}
-                fillOpacity={0.85}
+                fill="var(--accent)"
+                fillOpacity={tint[gi]}
               />
             ))}
             {g.items.length > 0 && (
@@ -137,7 +137,6 @@ export function ShareCard({
   const apPlus = best.filter((b) => b.apPlus).length;
   return (
     <div data-theme="dark" style={{ width: 1280 }} className="relative overflow-hidden bg-bg px-8 pb-7 pt-8 font-sans text-ink">
-      <div className="tier-glow pointer-events-none absolute -right-40 -top-48 h-[520px] w-[520px] rounded-full opacity-30 blur-3xl" style={tierStyle(rating)} />
 
       {/* header */}
       <header className="relative flex items-end justify-between gap-6">
@@ -170,7 +169,7 @@ export function ShareCard({
       </header>
 
       {/* how the number is built */}
-      <div className="relative mt-6 grid grid-cols-3 overflow-hidden rounded-2xl border border-line bg-paper/60">
+      <div className="relative mt-6 grid grid-cols-3 overflow-hidden rounded-[14px] border border-line bg-paper">
         {gs.map((g, i) => (
           <div key={g.key} className={i ? "border-l border-line px-5 py-3" : "px-5 py-3"}>
             <div className="flex items-baseline justify-between text-[12px] text-mist">
@@ -202,7 +201,7 @@ export function ShareCard({
       )}
 
       {/* distribution */}
-      <section className="relative mt-8 rounded-2xl border border-line bg-paper/60 px-4 pb-2 pt-4">
+      <section className="relative mt-8 rounded-[14px] border border-line bg-paper px-4 pb-2 pt-4">
         <div className="mb-1 px-1 text-[14px] font-semibold">{t("distribution")}</div>
         <RatingChart best={best} gs={gs} />
       </section>

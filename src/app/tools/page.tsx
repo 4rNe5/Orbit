@@ -224,7 +224,7 @@ function ChallengeTool() {
         {t("rules", { min: m.min, max: m.max === 99 ? "" : m.max, hp: m.hp, heal: m.heal })}
       </p>
       {tracks.length > 0 && (
-        <ol className="mt-5 divide-y divide-line rounded-[12px] border border-line">
+        <ol className="mt-5 divide-y divide-line rounded-[8px] border border-line">
           {tracks.map((c, i) => {
             const h = hp[i];
             const set = (k: "p" | "g" | "m", v: string) => setJudge((arr) => arr.map((x, idx) => (idx === i ? { ...x, [k]: v.replace(/[^0-9]/g, "") } : x)));

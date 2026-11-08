@@ -109,7 +109,7 @@ export function ChartFilterBar({ state, set, charts, extra }: { state: ChartFilt
           value={state.pack}
           onChange={(e) => set({ pack: e.target.value })}
           aria-label={t("category")}
-          className="h-10 max-w-[14rem] rounded-[10px] border border-line bg-paper px-3 text-sm"
+          className="h-10 max-w-[14rem] rounded-[8px] border border-line bg-paper px-3 text-sm"
         >
           <option value="">{t("allSongs")}</option>
           {packs.map((g) => (

@@ -137,7 +137,7 @@ export default function TargetsPage() {
     <div>
       <PageHeader
         title={tr("title")}
-        lead={tr("lead")}
+        help={tr("lead")}
         actions={
           <Segmented<Mode>
             label={tr("modeLabel")}
@@ -185,7 +185,7 @@ export default function TargetsPage() {
               <h2 className="mb-2 text-[15px] font-semibold">
                 {plan.reached ? tr("planReached", { goal: plan.goal.toFixed(3), n: plan.steps.length }) : tr("planNotReached", { n: plan.steps.length, goal: plan.goal.toFixed(3) })}
               </h2>
-              <ol className="divide-y divide-line rounded-[12px] border border-line">
+              <ol className="divide-y divide-line rounded-[8px] border border-line">
                 {plan.steps.map((s, i) => (
                   <li key={s.chart.id} className="flex items-center gap-3 px-3 py-2.5 text-[14px]">
                     <span className="num w-5 text-mist">{i + 1}</span>
@@ -232,12 +232,12 @@ export default function TargetsPage() {
           return (
             <li key={t.chart.id} className={`flex items-center gap-3 px-3 py-2.5 sm:px-4 ${pick === t.chart.id ? "bg-accent-soft" : ""}`}>
               <SongButton songId={t.chart.songId} label={t.chart.title} className="group flex min-w-0 flex-1 items-center gap-3">
-              <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-[10px]" className="w-11 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" thumb />
+              <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-[6px]" className="w-11 ring-1 ring-inset ring-line transition group-hover:ring-2 group-hover:ring-accent" thumb />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <DiffMark d={t.chart.difficulty} constant={t.chart.constant} />
                   {r.score !== null && r.rank <= 40 && r.effective > 0 && (
-                    <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{r.rank}</span>
+                    <span className="num rounded-[4px] bg-accent-soft px-1 text-[11px] font-semibold text-accent">B{r.rank}</span>
                   )}
                 </div>
                 <div className="mt-0.5 truncate text-[14px] font-medium group-hover:text-accent">{t.chart.title}</div>
