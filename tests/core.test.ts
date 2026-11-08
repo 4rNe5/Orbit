@@ -7,7 +7,15 @@ import { analyzeCompletion } from "../src/lib/core/completion";
 import { excelRound, excelTrunc } from "../src/lib/core/excel";
 import type { Chart, ScoreMap } from "../src/lib/core/types";
 
-const index = indexCharts(chartsJson as Chart[]);
+/** The fixtures are the 2.27.0 sheet; charts added after it (e.g. 2.99.0) are not in that sheet. */
+const SHEET_VERSION = "2.27.0";
+const newer = (v: string, base: string) => {
+  const a = v.split(".").map(Number);
+  const b = base.split(".").map(Number);
+  for (let i = 0; i < 3; i++) if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) > (b[i] || 0);
+  return false;
+};
+const index = indexCharts((chartsJson as Chart[]).filter((c) => !newer(c.version, SHEET_VERSION)));
 
 type Fixture = typeof fixA;
 
