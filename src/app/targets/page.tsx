@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useApp } from "@/components/app-provider";
 import { applyChartFilter, ChartFilterBar, useChartFilter } from "@/components/chart-filter";
 import { Button, ButtonLink, Chip, DiffMark, Empty, Loading, PageHeader, Panel, Segmented, TextInput } from "@/components/ui";
+import { Jacket } from "@/components/jacket";
 import { analyze } from "@/lib/core/rating";
 import { fmtScore, grade } from "@/lib/format";
 import { computeTargets, planToRating, type PlanStep } from "@/lib/targets";
@@ -156,15 +157,16 @@ export default function TargetsPage() {
         {list.slice(0, 150).map((t) => {
           const r = analysis.byId[t.chart.id];
           return (
-            <li key={t.chart.id} className={`flex items-center gap-3 px-4 py-3 ${pick === t.chart.id ? "bg-orbit-soft" : ""}`}>
+            <li key={t.chart.id} className={`flex items-center gap-3 px-3 py-2.5 sm:px-4 ${pick === t.chart.id ? "bg-accent-soft" : ""}`}>
+              <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-[10px]" className="w-11 ring-1 ring-inset ring-line" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <DiffMark d={t.chart.difficulty} constant={t.chart.constant} />
                   {r.score !== null && r.rank <= 40 && r.effective > 0 && (
-                    <span className="num rounded-full bg-orbit-soft px-1.5 text-[11px] font-semibold text-orbit">B{r.rank}</span>
+                    <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{r.rank}</span>
                   )}
                 </div>
-                <div className="mt-1 truncate text-[14px] font-medium">{t.chart.title}</div>
+                <div className="mt-0.5 truncate text-[14px] font-medium">{t.chart.title}</div>
               </div>
               <div className="hidden text-right sm:block">
                 <div className="num text-[14px]">

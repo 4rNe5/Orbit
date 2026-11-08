@@ -3,107 +3,159 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { useApp } from "@/components/app-provider";
-import { OrbitChart } from "@/components/orbit-chart";
-import { ButtonLink, DiffMark, Loading, Panel, Stat } from "@/components/ui";
-import { fmtPercent, fmtRating, fmtScore } from "@/lib/format";
+import { BestTile } from "@/components/best-tile";
+import { Jacket } from "@/components/jacket";
+import { ButtonLink, DiffMark, Loading } from "@/components/ui";
+import { fmtPercent, fmtScore } from "@/lib/format";
 import { computeTargets } from "@/lib/targets";
 
 function avg(v: number[]) {
-  return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+  return v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0;
 }
 
 export default function Home() {
   const { ready, analysis, completion, index, scores, version, session, profile } = useApp();
 
   const targets = useMemo(
-    () => (index && analysis && analysis.played > 0 ? computeTargets(index, scores, analysis).slice(0, 5) : []),
+    () => (index && analysis && analysis.played > 0 ? computeTargets(index, scores, analysis).slice(0, 4) : []),
     [index, scores, analysis],
   );
 
   if (!ready || !analysis || !completion) return <Loading label="궤도를 그리는 중" />;
 
-  const eff = analysis.best.map((b) => b.effective);
   const empty = analysis.played === 0;
-  const name = profile?.display_name || (session ? "트래블러" : null);
+  const name = profile?.display_name || (session ? "트래블러" : "게스트");
+  const maxR = version?.theoreticalRating ?? 17.886;
+  const eff = analysis.best.map((b) => b.effective);
+  const top = analysis.best.slice(0, 10);
+
+  if (empty) {
+    return (
+      <div className="pop mx-auto max-w-xl pt-6 text-center">
+        <div className="mx-auto mb-5 grid grid-cols-4 gap-1.5 opacity-90">
+          {["suito", "heavens-cage", "uchronia", "aleph-0", "igallta", "angel-dust", "re-birth", "stage-5"].map((id) => (
+            <Jacket key={id} songId={id} title={id} rounded="rounded-md" />
+          ))}
+        </div>
+        <h1 className="font-display text-[30px] font-bold leading-tight tracking-[-0.02em] sm:text-[36px]">점수를 넣으면 궤도가 돌기 시작해요</h1>
+        <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-mist">
+          한 곡씩 입력해도 되고, 쓰던 레이팅 시트나 TapTap 세이브를 통째로 가져와도 됩니다. B40·대상곡·완성도가 바로 계산돼요.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <ButtonLink href="/scores" variant="primary">
+            점수 입력하기
+          </ButtonLink>
+          <ButtonLink href="/import">시트·세이브 가져오기</ButtonLink>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,420px)_1fr]">
-      <div className="mx-auto w-full max-w-[420px]">
-        <OrbitChart
-          best={analysis.best}
-          rating={empty ? null : analysis.rating}
-          caption="레이팅"
-          sub={empty ? "점수를 입력하면 채워집니다" : `다음 +0.001까지 ${analysis.toNext.toFixed(6)}`}
-        />
-        <p className="mt-3 text-center text-[12px] text-mist">바깥 궤도 B1–10, 가운데 B11–20, 안쪽 B21–40</p>
-      </div>
-
-      <div className="min-w-0">
-        <h1 className="font-display text-[30px] font-semibold leading-tight tracking-[-0.02em] sm:text-[36px]">
-          {empty ? "첫 점수를 기다리는 궤도" : name ? `${name}님의 궤도` : "나의 궤도"}
-        </h1>
-        <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-mist">
-          {empty
-            ? "점수를 입력하거나 기존 레이팅 분석 시트를 가져오면 B40, 대상곡, 완성도를 바로 계산합니다."
-            : `${analysis.played.toLocaleString()}개 채보 기준입니다. 이론치까지 ${((version?.theoreticalRating ?? 17.886) - analysis.rating).toFixed(3)} 남았습니다.`}
-        </p>
-
-        {empty ? (
-          <div className="mt-6 flex flex-wrap gap-2">
-            <ButtonLink href="/scores" variant="primary">
-              점수 입력하기
-            </ButtonLink>
-            <ButtonLink href="/import">시트·파일 가져오기</ButtonLink>
-            {!session && <ButtonLink href="/login" variant="ghost">로그인하고 기기 간 동기화</ButtonLink>}
+    <div className="pop">
+      {/* profile banner */}
+      <section className="relative overflow-hidden rounded-[22px] border border-line bg-paper/70 p-5 backdrop-blur sm:p-7">
+        <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full opacity-25 blur-2xl" style={{ background: "var(--grad)" }} aria-hidden />
+        <div className="relative flex flex-wrap items-end justify-between gap-5">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 text-[14px] text-mist">
+              <span className="truncate font-semibold text-ink">{name}</span>
+              <span>·</span>
+              <span>{analysis.played.toLocaleString()}곡</span>
+            </div>
+            <div className="mt-1 flex items-end gap-3">
+              <span className="num grad-text text-[60px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[76px]">{analysis.rating.toFixed(3)}</span>
+              <span className="mb-2 text-[13px] text-mist">
+                이론치 {maxR.toFixed(3)}
+                <br />
+                <span className="text-ink-2">−{(maxR - analysis.rating).toFixed(3)}</span>
+              </span>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              <Pill label="다음 +0.001" value={analysis.toNext.toFixed(6)} />
+              <Pill label="완성도" value={fmtPercent(completion.percent)} />
+              <Pill label="B40 AP+" value={`${analysis.apPlusInBest}개`} />
+            </div>
           </div>
-        ) : (
-          <>
-            <Panel className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 p-5 sm:grid-cols-3">
-              <Stat label="B1–10 평균" value={fmtRating(avg(eff.slice(0, 10)), 4)} />
-              <Stat label="B11–20 평균" value={fmtRating(avg(eff.slice(10, 20)), 4)} />
-              <Stat label="B21–40 평균" value={fmtRating(avg(eff.slice(20, 40)), 4)} />
-              <Stat label="40위 레이팅" value={fmtRating(analysis.pivots.r40, 4)} />
-              <Stat
-                label="B40 진입 최저 정수"
-                value={analysis.minConstantForBest === null ? "–" : analysis.minConstantForBest.toFixed(1)}
-                hint={analysis.minConstantForBest === null ? "40개 이상 입력하면 표시" : "이 정수 미만은 B40 진입 불가"}
-              />
-              <Stat label="완성도" value={fmtPercent(completion.percent)} hint={`${completion.total.toFixed(3)} / ${completion.max}`} />
-            </Panel>
+          <div className="flex gap-2">
+            <ButtonLink href="/best" variant="primary">
+              B40 전체
+            </ButtonLink>
+            <ButtonLink href="/targets">대상곡</ButtonLink>
+          </div>
+        </div>
+        <div className="relative mt-5 grid grid-cols-3 gap-x-6 gap-y-3 border-t border-line pt-4 sm:max-w-md">
+          <Mini label="B1–10" value={avg(eff.slice(0, 10)).toFixed(3)} />
+          <Mini label="B11–20" value={avg(eff.slice(10, 20)).toFixed(3)} />
+          <Mini label="B21–40" value={avg(eff.slice(20, 40)).toFixed(3)} />
+        </div>
+      </section>
 
-            <section className="mt-8">
-              <div className="mb-3 flex items-baseline justify-between">
-                <h2 className="text-[17px] font-semibold">다음 0.001을 올리는 가장 쉬운 곡</h2>
-                <Link href="/targets" className="text-[13px] font-medium text-orbit hover:underline">
-                  대상곡 전체 보기
-                </Link>
-              </div>
-              {targets.length === 0 ? (
-                <p className="text-sm text-mist">혼자서 0.001을 올릴 수 있는 채보가 없습니다. 이론치에 가깝습니다.</p>
-              ) : (
-                <ol className="divide-y divide-line overflow-hidden rounded-[var(--radius-panel)] border border-line bg-paper">
-                  {targets.map((t) => (
-                    <li key={t.chart.id} className="flex items-center gap-3 px-4 py-3">
-                      <DiffMark d={t.chart.difficulty} constant={t.chart.constant} />
-                      <span className="min-w-0 flex-1 truncate text-[14px] font-medium">{t.chart.title}</span>
-                      <span className="num hidden text-[13px] text-mist sm:inline">
-                        {fmtScore(t.current)} → {fmtScore(t.minScore)}
-                      </span>
-                      <span className="num w-24 text-right text-[14px] font-semibold text-orbit">+{t.need.toLocaleString()}</span>
-                    </li>
-                  ))}
-                </ol>
-              )}
-            </section>
-          </>
-        )}
+      {/* top charts */}
+      <section className="mt-8">
+        <div className="mb-3 flex items-baseline justify-between">
+          <h2 className="text-[17px] font-bold">상위 10곡</h2>
+          <Link href="/best" className="text-[13px] font-medium text-accent hover:underline">
+            B40 전체 보기
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+          {top.map((r) => (
+            <BestTile key={r.chart.id} r={r} />
+          ))}
+        </div>
+      </section>
 
-        {version && (
-          <p className="mt-8 text-[12px] text-mist">
-            곡 데이터 {version.version}, {version.chartCount.toLocaleString()}채보. 이론 최대 {version.theoreticalRating?.toFixed(3) ?? "–"}.
-          </p>
-        )}
-      </div>
+      {/* push suggestions */}
+      {targets.length > 0 && (
+        <section className="mt-8">
+          <div className="mb-3 flex items-baseline justify-between">
+            <h2 className="text-[17px] font-bold">조금만 더 치면 오르는 곡</h2>
+            <Link href="/targets" className="text-[13px] font-medium text-accent hover:underline">
+              전체
+            </Link>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {targets.map((t) => (
+              <Link key={t.chart.id} href="/targets" className="flex items-center gap-3 rounded-2xl border border-line bg-paper/70 p-2.5 pr-4 transition hover:border-line-2">
+                <Jacket songId={t.chart.songId} title={t.chart.songTitle || t.chart.title} difficulty={t.chart.difficulty} rounded="rounded-lg" className="w-12" />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[14px] font-semibold">{t.chart.title}</div>
+                  <div className="num text-[12px] text-mist">
+                    {fmtScore(t.current)} → {fmtScore(t.minScore)}
+                  </div>
+                </div>
+                <DiffMark d={t.chart.difficulty} compact />
+                <span className="num text-[15px] font-bold text-accent">+{t.need.toLocaleString()}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {version && (
+        <p className="mt-8 text-[12px] text-mist">
+          곡 데이터 {version.version} · {version.chartCount.toLocaleString()}채보 · 자켓 이미지 일부 곡 제공
+        </p>
+      )}
+    </div>
+  );
+}
+
+function Pill({ label, value }: { label: string; value: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 text-[12px]">
+      <span className="text-mist">{label}</span>
+      <span className="num font-semibold text-ink">{value}</span>
+    </span>
+  );
+}
+
+function Mini({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="text-[12px] text-mist">{label} 평균</div>
+      <div className="num text-[19px] font-semibold">{value}</div>
     </div>
   );
 }

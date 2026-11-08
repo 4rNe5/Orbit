@@ -3,6 +3,7 @@
 import { memo, useState } from "react";
 import type { Chart, Lamp } from "@/lib/core/types";
 import { fmtScore, grade, parseScoreInput } from "@/lib/format";
+import { Jacket } from "./jacket";
 import { cx, DiffMark } from "./ui";
 
 export interface ScoreRowProps {
@@ -47,17 +48,20 @@ function ScoreRowInner({ chart, score, lamp, rating, effective, rank, excluded, 
   const inBest = score !== null && rank <= 40 && effective > 0;
 
   return (
-    <li className={cx("row-auto grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 px-4 py-3 sm:grid-cols-[minmax(0,1fr)_150px_96px_92px]", chart.deleted && "opacity-55")}>
-      <div className="min-w-0">
-        <div className="flex items-center gap-2">
-          <DiffMark d={chart.difficulty} constant={chart.constant} />
-          {inBest && <span className="num rounded-full bg-orbit-soft px-1.5 text-[11px] font-semibold text-orbit">B{rank}</span>}
-          {chart.deleted && <span className="text-[11px] text-mist">삭제곡</span>}
+    <li className={cx("row-auto grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 px-3 py-3 sm:grid-cols-[minmax(0,1fr)_150px_96px_92px] sm:px-4", chart.deleted && "opacity-55")}>
+      <div className="flex min-w-0 items-center gap-3">
+        <Jacket songId={chart.songId} title={chart.songTitle || chart.title} difficulty={chart.difficulty} rounded="rounded-[10px]" className="w-12 ring-1 ring-inset ring-line" />
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <DiffMark d={chart.difficulty} constant={chart.constant} />
+            {inBest && <span className="num rounded-full bg-accent-soft px-1.5 text-[11px] font-semibold text-accent">B{rank}</span>}
+            {chart.deleted && <span className="text-[11px] text-mist">삭제곡</span>}
+          </div>
+          <div className="mt-0.5 truncate text-[14px] font-medium" title={chart.title}>
+            {chart.title}
+          </div>
+          <div className="truncate text-[12px] text-mist">{chart.pack}</div>
         </div>
-        <div className="mt-1 truncate text-[14px] font-medium" title={chart.title}>
-          {chart.title}
-        </div>
-        <div className="truncate text-[12px] text-mist">{chart.pack}</div>
       </div>
 
       <div className="flex flex-col items-end gap-1 sm:items-stretch">

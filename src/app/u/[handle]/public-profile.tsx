@@ -3,9 +3,8 @@
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useApp } from "@/components/app-provider";
-import { BestList } from "@/components/best-list";
-import { OrbitChart } from "@/components/orbit-chart";
-import { Empty, Loading, PageHeader, Panel, Stat } from "@/components/ui";
+import { BestTile } from "@/components/best-tile";
+import { Empty, Loading, Stat } from "@/components/ui";
 import { analyzeCompletion } from "@/lib/core/completion";
 import { analyze } from "@/lib/core/rating";
 import type { Lamp, ScoreMap } from "@/lib/core/types";
@@ -52,20 +51,30 @@ export function PublicProfile() {
   if (!ready || !profile || !analysis || !completion) return <Loading />;
 
   return (
-    <div>
-      <PageHeader title={profile.display_name || profile.handle} lead={`@${profile.handle}${profile.is_public ? "" : " (비공개, 나에게만 보입니다)"}`} />
-      <Panel className="grid items-center gap-6 p-5 sm:grid-cols-[240px_1fr]">
-        <div className="mx-auto w-[240px]">
-          <OrbitChart best={analysis.best} rating={analysis.played ? analysis.rating : null} caption="레이팅" size={240} />
+    <div className="pop">
+      <section className="relative overflow-hidden rounded-[22px] border border-line bg-paper/70 p-5 backdrop-blur sm:p-7">
+        <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full opacity-25 blur-2xl" style={{ background: "var(--grad)" }} aria-hidden />
+        <div className="relative flex flex-wrap items-end justify-between gap-5">
+          <div className="min-w-0">
+            <div className="text-[14px] text-mist">
+              {profile.display_name || profile.handle} · @{profile.handle}
+              {!profile.is_public && " · 비공개"}
+            </div>
+            <div className="num grad-text mt-1 text-[56px] font-bold leading-[0.9] tracking-[-0.03em] sm:text-[68px]">
+              {analysis.played ? analysis.rating.toFixed(3) : "–"}
+            </div>
+          </div>
+          <div className="flex gap-6">
+            <Stat label="입력한 채보" value={analysis.played.toLocaleString()} />
+            <Stat label="B40 AP+" value={`${analysis.apPlusInBest}개`} />
+            {profile.show_completion && <Stat label="완성도" value={fmtPercent(completion.percent)} />}
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
-          <Stat label="입력한 채보" value={analysis.played.toLocaleString()} />
-          <Stat label="B40 중 AP+" value={`${analysis.apPlusInBest}개`} />
-          {profile.show_completion && <Stat label="완성도" value={fmtPercent(completion.percent)} />}
-        </div>
-      </Panel>
-      <div className="mt-6">
-        <BestList best={analysis.best} />
+      </section>
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5">
+        {analysis.best.map((r) => (
+          <BestTile key={r.chart.id} r={r} />
+        ))}
       </div>
     </div>
   );
