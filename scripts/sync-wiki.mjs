@@ -10,7 +10,8 @@
  *   public/jackets/<id>.webp 256px, public/jackets/sm/<id>.webp 128px (only missing ones unless --refresh-jackets)
  *
  * Chart constants are NOT touched: the rating sheet stays the source of truth for them.
- * Behind a proxy (local sandbox) run with NODE_USE_ENV_PROXY=1.
+ * Behind a proxy (local sandbox) run with NODE_USE_ENV_PROXY=1. Where the wiki is unreachable
+ * (GitHub Actions), set WIKI_PROXY to the wiki-proxy Edge Function URL.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -33,11 +34,18 @@ const reportPath = args.includes("--report") ? args[args.indexOf("--report") + 1
 const read = (p) => JSON.parse(readFileSync(join(ROOT, p), "utf8"));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/**
+ * Optional relay (supabase/functions/wiki-proxy) for hosts that can't reach the wiki directly,
+ * e.g. GitHub Actions runners: WIKI_PROXY=https://<ref>.supabase.co/functions/v1/wiki-proxy
+ */
+const PROXY = process.env.WIKI_PROXY || "";
+const via = (url) => (PROXY && url.startsWith(WIKI) ? `${PROXY}?path=${encodeURIComponent(url.slice(WIKI.length))}` : url);
+
 async function get(url, as = "json") {
   let last;
   for (let i = 0; i < 5; i++) {
     try {
-      const res = await fetch(url, { headers: { "User-Agent": UA } });
+      const res = await fetch(via(url), { headers: { "User-Agent": UA, ...(PROXY ? { "x-region": "ap-northeast-2" } : {}) } });
       if (!res.ok) throw new Error(`${res.status} ${url}`);
       return as === "json" ? await res.json() : as === "text" ? await res.text() : Buffer.from(await res.arrayBuffer());
     } catch (e) {

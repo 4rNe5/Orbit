@@ -20,7 +20,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The wiki host drops TLS from GitHub runners; go through the wiki-proxy Edge Function.
       - run: node scripts/sync-wiki.mjs --report "$RUNNER_TEMP/sync-report.md"
+        env:
+          WIKI_PROXY: ${{ vars.WIKI_PROXY || 'https://ysezajjmchhwzzzcwckt.supabase.co/functions/v1/wiki-proxy' }}
       - uses: peter-evans/create-pull-request@v7
         with:
           branch: chore/sync-wiki
